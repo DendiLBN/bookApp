@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    // Paths ***********
+    "paths": {
+      "@/api/authentication/*": ["api/authentication/*"],
+      "@/api/book-related/*": ["api/book-related/*"],
+      "@/assets/components/*": ["assets/components/*"],
+      "@/assets/styles/*": ["assets/styles/*"],
+      "@/features/components/*": ["features/components/*"],
+      "@/landing-page/helpers/*": ["landing-page/helpers/*"],
+      "@/landing-page/hooks/*": ["landing-page/hooks/*"],
+      "@/landing-page/layouts/*": ["landing-page/layouts/*"],
+      "@/landing-page/pages/*": ["landing-page/pages/*"],
+      "@/landing-page/routing/*": ["landing-page/routing/*"],
+      "@/landing-page/states/*": ["landing-page/states/*"],
+      "@/landing-page/types/*": ["landing-page/types/*"]
+    },
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
