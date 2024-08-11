@@ -1,6 +1,6 @@
 export type TBookType = {
-  key: React.Key;
-  name: string;
+  key: string;
+  title: string;
   rate: number;
   author: string;
   tags: string[];
