@@ -14,14 +14,8 @@
       "@/api/book-related/*": ["api/book-related/*"],
       "@/assets/components/*": ["assets/components/*"],
       "@/assets/styles/*": ["assets/styles/*"],
-      "@/features/components/*": ["features/components/*"],
-      "@/landing-page/helpers/*": ["landing-page/helpers/*"],
-      "@/landing-page/hooks/*": ["landing-page/hooks/*"],
-      "@/landing-page/layouts/*": ["landing-page/layouts/*"],
-      "@/landing-page/pages/*": ["landing-page/pages/*"],
-      "@/landing-page/routing/*": ["landing-page/routing/*"],
-      "@/landing-page/states/*": ["landing-page/states/*"],
-      "@/landing-page/types/*": ["landing-page/types/*"]
+      "@/components/*": ["components/*"],
+      "@/components/layouts/*": ["components/layouts/*"]
     },
 
     /* Bundler mode */

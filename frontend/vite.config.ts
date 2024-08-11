@@ -4,6 +4,13 @@ import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
   plugins: [react(), tsconfigPaths()],
-
-  assetsInclude: ["**/*.jpg", "**/*.JPG"],
+  server: {
+    proxy: {
+      "/api": "http://localhost:5000/",
+    },
+    host: true,
+    strictPort: true,
+    open: true,
+  },
+  assetsInclude: ["/*.jpg", "/*.JPG"],
 });

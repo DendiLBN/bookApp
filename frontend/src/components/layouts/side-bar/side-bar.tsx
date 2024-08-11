@@ -1,13 +1,14 @@
-import { useState } from "react";
 import { Layout, Menu } from "antd";
 import "@/assets/styles/global/side-bar.css";
-import logo from "@/landing-page/layouts/side-bar/logo.jpg";
-import { itemsSideBar } from "@/landing-page/states/Items-side-bar";
+import logo from "@/components/layouts/side-bar/logo.jpg";
+import { itemsSideBar } from "components/states/Items-side-bar";
+
+import { useState } from "react";
 
 const { Sider } = Layout;
 
 export const LandingPageSideBar = () => {
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);

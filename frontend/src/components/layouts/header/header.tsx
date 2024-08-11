@@ -10,7 +10,7 @@ import {
 import "@/assets/styles/global/header.css";
 
 const { Header } = Layout;
-
+// TODO LINKS IN HEADER
 const menuItems: MenuProps["items"] = [
   {
     key: "home",
@@ -19,7 +19,7 @@ const menuItems: MenuProps["items"] = [
   },
   {
     key: "AboutMe",
-    label: <Link to="/Books">Books</Link>,
+    label: <Link to="/Book">Books</Link>,
     icon: <SnippetsFilled />,
   },
 ];
