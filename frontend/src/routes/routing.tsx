@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 
-import { Home } from "../pages/Home";
-import { Book } from "../pages/Books";
+import { Home } from "@/pages/Home/Home";
+import { Book } from "@/pages/Book/Books";
 
 export const LandingPageRouting = () => (
   <Routes>

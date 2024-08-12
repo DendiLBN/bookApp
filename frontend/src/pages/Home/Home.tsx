@@ -1,4 +1,4 @@
-import "@/assets/styles/global/content.css";
+import "@/assets/global-styles/content.css";
 
 export const Home = () => (
   <div>

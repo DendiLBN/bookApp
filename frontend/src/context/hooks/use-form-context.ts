@@ -3,7 +3,7 @@ import { useContext } from "react";
 import {
   BookFormContext,
   TBookFormContext,
-} from "@/components/context/book-store-context";
+} from "@/context/book-store-context";
 
 export const useBooksFormContext = (): TBookFormContext => {
   const ctx = useContext(BookFormContext);

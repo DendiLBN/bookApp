@@ -10,12 +10,18 @@
     "baseUrl": "./src",
     // Paths ***********
     "paths": {
-      "@/api/authentication/*": ["api/authentication/*"],
-      "@/api/book-related/*": ["api/book-related/*"],
+      "@/services/authentication/*": ["services/authentication/*"],
+      "@/services/book-related/*": ["services/book-related/*"],
       "@/assets/components/*": ["assets/components/*"],
       "@/assets/styles/*": ["assets/styles/*"],
+      "@/assets/images/*": ["assets/images/*"],
+      "@/assets/global-styles/*": ["assets/global-styles/*"],
+      "@/routes/*": ["routes/*"],
       "@/components/*": ["components/*"],
-      "@/components/layouts/*": ["components/layouts/*"]
+      "@/layouts/*": ["layouts/*"],
+      "@/context/*": ["context/*"],
+      "@/hooks/*": ["hooks/*"],
+      "@/pages/*": ["pages/*"]
     },
 
     /* Bundler mode */

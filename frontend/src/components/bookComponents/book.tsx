@@ -5,34 +5,27 @@ import { SearchOutlined } from "@ant-design/icons";
 
 import { Table, TableProps, Input, Button, Select } from "antd";
 
-import { TBookType } from "components/types/types";
+import { TBookType } from "types/types";
 
-import { tags } from "components/states/book-tags";
-// import { tagColors } from "@/landing-page/states/book-tags-colors";
+import { tags } from "@/components/bookComponents/states/book-tags";
 
-import { useBooksFormContext } from "@/components/hooks/use-form-context";
+import { useBooksFormContext } from "@/context/hooks/use-form-context";
 
 const { Option } = Select;
 
 const allTags = Object.values(tags).flat();
 
-const initialData: TBookType[] = [
-  {
-    key: "1",
-    title: "Teodor",
-    rate: 10,
-    author: "Kowalski Janusz",
-    tags: ["Historical Fiction", "Romance"],
-  },
-];
-
 export const BookList: React.FC = () => {
-  const { searchText, setSearchText, bookList } = useBooksFormContext();
+  const {
+    searchTags,
+    searchText,
+    bookList,
+    setSearchText,
+    setFilteredData,
+    setSelectedTags,
+  } = useBooksFormContext();
 
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  // const [searchText, setSearchText] = useState<string>("");
-  const [searchTags, setSelectedTags] = useState<string[]>([]);
-  const [filteredData, setFilteredData] = useState<TBookType[]>(initialData);
 
   console.log(bookList);
 
@@ -78,7 +71,7 @@ export const BookList: React.FC = () => {
 
   const onSearch = (value: string, tags: string[] = searchTags) => {
     setSearchText(value);
-    let filtered = initialData.filter(
+    let filtered = bookList.filter(
       (item) =>
         item.title.toLowerCase().includes(value.toLowerCase()) ||
         item.author.toLowerCase().includes(value.toLowerCase()) ||
