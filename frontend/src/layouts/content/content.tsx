@@ -1,6 +1,8 @@
 import { Layout } from "antd";
-import "@/assets/styles/global/content.css";
-import { LandingPageRouting } from "components/routing/routing";
+
+import { LandingPageRouting } from "@/routes/routing";
+
+import "@/assets/global-styles/content.css";
 
 const { Content } = Layout;
 

@@ -7,7 +7,7 @@ import {
   LogoutOutlined,
 } from "@ant-design/icons";
 
-import "@/assets/styles/global/header.css";
+import "@/assets/styles/header.css";
 
 const { Header } = Layout;
 // TODO LINKS IN HEADER

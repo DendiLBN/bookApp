@@ -1,9 +1,12 @@
-import { Layout, Menu } from "antd";
-import "@/assets/styles/global/side-bar.css";
-import logo from "@/components/layouts/side-bar/logo.jpg";
-import { itemsSideBar } from "components/states/Items-side-bar";
-
 import { useState } from "react";
+
+import { Layout, Menu } from "antd";
+
+import logo from "@/assets/images/logo.jpg";
+
+import { itemsSideBar } from "@/layouts/side-bar/states/items-side-bar";
+
+import "@/assets/styles/side-bar.css";
 
 const { Sider } = Layout;
 
