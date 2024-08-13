@@ -4,8 +4,9 @@ import { PaginatedResponse } from 'src/shared/interfaces/paginated-response.inte
 import { InjectModel } from '@nestjs/mongoose';
 import { Book, BookDocument } from './schema/book.schema';
 import { FilterQuery, Model } from 'mongoose';
+import { categories } from 'src/shared/data/categories';
 
-const MIN_BOOKS_NUMBER = 40;
+const MIN_BOOKS_NUMBER = 30;
 
 @Injectable()
 export class BooksService implements OnModuleInit {
@@ -17,21 +18,25 @@ export class BooksService implements OnModuleInit {
     const booksCount = await this.bookModel.countDocuments();
     if (booksCount < MIN_BOOKS_NUMBER) {
       for (let i = 0; i < MIN_BOOKS_NUMBER - booksCount; i++) {
+        let category1: string, category2: string;
+        do {
+          category1 = categories[Math.floor(Math.random() * categories.length)];
+          category2 = categories[Math.floor(Math.random() * categories.length)];
+        } while (category1 === category2);
+
         const createdBook = await this.create({
           title: `Book ${i + booksCount}`,
           author: `Author ${i + booksCount}`,
           rate: Math.floor(Math.random() * 5) + 1,
+          category: [category1, category2],
         });
         console.log(createdBook);
       }
     }
   }
 
-  async create(createBookDto: Book): Promise<BookDocument> {
-    const newBook = await this.bookModel.create({
-      ...createBookDto,
-    });
-
+  async create(createBookDto: Partial<Book>): Promise<BookDocument> {
+    const newBook = await this.bookModel.create(createBookDto);
     return newBook;
   }
 
