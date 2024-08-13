@@ -10,6 +10,9 @@ export class Book {
 
   @Prop({ type: Number, required: true, min: 1, max: 5 })
   rate: number;
+
+  @Prop({ type: [String], default: [] })
+  category: string[];
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
