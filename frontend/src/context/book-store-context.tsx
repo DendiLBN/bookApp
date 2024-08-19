@@ -14,7 +14,7 @@ import axios from "axios";
 export type TBookFormContext = {
   selectedRowKeys: React.Key[];
   searchText: string;
-  searchCategory: string[];
+  selectedCategories: string[];
   collapsed: boolean;
   bookList: TBookType[];
   filteredData: TBookType[];
@@ -34,7 +34,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [searchText, setSearchText] = useState<string>("");
-  const [searchCategory, setSelectedCategories] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filteredData, setFilteredData] = useState<TBookType[]>([]);
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [bookList, setBookList] = useState<TBookType[]>([]);
@@ -43,7 +43,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   useEffect(() => {
     axios
       .get("/api/books", {
-        params: { page: 1, perPage: 40 },
+        params: { page: 1, perPage: 100 },
       })
       .then((res) => {
         setBookList(res.data.data);
@@ -54,7 +54,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
     () => ({
       selectedRowKeys,
       searchText,
-      searchCategory,
+      selectedCategories,
       filteredData,
       collapsed,
       bookList,
@@ -69,7 +69,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       bookList,
       collapsed,
       filteredData,
-      searchCategory,
+      selectedCategories,
       searchText,
       selectedRowKeys,
     ]
