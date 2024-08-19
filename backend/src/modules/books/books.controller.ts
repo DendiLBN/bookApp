@@ -41,4 +41,9 @@ export class BooksController {
   deleteBook(@Param('id') id: string) {
     return this.booksService.remove(id);
   }
+
+  @Post('delete-multiple-id')
+  deleteMultipleBooks(@Body() body: { ids: string[] }) {
+    return this.booksService.removeMultiple(body.ids);
+  }
 }

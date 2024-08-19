@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 import axios from "axios";
 
@@ -6,19 +6,18 @@ import { SearchOutlined } from "@ant-design/icons";
 import { Table, TableProps, Input, Button, Select } from "antd";
 
 import { columns } from "@/components/bookComponents/states/book-header-columns";
-
 import { categories } from "@/components/bookComponents/states/book-categories";
 
 import { useBooksFormContext } from "@/context/hooks/use-form-context";
 
 import { TBookType } from "types/types";
+import { useEffect } from "react";
 
 const { Option } = Select;
 
-const allCategories = categories;
-
 export const BookView: React.FC = () => {
   const {
+    selectedCategories,
     selectedRowKeys,
     filteredData,
     searchText,
@@ -30,79 +29,66 @@ export const BookView: React.FC = () => {
   } = useBooksFormContext();
 
   const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
-    console.log(newSelectedRowKeys);
-    setSelectedRowKeys(newSelectedRowKeys);
+    if (newSelectedRowKeys.length <= 10) {
+      setSelectedRowKeys(newSelectedRowKeys);
+    } else {
+      console.log("Maximum you can select 10 books");
+    }
   };
 
   const handleDeleteItems = () => {
-    const deleteRequests = selectedRowKeys.map((id) =>
-      axios.delete(`/api/books/${id}`)
-    );
+    if (!selectedRowKeys.length) return;
 
-    // TODO array request instead each element!
-    // TODO add stars to rate 1-5
-
-    Promise.all(deleteRequests)
+    axios
+      .post("/api/books/delete-multiple-id", { ids: selectedRowKeys })
       .then(() => {
         setFilteredData((prevData) =>
           prevData.filter((item) => !selectedRowKeys.includes(item._id))
         );
-
         setSelectedRowKeys([]);
       })
       .catch((error) => {
-        console.error("Error during deleted selected:", error);
+        console.error("Error during deleting selected items:", error);
       });
   };
 
-  useEffect(() => {
-    setFilteredData(bookList);
-  }, [bookList, setFilteredData]);
-
-  const handleCategoriesChange = (selectedCategories: string[]) => {
-    setSelectedCategories(selectedCategories);
-    onSearch(searchText);
+  const handleCategoriesChange = (select: string[]) => {
+    if (select.length <= 2) {
+      setSelectedCategories(select);
+    }
   };
 
-  const showSelectedCountDelete = selectedRowKeys.length;
+  // TODO Add rate stars from antd
+
+  useEffect(() => {
+    const filtered = bookList.filter(
+      (item) =>
+        item.title.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.author.toLowerCase().includes(searchText.toLowerCase()) ||
+        item.rate.toString().includes(searchText.toLowerCase())
+    );
+
+    if (selectedCategories.length > 0) {
+      setFilteredData(
+        filtered.filter((book) =>
+          book.category.some((category) =>
+            selectedCategories.includes(category)
+          )
+        )
+      );
+    } else {
+      setFilteredData(filtered);
+    }
+  }, [searchText, selectedCategories, bookList, setFilteredData]);
 
   const onSearch = (value: string) => {
     setSearchText(value);
-    const filtered = bookList.filter(
-      (item) =>
-        item.title.toLowerCase().includes(value.toLowerCase()) ||
-        item.author.toLowerCase().includes(value.toLowerCase()) ||
-        item.category[0].toLowerCase().includes(value.toLowerCase())
-    );
-    console.log("result", filtered);
-    setFilteredData(filtered);
   };
 
   const rowSelection: TableProps<TBookType>["rowSelection"] = {
     selectedRowKeys,
     onChange: onSelectChange,
-    selections: [
-      {
-        key: "odd",
-        text: "Select Odd Row",
-        onSelect: (changeableRowKeys: React.Key[]) => {
-          const newSelectedRowKeys = changeableRowKeys.filter(
-            (_, index) => index % 2 === 0
-          );
-          setSelectedRowKeys(newSelectedRowKeys);
-        },
-      },
-      {
-        key: "even",
-        text: "Select Even Row",
-        onSelect: (changeableRowKeys: React.Key[]) => {
-          const newSelectedRowKeys = changeableRowKeys.filter(
-            (_, index) => index % 2 !== 0
-          );
-          setSelectedRowKeys(newSelectedRowKeys);
-        },
-      },
-    ],
+    selections: [Table.SELECTION_INVERT, Table.SELECTION_NONE],
   };
 
   return (
@@ -112,31 +98,29 @@ export const BookView: React.FC = () => {
         value={searchText}
         onChange={(e) => onSearch(e.target.value)}
         prefix={<SearchOutlined />}
-        style={{ marginBottom: 30, width: "250px" }}
+        style={{ marginBottom: 30, width: "200px" }}
       />
-      <>
-        <Select
-          mode="multiple"
-          placeholder="Select Categories"
-          onChange={handleCategoriesChange}
-          style={{ width: "250px", margin: 15 }}
-        >
-          {allCategories.map((categories) => (
-            <Option key={categories} value={categories}>
-              {categories}
-            </Option>
-          ))}
-        </Select>
-      </>
+      <Select
+        mode="multiple"
+        placeholder="Select Categories"
+        onChange={handleCategoriesChange}
+        value={selectedCategories}
+        style={{ width: "260px" }}
+      >
+        {categories.map((category) => (
+          <Option key={category} value={category}>
+            {category}
+          </Option>
+        ))}
+      </Select>
       <Button
         type="primary"
         danger
         onClick={handleDeleteItems}
         disabled={selectedRowKeys.length === 0}
       >
-        Delete Selected: <div>{showSelectedCountDelete}</div>
+        Delete Selected: <div>{selectedRowKeys.length}</div>
       </Button>
-
       <Table
         rowSelection={rowSelection}
         columns={columns}
@@ -144,7 +128,11 @@ export const BookView: React.FC = () => {
           ...book,
           key: book._id,
         }))}
-        pagination={{ pageSize: 20, position: ["bottomCenter"] }}
+        pagination={{
+          pageSize: 10,
+          position: ["bottomCenter"],
+          showSizeChanger: false,
+        }}
       />
     </div>
   );

@@ -1,11 +1,11 @@
+import { Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { TBookType } from "types/types";
 import { tagColors } from "./book-categories-colors";
-import { Tag } from "antd";
 
 export const columns: ColumnsType<TBookType> = [
   {
-    title: "Book Title",
+    title: "Title",
     dataIndex: "title",
     key: "title",
   },
@@ -24,9 +24,7 @@ export const columns: ColumnsType<TBookType> = [
     dataIndex: "category",
     key: "category",
     render: (_, { category }) => {
-      if (!category) {
-        return;
-      }
+      if (!category) return null;
       return (
         <>
           {category.map((cat) => {
@@ -41,16 +39,16 @@ export const columns: ColumnsType<TBookType> = [
       );
     },
   },
-  {
-    title: "Action Buttons",
-    key: "action buttons",
-    // render: (_, record) => (
-    //   <Space size="middle">
-    //     <button>Edit</button>
-    //     <button>Delete</button>
-    //   </Space>
-    // render:
-    // TODO add edit/delete buttons
-    // ),
-  },
+  // {
+  //   title: "Action Buttons",
+  //   key: "action-buttons",
+  //   render: (_, record) => (
+  //     <Space size="middle">
+  //       <Button onClick={() => handleEdit(record.key)}>Edit</Button>
+  //       <Button onClick={() => handleDelete(record.key)} danger>
+  //         Delete
+  //       </Button>
+  //     </Space>
+  //   ),
+  // },
 ];
