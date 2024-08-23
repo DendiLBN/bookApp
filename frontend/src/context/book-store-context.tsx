@@ -6,6 +6,8 @@ import React, {
   Dispatch,
   SetStateAction,
   useEffect,
+  Key,
+  useCallback,
 } from "react";
 
 import { TBookType } from "@/types/types";
@@ -14,13 +16,13 @@ import axios from "axios";
 
 export type TBookFormContext = {
   searchText: string;
-  searchCategory: string[];
   collapsed: boolean;
   loading: boolean;
-  selectedRowKeys: React.Key[];
+  selectedRowKeys: Key[];
   bookList: TBookType[];
   filteredBooks: TBookType[];
   error: string | null;
+  selectedCategories: string[];
   setError: Dispatch<SetStateAction<string | null>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setSearchText: Dispatch<SetStateAction<string>>;
@@ -39,60 +41,36 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [searchText, setSearchText] = useState<string>("");
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-  const [searchCategory, setSelectedCategories] = useState<string[]>([]);
-  const [filteredData, setFilteredData] = useState<TBookType[]>([]);
-=======
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [filteredBooks, setFilteredBooks] = useState<TBookType[]>([]);
->>>>>>> Stashed changes
-=======
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [filteredBooks, setFilteredBooks] = useState<TBookType[]>([]);
->>>>>>> Stashed changes
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [bookList, setBookList] = useState<TBookType[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-    axios
-      .get("/api/books", {
-        params: { page: 1, perPage: 40 },
-      })
-      .then((res) => {
-=======
-=======
->>>>>>> Stashed changes
-    const fetchBooks = async () => {
-      setLoading(true);
-      try {
-        const res = await axios.get("/api/books", {
-          params: {
-            page: 1,
-            perPage: 100,
-            searchString: searchText,
-            categories: selectedCategories,
-          },
-        });
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-        setBookList(res.data.data);
-      } catch (error) {
-        setError("An error occurred while fetching books.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchBooks();
+  const fetchBooks = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get("/api/books", {
+        params: {
+          page: 1,
+          perPage: 100,
+          searchString: searchText,
+          categories: selectedCategories,
+        },
+      });
+      setBookList(res.data.data);
+    } catch (error) {
+      setError("An error occurred while fetching books.");
+    } finally {
+      setLoading(false);
+    }
   }, [searchText, selectedCategories]);
+
+  useEffect(() => {
+    fetchBooks();
+  }, [fetchBooks]);
 
   const memoizedValue = useMemo(
     () => ({
@@ -100,18 +78,8 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       loading,
       selectedRowKeys,
       searchText,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      searchCategory,
-      filteredData,
-=======
       selectedCategories,
       filteredBooks,
->>>>>>> Stashed changes
-=======
-      selectedCategories,
-      filteredBooks,
->>>>>>> Stashed changes
       collapsed,
       bookList,
       setLoading,
@@ -128,16 +96,8 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       loading,
       bookList,
       collapsed,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-      filteredData,
-      searchCategory,
-=======
-=======
->>>>>>> Stashed changes
       filteredBooks,
       selectedCategories,
->>>>>>> Stashed changes
       searchText,
       selectedRowKeys,
     ]
