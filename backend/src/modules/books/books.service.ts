@@ -6,7 +6,7 @@ import { Book, BookDocument } from './schema/book.schema';
 import { FilterQuery, Model } from 'mongoose';
 import { categories } from 'src/shared/data/categories';
 
-const MIN_BOOKS_NUMBER = 30;
+const MIN_BOOKS_NUMBER = 100;
 
 @Injectable()
 export class BooksService implements OnModuleInit {
@@ -87,6 +87,20 @@ export class BooksService implements OnModuleInit {
     }
 
     return this.bookModel.findByIdAndDelete(id);
+  }
+
+  async removeMultiple(ids: string[]): Promise<{ deletedCount: number }> {
+    const resultDeleted = await this.bookModel
+      .deleteMany({ _id: { $in: ids } })
+      .exec();
+
+    if (resultDeleted.deletedCount !== ids.length) {
+      throw new NotFoundException(
+        `Book with ids not deleted ${resultDeleted.deletedCount}.`,
+      );
+    }
+
+    return { deletedCount: resultDeleted.deletedCount };
   }
 
   private buildSearchQuery(searchBookDto: SearchBookDto) {
