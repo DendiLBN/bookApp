@@ -6,7 +6,7 @@ import logo from "@/assets/images/logo.jpg";
 
 import { itemsSideBar } from "@/layouts/side-bar/states/items-side-bar";
 
-import "@/assets/styles/side-bar.css";
+import "@/assets/layouts-styles/side-bar.css";
 
 const { Sider } = Layout;
 

@@ -1,18 +1,37 @@
-import { Tag } from "antd";
+import { Rate, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { TBookType } from "types/types";
 import { tagColors } from "./book-categories-colors";
+import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
+
+// TODO Filter authors by names
+
+const customIcons: { [key: number]: JSX.Element } = {
+  1: <FrownOutlined />,
+  2: <MehOutlined />,
+  3: <SmileOutlined />,
+  4: <SmileOutlined />,
+};
 
 export const columns: ColumnsType<TBookType> = [
   {
     title: "Title",
     dataIndex: "title",
     key: "title",
+    sorter: (a, b) => a.title.length - b.title.length,
   },
   {
     title: "Rate",
     dataIndex: "rate",
     key: "rate",
+    defaultSortOrder: "descend",
+    sorter: (a, b) => a.rate - b.rate,
+    render: (_, record) => (
+      <Rate
+        defaultValue={record.rate}
+        character={({ index = 0 }) => customIcons[index + 1]}
+      />
+    ),
   },
   {
     title: "Author",
@@ -39,16 +58,4 @@ export const columns: ColumnsType<TBookType> = [
       );
     },
   },
-  // {
-  //   title: "Action Buttons",
-  //   key: "action-buttons",
-  //   render: (_, record) => (
-  //     <Space size="middle">
-  //       <Button onClick={() => handleEdit(record.key)}>Edit</Button>
-  //       <Button onClick={() => handleDelete(record.key)} danger>
-  //         Delete
-  //       </Button>
-  //     </Space>
-  //   ),
-  // },
 ];

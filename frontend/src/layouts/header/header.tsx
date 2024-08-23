@@ -2,7 +2,7 @@ import { Button, Layout, Menu } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 
 import { menuItems } from "@/layouts/header/states/menu-items";
-import "@/assets/styles/header.css";
+import "@/assets/layouts-styles/header.css";
 
 const { Header } = Layout;
 
