@@ -11,17 +11,17 @@ export const itemsSideBar: MenuProps["items"] = [
   {
     key: "1",
     icon: <PieChartOutlined />,
-    label: "Option 1",
+    label: "Home",
   },
   {
     key: "2",
     icon: <DesktopOutlined />,
-    label: "Option 2",
+    label: "About",
   },
   {
     key: "3",
     icon: <ContainerOutlined />,
-    label: "Option 3",
+    label: "Pages",
   },
   {
     key: "sub1",

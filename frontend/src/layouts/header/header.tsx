@@ -1,5 +1,4 @@
-import { Button, Layout, Menu } from "antd";
-import { LogoutOutlined } from "@ant-design/icons";
+import { Layout, Menu } from "antd";
 
 import { menuItems } from "@/layouts/header/states/menu-items";
 import "@/assets/layouts-styles/header.css";
@@ -15,6 +14,5 @@ export const LandingPageHeader = () => (
       defaultSelectedKeys={["Home"]}
       items={menuItems}
     />
-    <Button icon={<LogoutOutlined />}>Logout</Button>
   </Header>
 );

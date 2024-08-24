@@ -1,8 +1,10 @@
+import { Key } from "react";
+
 import axios from "axios";
 
 import { Spin, Table, TableProps } from "antd";
 
-import { columns } from "@/components/bookTable/states/book-header-columns";
+import { columns } from "@/components/bookTable/states/book-table-columns";
 
 import { useBooksFormContext } from "@/context/hooks/use-form-context";
 
@@ -38,7 +40,7 @@ export const BookView: React.FC = () => {
     setFilteredBooks,
   });
 
-  const onSelectChange = (newSelectedRowKeys: React.Key[]) => {
+  const onSelectChange = (newSelectedRowKeys: Key[]) => {
     if (newSelectedRowKeys.length <= 20) {
       setSelectedRowKeys(newSelectedRowKeys);
     } else {
@@ -69,6 +71,12 @@ export const BookView: React.FC = () => {
     }
   };
 
+  const handleCategoriesLimit = (select: string[]) => {
+    if (select.length <= 2) {
+      setSelectedCategories(select);
+    }
+  };
+
   const rowSelection: TableProps<TBookType>["rowSelection"] = {
     selectedRowKeys,
     onChange: onSelectChange,
@@ -76,16 +84,26 @@ export const BookView: React.FC = () => {
 
   return (
     <div>
-      <BookSearch searchText={searchText} onSearch={setSearchText} />
-      <CategorySelect
-        selectedCategories={selectedCategories}
-        onChange={setSelectedCategories}
-      />
-      <DeleteBooksButton
-        selectedRowKeys={selectedRowKeys}
-        loading={loading}
-        onDelete={handleDeleteBooksAsArray}
-      />
+      <div
+        style={{
+          display: "flex",
+          gap: 15,
+        }}
+      >
+        <BookSearch searchText={searchText} onSearch={setSearchText} />
+        <CategorySelect
+          selectedCategories={selectedCategories}
+          onChangeCategories={handleCategoriesLimit}
+        />
+        <div style={{ marginLeft: "auto" }}>
+          <DeleteBooksButton
+            selectedRowKeys={selectedRowKeys}
+            loading={loading}
+            onDelete={handleDeleteBooksAsArray}
+          />
+        </div>
+      </div>
+
       <Spin tip="Loading..." size="large" spinning={loading}>
         <Table
           rowSelection={rowSelection}

@@ -8,14 +8,15 @@ const { Option } = Select;
 
 export const CategorySelect: React.FC<TCategorySelectProps> = ({
   selectedCategories,
-  onChange,
+  onChangeCategories,
 }) => (
   <Select
     mode="multiple"
     placeholder="Select Categories"
-    onChange={onChange}
+    onChange={onChangeCategories}
     value={selectedCategories}
-    style={{ width: "260px" }}
+    style={{ width: "300px", height: 32 }}
+    size="small"
   >
     {categories.map((category) => (
       <Option key={category} value={category}>
