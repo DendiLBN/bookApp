@@ -1,3 +1,5 @@
+import { Key } from "react";
+
 export type TBookType = {
   _id: string;
   category: string[];
@@ -6,6 +8,7 @@ export type TBookType = {
   rate: number;
   author: string;
   tags: string[];
+  avatar: string;
 };
 
 export type IBookSearchProps = {
@@ -14,7 +17,7 @@ export type IBookSearchProps = {
 };
 
 export type TDeleteBooksButtonProps = {
-  selectedRowKeys: React.Key[];
+  selectedRowKeys: Key[];
   loading: boolean;
   onDelete: () => void;
 };
@@ -28,7 +31,7 @@ export type TUseFilteredBooksProps = {
 
 export type TCategorySelectProps = {
   selectedCategories: string[];
-  onChange: (select: string[]) => void;
+  onChangeCategories: (select: string[]) => void;
 };
 
 export type TBookSearchProps = {
