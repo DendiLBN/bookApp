@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import { Layout, Menu } from "antd";
 
-import logo from "@/assets/images/logo.jpg";
-
 import { itemsSideBar } from "@/layouts/side-bar/states/items-side-bar";
 
 import "@/assets/layouts-styles/side-bar.css";
@@ -17,13 +15,16 @@ export const LandingPageSideBar = () => {
     setCollapsed(!collapsed);
   };
   return (
-    <Sider collapsible collapsed={collapsed} onCollapse={toggleCollapsed}>
-      <div className="logo">
-        <img src={logo} alt="Logo" style={{ width: "100%", height: "auto" }} />
-      </div>
+    <Sider
+      theme="light"
+      collapsible
+      collapsed={collapsed}
+      onCollapse={toggleCollapsed}
+    >
+      <div className="logo"></div>
       <Menu
         mode="inline"
-        theme="dark"
+        theme="light"
         defaultSelectedKeys={["1"]}
         defaultOpenKeys={["sub1"]}
         items={itemsSideBar}

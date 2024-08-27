@@ -1,11 +1,6 @@
 import "@/assets/global-styles/content.css";
+import { HomeView } from "@/components/home/home-view";
 
-export const Home = () => (
-  <div>
-    <div></div>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </div>
-);
+export const Home = () => {
+  return <HomeView />;
+};

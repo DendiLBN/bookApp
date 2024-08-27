@@ -6,11 +6,11 @@ import "@/assets/layouts-styles/header.css";
 const { Header } = Layout;
 
 export const LandingPageHeader = () => (
-  <Header className="landing-page__header">
+  <Header>
     <Menu
       className="landing-page__menu"
       mode="horizontal"
-      theme="dark"
+      theme="light"
       defaultSelectedKeys={["Home"]}
       items={menuItems}
     />
