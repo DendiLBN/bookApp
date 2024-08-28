@@ -20,7 +20,7 @@
       "@/routes/*": ["routes/*"],
       "@/types/*": ["types/*"],
       "@/components/*": ["components/*"],
-      "@/components/bookTable/*": ["components/bookTable/*"],
+      "@/components/book-view/*": ["components/book-view/*"],
       "@/layouts/*": ["layouts/*"],
       "@/context/*": ["context/*"],
       "@/hooks/*": ["hooks/*"],

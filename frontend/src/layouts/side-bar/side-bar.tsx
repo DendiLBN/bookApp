@@ -21,7 +21,6 @@ export const LandingPageSideBar = () => {
       collapsed={collapsed}
       onCollapse={toggleCollapsed}
     >
-      <div className="logo"></div>
       <Menu
         mode="inline"
         theme="light"

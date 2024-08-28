@@ -4,17 +4,19 @@ import axios from "axios";
 
 import { Spin, Table, TableProps } from "antd";
 
-import { columns } from "@/components/bookTable/states/book-table-columns";
+import { columns } from "@/components/book-view/states/book-table-columns";
 
 import { useBooksFormContext } from "@/context/hooks/use-form-context";
 
-import { BookSearch } from "@/components/bookTable/filters/book-search";
+import { BookSearch } from "@/components/book-view/filters/book-search";
 
-import { CategorySelect } from "@/components/bookTable/filters/category-select";
+import { CategorySelect } from "@/components/book-view/filters/category-select";
 
-import { DeleteBooksButton } from "@/components/bookTable/buttons/delete-books-button";
+import { DeleteBooksButton } from "@/components/book-view/buttons/delete-books-button";
 
-import { useFilteredBooks } from "@/components/bookTable/hooks/useFilteredBooks";
+import { AddBookButton } from "@/components/book-view/buttons/add-books-button";
+
+import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks";
 
 import { TBookType } from "@/types/types";
 
@@ -71,12 +73,6 @@ export const BookView: React.FC = () => {
     }
   };
 
-  const handleCategoriesLimit = (select: string[]) => {
-    if (select.length <= 2) {
-      setSelectedCategories(select);
-    }
-  };
-
   const rowSelection: TableProps<TBookType>["rowSelection"] = {
     selectedRowKeys,
     onChange: onSelectChange,
@@ -93,8 +89,9 @@ export const BookView: React.FC = () => {
         <BookSearch searchText={searchText} onSearch={setSearchText} />
         <CategorySelect
           selectedCategories={selectedCategories}
-          onChangeCategories={handleCategoriesLimit}
+          onChangeCategories={setSelectedCategories}
         />
+        <AddBookButton />
         <div style={{ marginLeft: "auto" }}>
           <DeleteBooksButton
             selectedRowKeys={selectedRowKeys}

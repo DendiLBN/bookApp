@@ -1,10 +1,17 @@
-import { Rate, Tag } from "antd";
+import { Button, Rate, Space, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { FrownOutlined, MehOutlined, SmileOutlined } from "@ant-design/icons";
+import {
+  FrownOutlined,
+  MehOutlined,
+  ProfileOutlined,
+  ShoppingCartOutlined,
+  SmileOutlined,
+  TeamOutlined,
+} from "@ant-design/icons";
 
 import { TBookType } from "@/types/types";
 
-import { tagColors } from "@/components/bookTable/states/book-categories-colors";
+import { tagColors } from "@/components/book-view/states/book-categories-colors";
 
 import avatar from "@/assets/images/avatar.jpg";
 
@@ -14,7 +21,6 @@ const customIcons: { [key: number]: JSX.Element } = {
   1: <FrownOutlined />,
   2: <MehOutlined />,
   3: <SmileOutlined />,
-  4: <SmileOutlined />,
 };
 
 export const columns: ColumnsType<TBookType> = [
@@ -72,6 +78,26 @@ export const columns: ColumnsType<TBookType> = [
             );
           })}
         </>
+      );
+    },
+  },
+  {
+    title: "Action Buttons",
+    dataIndex: "actions",
+    key: "Actions",
+    render: () => {
+      return (
+        <Space>
+          <Button type="primary" icon={<ShoppingCartOutlined />}>
+            Add to cart
+          </Button>
+          <Button type="primary" icon={<TeamOutlined />}>
+            Exchange book
+          </Button>
+          <Button type="default" icon={<ProfileOutlined />}>
+            Review
+          </Button>
+        </Space>
       );
     },
   },
