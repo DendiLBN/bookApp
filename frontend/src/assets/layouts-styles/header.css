@@ -1,20 +1,25 @@
-.landing-page__menu {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 400;
-}
-
-ul.ant-layout-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  padding: 0;
-}
-
 .ant-layout-header {
-  padding: 0;
+  background-color: white;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.header-content {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mid-menu {
+  flex: 1;
+}
+
+.right-menu {
+  margin-left: auto;
+  width: 300px;
 }

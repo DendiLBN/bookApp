@@ -1,17 +1,33 @@
 import { Link } from "react-router-dom";
-
-import { HomeOutlined, SnippetsFilled } from "@ant-design/icons";
+import {
+  HomeOutlined,
+  ShoppingCartOutlined,
+  SnippetsFilled,
+  UserOutlined,
+} from "@ant-design/icons";
 import { MenuProps } from "antd";
 
-export const menuItems: MenuProps["items"] = [
+export const middleMenuItems: MenuProps["items"] = [
   {
     key: "home",
     label: <Link to="/Home">Home</Link>,
     icon: <HomeOutlined />,
   },
   {
-    key: "AboutMe",
-    label: <Link to="/Book">Books</Link>,
+    key: "bookList",
+    label: <Link to="/Book">List your books</Link>,
     icon: <SnippetsFilled />,
+  },
+];
+export const rightMenuItems: MenuProps["items"] = [
+  {
+    key: "account",
+    label: <Link to="/AccountView">Sign In</Link>,
+    icon: <UserOutlined />,
+  },
+  {
+    key: "shoppingCart",
+    label: <Link to="/ShoppingCart">Shopping Cart</Link>,
+    icon: <ShoppingCartOutlined />,
   },
 ];
