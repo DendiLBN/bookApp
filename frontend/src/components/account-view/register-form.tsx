@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 import axios from "axios";
 
@@ -6,12 +6,12 @@ import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Select } from "antd";
 import { TFetchBodyRegister } from "@/types/types";
 
+import { useBooksFormContext } from "@/context/hooks/use-form-context";
+
 const { Option } = Select;
 
-export const RegisterFormPage: React.FC = () => {
-  const [user, setUser] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
+export const RegisterForm: React.FC = () => {
+  const { setLoading, setError, setUser } = useBooksFormContext();
 
   const fetchRegistrationUser = useCallback(
     async (
@@ -43,7 +43,7 @@ export const RegisterFormPage: React.FC = () => {
         setLoading(false);
       }
     },
-    [setError, setUser]
+    [setError, setLoading, setUser]
   );
 
   const onFinish = (values: TFetchBodyRegister) => {
@@ -58,9 +58,19 @@ export const RegisterFormPage: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
+
         background: "#f0f2f5",
       }}
     >
+      {" "}
+      <img
+        style={{
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        }}
+        src="https://picsum.photos/600/700.jpg"
+        height={"700px"}
+        width={"720px"}
+      ></img>
       <Form
         name="register"
         initialValues={{
@@ -72,8 +82,8 @@ export const RegisterFormPage: React.FC = () => {
         }}
         style={{
           maxWidth: 500,
-          height: 620,
-          maxHeight: 700,
+          height: 700,
+          maxHeight: 720,
           width: "100%",
           padding: "40px",
           backgroundColor: "#fff",
