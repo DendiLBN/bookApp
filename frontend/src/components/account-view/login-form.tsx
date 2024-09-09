@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 
-export const LoginFormPage: React.FC = () => {
+export const LoginForm: React.FC = () => {
   return (
     <div
       style={{
@@ -77,7 +77,7 @@ export const LoginFormPage: React.FC = () => {
           <Button block type="primary" htmlType="submit">
             Log in
           </Button>
-          or <a href="http://localhost:5173/RegisterForm">Register now!</a>
+          or <a href="http://localhost:5173/Register">Register now!</a>
         </Form.Item>
       </Form>
 

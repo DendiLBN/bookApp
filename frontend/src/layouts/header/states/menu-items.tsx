@@ -21,8 +21,13 @@ export const middleMenuItems: MenuProps["items"] = [
 ];
 export const rightMenuItems: MenuProps["items"] = [
   {
-    key: "account",
-    label: <Link to="/LoginForm">Sign In</Link>,
+    key: "account-login",
+    label: <Link to="/Login">Sign In</Link>,
+    icon: <UserOutlined />,
+  },
+  {
+    key: "account-register",
+    label: <Link to="/Register">Sing up</Link>,
     icon: <UserOutlined />,
   },
   {
