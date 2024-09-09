@@ -21,20 +21,13 @@ Facilitates book exchanges between users
 The application is built with performance, accessibility, and scalability in mind, leveraging modern technologies to deliver a robust user experience.
 
 Technology Stack
-Backend:
+Backend: NestJS,MongoDB
 
-NestJS
-MongoDB
-Frontend:
+Frontend:React,TypeScript
 
-React
-TypeScript
-State Management:
 
-Context API
-HTTP Requests:
+State Management: Context API
 
-Axios
-Testing:
+HTTP Requests: Axios
 
-Jest
+Testing:Jest
