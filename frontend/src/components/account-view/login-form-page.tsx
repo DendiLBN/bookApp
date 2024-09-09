@@ -1,7 +1,7 @@
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 
-export const AccountView: React.FC = () => {
+export const LoginFormPage: React.FC = () => {
   return (
     <div
       style={{
@@ -60,7 +60,7 @@ export const AccountView: React.FC = () => {
         >
           <Input
             prefix={<LockOutlined />}
-            type="password"
+            type="current-password"
             placeholder="Password"
           />
         </Form.Item>
@@ -77,7 +77,7 @@ export const AccountView: React.FC = () => {
           <Button block type="primary" htmlType="submit">
             Log in
           </Button>
-          or <a href="">Register now!</a>
+          or <a href="http://localhost:5173/RegisterForm">Register now!</a>
         </Form.Item>
       </Form>
 
