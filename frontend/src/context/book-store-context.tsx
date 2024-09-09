@@ -23,6 +23,7 @@ export type TBookFormContext = {
   filteredBooks: TBookType[];
   error: string | null;
   selectedCategories: string[];
+  user: string | null;
   setError: Dispatch<SetStateAction<string | null>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setSearchText: Dispatch<SetStateAction<string>>;
@@ -31,6 +32,7 @@ export type TBookFormContext = {
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
   setFilteredBooks: Dispatch<SetStateAction<TBookType[]>>;
   setSelectedRowKeys: Dispatch<SetStateAction<React.Key[]>>;
+  setUser: Dispatch<SetStateAction<string | null>>;
 };
 
 export const BookFormContext = createContext<TBookFormContext | undefined>(
@@ -48,6 +50,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [user, setUser] = useState<string | null>(null);
 
   const fetchBooks = useCallback(async () => {
     setLoading(true);
@@ -82,6 +85,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       filteredBooks,
       collapsed,
       bookList,
+      user,
       setLoading,
       setError,
       setSelectedCategories,
@@ -90,16 +94,18 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       setFilteredBooks,
       setCollapsed,
       setSelectedRowKeys,
+      setUser,
     }),
     [
       error,
       loading,
-      bookList,
-      collapsed,
-      filteredBooks,
-      selectedCategories,
-      searchText,
       selectedRowKeys,
+      searchText,
+      selectedCategories,
+      filteredBooks,
+      collapsed,
+      bookList,
+      user,
     ]
   );
 

@@ -22,7 +22,7 @@ export const middleMenuItems: MenuProps["items"] = [
 export const rightMenuItems: MenuProps["items"] = [
   {
     key: "account",
-    label: <Link to="/AccountView">Sign In</Link>,
+    label: <Link to="/LoginForm">Sign In</Link>,
     icon: <UserOutlined />,
   },
   {

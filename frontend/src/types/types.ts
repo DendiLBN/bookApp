@@ -38,3 +38,10 @@ export type TBookSearchProps = {
   searchText: string;
   onSearch: (value: string) => void;
 };
+
+export type TFetchBodyRegister = {
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
