@@ -29,7 +29,7 @@ export class User {
     maxlength: 20,
     trim: true,
   })
-  firstname: string;
+  firstName: string;
 
   @Prop({
     type: String,
@@ -38,7 +38,7 @@ export class User {
     maxlength: 20,
     trim: true,
   })
-  lastname: string;
+  lastName: string;
 }
 
 export type UserDocument = User & Document;

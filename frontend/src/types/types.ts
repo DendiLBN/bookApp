@@ -42,8 +42,8 @@ export type TBookSearchProps = {
 export type TFetchBodyRegister = {
   email: string;
   password: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
 };
 
 export type TFetchLoginUser = {
