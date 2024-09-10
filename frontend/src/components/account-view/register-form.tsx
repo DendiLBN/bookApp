@@ -34,7 +34,7 @@ export const RegisterForm: React.FC = () => {
     [setError, setLoading, setUser]
   );
 
-  const onFinish = (values: TFetchBodyRegister) => {
+  const handlerFetchRegisterUser = (values: TFetchBodyRegister) => {
     const { email, password, firstName, lastName } = values;
     fetchRegistrationUser({ email, password, firstName, lastName });
   };
@@ -78,7 +78,7 @@ export const RegisterForm: React.FC = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
         }}
-        onFinish={onFinish}
+        onFinish={handlerFetchRegisterUser}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
       >
