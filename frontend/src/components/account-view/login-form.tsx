@@ -1,7 +1,46 @@
+import { useBooksFormContext } from "@/context/hooks/use-form-context";
+
+import { TFetchLoginUser } from "@/types/types";
+
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
+
 import { Button, Checkbox, Flex, Form, Input } from "antd";
 
+import axios from "axios";
+
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+
 export const LoginForm: React.FC = () => {
+  const { setLoading, setError, setUser } = useBooksFormContext();
+
+  const navigate = useNavigate();
+
+  const fetchloginUser = useCallback(
+    async ({ email, password }: TFetchLoginUser) => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await axios.post("/api/auth/login", {
+          email,
+          password,
+        });
+        setUser(res.data);
+        navigate("/Home");
+      } catch (error) {
+        setError("Invalid email or password.");
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate, setError, setLoading, setUser]
+  );
+
+  const handlerfetchloginUser = (values: TFetchLoginUser) => {
+    const { email, password } = values;
+    fetchloginUser({ email, password });
+  };
+
   return (
     <div
       style={{
@@ -27,7 +66,7 @@ export const LoginForm: React.FC = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
         }}
-        // onFinish={onFinish}
+        onFinish={handlerfetchloginUser}
       >
         <h1
           style={{
@@ -39,15 +78,15 @@ export const LoginForm: React.FC = () => {
         </h1>
 
         <Form.Item
-          name="username"
+          name="email"
           rules={[
             {
               required: true,
-              message: "Please input your Username!",
+              message: "Please input your Email!",
             },
           ]}
         >
-          <Input prefix={<UserOutlined />} placeholder="Username" />
+          <Input prefix={<UserOutlined />} placeholder="Email" />
         </Form.Item>
         <Form.Item
           name="password"

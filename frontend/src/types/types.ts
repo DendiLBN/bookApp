@@ -45,3 +45,8 @@ export type TFetchBodyRegister = {
   firstName: string;
   lastName: string;
 };
+
+export type TFetchLoginUser = {
+  email: string;
+  password: string;
+};
