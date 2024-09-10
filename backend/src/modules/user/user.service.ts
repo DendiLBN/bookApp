@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { UserDocument } from './schema/user.schema';
 import { Model } from 'mongoose';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserService {
@@ -14,12 +15,23 @@ export class UserService {
     const userExists = await this.userModel.exists({
       email: createUserDto.email,
     });
-    console.log('userExist', userExists);
+
+    console.log('userExists:', userExists);
+
     if (userExists) {
       throw new HttpException('User Already exists', 400);
     }
 
-    const createdUser = new this.userModel(createUserDto);
+    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+
+    const newUser = { ...createUserDto, password: hashedPassword };
+
+    console.log('Hashed Password:', hashedPassword);
+
+    const createdUser = new this.userModel(newUser);
+
+    console.log('New User:', newUser);
+
     return createdUser.save();
   }
 
@@ -33,7 +45,7 @@ export class UserService {
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
-    return await this.userModel.findByIdAndUpdate({ _id: id }, updateUserDto, {
+    return await this.userModel.findByIdAndUpdate(id, updateUserDto, {
       new: true,
     });
   }
