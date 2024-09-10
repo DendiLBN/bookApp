@@ -14,31 +14,19 @@ export const RegisterForm: React.FC = () => {
   const { setLoading, setError, setUser } = useBooksFormContext();
 
   const fetchRegistrationUser = useCallback(
-    async (
-      email: string,
-      password: string,
-      firstName: string,
-      lastName: string
-    ) => {
+    async ({ email, password, firstName, lastName }: TFetchBodyRegister) => {
       setLoading(true);
       setError(null);
       try {
         const res = await axios.post("/api/user", {
-          email: email,
-          password: password,
-          firstName: firstName,
-          lastName: lastName,
+          email,
+          password,
+          firstName,
+          lastName,
         });
         setUser(res.data.data);
       } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          setError(
-            error.response.data.message ||
-              "An error occurred while registering user."
-          );
-        } else {
-          setError("An error occurred while registering user.");
-        }
+        setError("An error occurred while registering user.");
       } finally {
         setLoading(false);
       }
@@ -48,7 +36,7 @@ export const RegisterForm: React.FC = () => {
 
   const onFinish = (values: TFetchBodyRegister) => {
     const { email, password, firstName, lastName } = values;
-    fetchRegistrationUser(email, password, firstName, lastName);
+    fetchRegistrationUser({ email, password, firstName, lastName });
   };
 
   return (
