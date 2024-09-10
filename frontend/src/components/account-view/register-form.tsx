@@ -11,32 +11,44 @@ import { useBooksFormContext } from "@/context/hooks/use-form-context";
 const { Option } = Select;
 
 export const RegisterForm: React.FC = () => {
-  const { setLoading, setError, setUser } = useBooksFormContext();
+  const { setLoading, setError, setUser, openNotification } =
+    useBooksFormContext();
 
   const fetchRegistrationUser = useCallback(
-    async ({ email, password, firstName, lastName }: TFetchBodyRegister) => {
+    async ({ email, password, firstname, lastname }: TFetchBodyRegister) => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.post("/api/user", {
+        const res = await axios.post("/api/singup", {
+          firstname,
+          lastname,
           email,
           password,
-          firstName,
-          lastName,
         });
+        openNotification(
+          "topRight",
+          "success",
+          `Your account has been created successfully!. Welcome to our bookstore! your account has been created successfully! Please login now.`
+        );
         setUser(res.data.data);
       } catch (error) {
+        openNotification(
+          "topRight",
+          "error",
+          "An error occurred while registering user!. Please try again later."
+        );
         setError("An error occurred while registering user.");
       } finally {
         setLoading(false);
       }
     },
-    [setError, setLoading, setUser]
+    [openNotification, setError, setLoading, setUser]
   );
 
   const handlerFetchRegisterUser = (values: TFetchBodyRegister) => {
-    const { email, password, firstName, lastName } = values;
-    fetchRegistrationUser({ email, password, firstName, lastName });
+    const { firstname, lastname, email, password } = values;
+    fetchRegistrationUser({ firstname, lastname, email, password });
+    console.log(values);
   };
 
   return (
@@ -46,7 +58,7 @@ export const RegisterForm: React.FC = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-
+        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
         background: "#f0f2f5",
       }}
     >
@@ -62,10 +74,10 @@ export const RegisterForm: React.FC = () => {
       <Form
         name="register"
         initialValues={{
-          email: "",
-          password: "",
           firstName: "",
           lastName: "",
+          email: "",
+          password: "",
           remember: true,
         }}
         style={{

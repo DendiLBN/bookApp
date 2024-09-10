@@ -9,31 +9,39 @@ import { Button, Checkbox, Flex, Form, Input } from "antd";
 import axios from "axios";
 
 import { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 
 export const LoginForm: React.FC = () => {
-  const { setLoading, setError, setUser } = useBooksFormContext();
-
-  const navigate = useNavigate();
+  const { setLoading, setError, setUser, openNotification } =
+    useBooksFormContext();
 
   const fetchloginUser = useCallback(
     async ({ email, password }: TFetchLoginUser) => {
       setLoading(true);
       setError(null);
+
       try {
         const res = await axios.post("/api/auth/login", {
           email,
           password,
         });
+
+        openNotification("topRight", "success", `You are login! Welcome back!`);
+
+        console.log(res.data);
+
         setUser(res.data);
-        navigate("/Home");
       } catch (error) {
+        openNotification(
+          "topRight",
+          "error",
+          "Please provide correct email or password!."
+        );
         setError("Invalid email or password.");
       } finally {
         setLoading(false);
       }
     },
-    [navigate, setError, setLoading, setUser]
+    [openNotification, setError, setLoading, setUser]
   );
 
   const handlerfetchloginUser = (values: TFetchLoginUser) => {
