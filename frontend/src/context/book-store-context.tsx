@@ -39,6 +39,11 @@ export type TBookFormContext = {
   setFilteredBooks: Dispatch<SetStateAction<TBookType[]>>;
   setSelectedRowKeys: Dispatch<SetStateAction<React.Key[]>>;
   setUser: Dispatch<SetStateAction<TFetchBodyRegister | null>>;
+  openNotification: (
+    placement: NotificationPlacement,
+    type: IconType,
+    message: string
+  ) => void;
 };
 
 export const BookFormContext = createContext<TBookFormContext | undefined>(
@@ -58,6 +63,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<TFetchBodyRegister | null>(null);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+
   const [api, contextHolder] = notification.useNotification();
 
   const fetchBooks = useCallback(async () => {
