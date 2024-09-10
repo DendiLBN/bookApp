@@ -10,7 +10,7 @@ import React, {
   useCallback,
 } from "react";
 
-import { TBookType } from "@/types/types";
+import { TBookType, TFetchBodyRegister } from "@/types/types";
 
 import axios from "axios";
 
@@ -23,7 +23,7 @@ export type TBookFormContext = {
   filteredBooks: TBookType[];
   error: string | null;
   selectedCategories: string[];
-  user: string | null;
+  user: TFetchBodyRegister | null;
   setError: Dispatch<SetStateAction<string | null>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setSearchText: Dispatch<SetStateAction<string>>;
@@ -32,7 +32,7 @@ export type TBookFormContext = {
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
   setFilteredBooks: Dispatch<SetStateAction<TBookType[]>>;
   setSelectedRowKeys: Dispatch<SetStateAction<React.Key[]>>;
-  setUser: Dispatch<SetStateAction<string | null>>;
+  setUser: Dispatch<SetStateAction<TFetchBodyRegister | null>>;
 };
 
 export const BookFormContext = createContext<TBookFormContext | undefined>(
@@ -50,7 +50,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<string | null>(null);
+  const [user, setUser] = useState<TFetchBodyRegister | null>(null);
 
   const fetchBooks = useCallback(async () => {
     setLoading(true);
