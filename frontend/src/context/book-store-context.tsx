@@ -9,10 +9,16 @@ import React, {
   Key,
   useCallback,
 } from "react";
+import axios from "axios";
+
+import { notification } from "antd";
+
+import {
+  IconType,
+  NotificationPlacement,
+} from "antd/es/notification/interface";
 
 import { TBookType, TFetchBodyRegister } from "@/types/types";
-
-import axios from "axios";
 
 export type TBookFormContext = {
   searchText: string;
@@ -51,6 +57,8 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<TFetchBodyRegister | null>(null);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
 
   const fetchBooks = useCallback(async () => {
     setLoading(true);
@@ -75,6 +83,32 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
     fetchBooks();
   }, [fetchBooks]);
 
+  const openNotification = useCallback(
+    (placement: NotificationPlacement, type: IconType, message: string) => {
+      if (isNotificationOpen) {
+        return;
+      }
+      setIsNotificationOpen(true);
+
+      api.open({
+        type,
+        message,
+        placement,
+        onClick: () => {
+          setIsNotificationOpen(false);
+        },
+        onClose: () => {
+          setIsNotificationOpen(false);
+        },
+      });
+
+      setTimeout(() => {
+        setIsNotificationOpen(false);
+      }, 3000);
+    },
+    [isNotificationOpen, api]
+  );
+
   const memoizedValue = useMemo(
     () => ({
       error,
@@ -93,6 +127,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       setSearchText,
       setFilteredBooks,
       setCollapsed,
+      openNotification,
       setSelectedRowKeys,
       setUser,
     }),
@@ -106,11 +141,13 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       collapsed,
       bookList,
       user,
+      openNotification,
     ]
   );
 
   return (
     <BookFormContext.Provider value={memoizedValue}>
+      {contextHolder}
       {children}
     </BookFormContext.Provider>
   );
