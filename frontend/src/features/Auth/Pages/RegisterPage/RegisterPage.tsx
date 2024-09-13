@@ -6,48 +6,58 @@ import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Select } from "antd";
 import { TFetchBodyRegister } from "@/types/types";
 
-import { useBooksFormContext } from "@/context/hooks/use-form-context";
+import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
+
+import { useNavigate } from "react-router-dom";
 
 const { Option } = Select;
 
-export const RegisterForm: React.FC = () => {
+export const RegisterPage = () => {
   const { setLoading, setError, setUser, openNotification } =
-    useBooksFormContext();
+    useAuthFormContext();
+
+  const navigate = useNavigate();
 
   const fetchRegistrationUser = useCallback(
-    async ({ email, password, firstname, lastname }: TFetchBodyRegister) => {
+    async ({ email, password, firstName, lastName }: TFetchBodyRegister) => {
       setLoading(true);
       setError(null);
       try {
         const res = await axios.post("/api/singup", {
-          firstname,
-          lastname,
+          firstName,
+          lastName,
           email,
           password,
         });
         openNotification(
           "topRight",
           "success",
-          `Your account has been created successfully!. Welcome to our bookstore! your account has been created successfully! Please login now.`
+          `Your account has been created successfully! ${res.data.email}. Welcome to our bookstore! ${res.data.firstName}! Please login now.`,
+          false
         );
         setUser(res.data.data);
+        setTimeout(() => {
+          navigate("/Login");
+        }, 3000);
       } catch (error) {
         openNotification(
           "topRight",
           "error",
-          "An error occurred while registering user!. Please try again later."
+          "An error occurred while registering user!. Please try again later.",
+          false
         );
         setError("An error occurred while registering user.");
       } finally {
         setLoading(false);
       }
     },
-    [openNotification, setError, setLoading, setUser]
+    [navigate, openNotification, setError, setLoading, setUser]
   );
 
-  const handlerFetchRegisterUser = (values: TFetchBodyRegister) => {
-    const { firstname, lastname, email, password } = values;
-    fetchRegistrationUser({ firstname, lastname, email, password });
+  // TODO protect against sending requests in short of time frame / add throuttling config on the server side
+
+  const handleSubmitRegister = (values: TFetchBodyRegister) => {
+    fetchRegistrationUser(values);
     console.log(values);
   };
 
@@ -90,7 +100,7 @@ export const RegisterForm: React.FC = () => {
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
         }}
-        onFinish={handlerFetchRegisterUser}
+        onFinish={handleSubmitRegister}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
       >
@@ -234,3 +244,4 @@ export const RegisterForm: React.FC = () => {
     </div>
   );
 };
+export default RegisterPage;

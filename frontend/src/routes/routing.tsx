@@ -1,19 +1,18 @@
 import { Route, Routes } from "react-router-dom";
-
 import { Home } from "@/pages/Home/Home";
 import { Book } from "@/pages/Book/Books";
-
-import { Login } from "@/pages/Account/Login-view";
-import { Register } from "@/pages/Account/Register";
+import { AuthRoutes } from "@/routes/Auth.routes"; // Dodaj import AuthRoutes
+import { PrivateRoutes } from "./Private.routes";
 
 export const LandingPageRouting = () => (
   <Routes>
     <Route path="/" element={<Home />} />
+    <Route path="/home" element={<Home />} />
+    <Route path="/book" element={<Book />} />
+    <Route path="/auth/*" element={<AuthRoutes />} />
+    <Route path="/auth/*" element={<AuthRoutes />} />
+    <Route path="/private/*" element={<PrivateRoutes />} />
     <Route path="*" element={<NotFound />} />
-    <Route path="/Home" element={<Home />} />
-    <Route path="/Book" element={<Book />} />
-    <Route path="/Login" element={<Login />} />
-    <Route path="/Register" element={<Register />} />
   </Routes>
 );
 

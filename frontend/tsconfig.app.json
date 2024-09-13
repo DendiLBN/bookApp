@@ -10,6 +10,9 @@
     "baseUrl": "./src",
     // Paths ***********
     "paths": {
+      "@/features/*": ["features/*"],
+      "@/api/*": ["api/*"],
+      "@/common/*": ["common/*"],
       "@/services/authentication/*": ["services/authentication/*"],
       "@/services/book-related/*": ["services/book-related/*"],
       "@/assets/components/*": ["assets/components/*"],
