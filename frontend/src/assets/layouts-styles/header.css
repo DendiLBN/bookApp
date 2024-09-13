@@ -5,7 +5,7 @@
 .header {
   display: flex;
   justify-content: center;
-  padding: 0 10px;
+  padding: 0px;
 }
 
 .header-content {
@@ -21,5 +21,5 @@
 
 .right-menu {
   margin-left: auto;
-  width: 400px;
+  width: 350px;
 }

@@ -6,6 +6,8 @@ import {
 } from "@/layouts/header/states/menu-items";
 import "@/assets/layouts-styles/header.css";
 
+import { ThemeButton } from "assets/theme/themeButton";
+
 const { Header } = Layout;
 
 export const LandingPageHeader = () => (
@@ -17,6 +19,7 @@ export const LandingPageHeader = () => (
         items={middleMenuItems}
         className="mid-menu"
       />
+      <ThemeButton />
       <Menu
         mode="horizontal"
         theme="light"

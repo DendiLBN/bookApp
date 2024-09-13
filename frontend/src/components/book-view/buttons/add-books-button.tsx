@@ -16,6 +16,8 @@ export const AddBookButton = () => {
 
   const handleOk = async () => {};
 
+  // TODO add handlers validation
+
   const handleCancel = () => {
     setIsModalOpen(false);
   };

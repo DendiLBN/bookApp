@@ -77,7 +77,6 @@ export const LoginPage = () => {
         alignItems: "center",
         minHeight: "100vh",
         minWidth: "100vh",
-        background: "#f0f2f5",
       }}
     >
       <Form
@@ -90,7 +89,6 @@ export const LoginPage = () => {
           height: 700,
           width: "100%",
           padding: "40px",
-          backgroundColor: "#fff",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
         }}

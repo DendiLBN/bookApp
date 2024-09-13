@@ -69,7 +69,6 @@ export const RegisterPage = () => {
         alignItems: "center",
         minHeight: "100vh",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-        background: "#f0f2f5",
       }}
     >
       {" "}
@@ -96,9 +95,9 @@ export const RegisterPage = () => {
           maxHeight: 720,
           width: "100%",
           padding: "40px",
-          backgroundColor: "#fff",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
+          border: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
         onFinish={handleSubmitRegister}
         labelCol={{ span: 8 }}
