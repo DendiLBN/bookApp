@@ -7,8 +7,6 @@ export const LandingPageFooter: React.FC = () => (
   <Footer
     style={{
       textAlign: "center",
-      padding: "40px 20px",
-      backgroundColor: "#f0f2f5",
     }}
   >
     <div style={{ marginBottom: "30px" }}>

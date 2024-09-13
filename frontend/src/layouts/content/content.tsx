@@ -1,6 +1,6 @@
 import { Layout } from "antd";
 
-import { LandingPageRouting } from "@/routes/Routing";
+import { LandingPageRouting } from "@/routes/routing";
 
 import "@/assets/global-styles/content.css";
 

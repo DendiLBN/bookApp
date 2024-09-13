@@ -1,8 +1,6 @@
 .landing__page-content {
-  padding: 20px 25px;
+  padding: 25px 10px 0px 10px;
   width: 100%;
   min-height: 100vh;
   height: 100%;
-  color: black;
-  /* background-color: #181a1b; */
 }
