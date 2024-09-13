@@ -7,6 +7,8 @@ import { LandingPageContent } from "@/layouts/content/content";
 import { LandingPageHeader } from "@/layouts/header/header";
 import LandingPageFooter from "./layouts/footer/footer";
 
+// TODO dark mode / light mode switcher
+
 const App: React.FC = () => (
   <BrowserRouter>
     <LandingPageHeader />

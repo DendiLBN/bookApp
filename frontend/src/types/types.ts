@@ -50,3 +50,14 @@ export type TFetchLoginUser = {
   email: string;
   password: string;
 };
+
+// export interface ILoginData extends Pick<IUser, "email"> {
+//   password: string;
+// }
+// export interface IRegisterData extends Pick<IUser, "email"> {
+//   password: string;
+// }
+export type ITokens = {
+  accessToken: string;
+  // refreshToken: string;
+};

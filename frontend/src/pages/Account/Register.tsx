@@ -1,11 +1,11 @@
-import { RegisterForm } from "@/components/account-view/register-form";
+import { RegisterPage } from "@/features/Auth/Pages/RegisterPage/RegisterPage";
 
-import { BookFormContextProvider } from "@/context/book-store-context";
+import { AuthContextProvider } from "@/context/auth-data-context";
 
 export const Register = () => (
-  <>
-    <BookFormContextProvider>
-      <RegisterForm />
-    </BookFormContextProvider>
-  </>
+  <AuthContextProvider>
+    <RegisterPage />
+  </AuthContextProvider>
 );
+
+export default Register;

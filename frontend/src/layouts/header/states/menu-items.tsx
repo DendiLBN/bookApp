@@ -10,29 +10,29 @@ import { MenuProps } from "antd";
 export const middleMenuItems: MenuProps["items"] = [
   {
     key: "home",
-    label: <Link to="/Home">Home</Link>,
+    label: <Link to="/home">Home</Link>,
     icon: <HomeOutlined />,
   },
   {
     key: "bookList",
-    label: <Link to="/Book">List your books</Link>,
+    label: <Link to="/book">List your books</Link>,
     icon: <SnippetsFilled />,
   },
 ];
 export const rightMenuItems: MenuProps["items"] = [
   {
     key: "account-login",
-    label: <Link to="/Login">Sign In</Link>,
+    label: <Link to="/auth/login">Sign In</Link>,
     icon: <UserOutlined />,
   },
   {
     key: "account-register",
-    label: <Link to="/Register">Sing up</Link>,
+    label: <Link to="/auth/register">Sing up</Link>,
     icon: <UserOutlined />,
   },
   {
     key: "shoppingCart",
-    label: <Link to="/ShoppingCart">Shopping Cart</Link>,
+    label: <Link to="/shoppingCart">Shopping Cart</Link>,
     icon: <ShoppingCartOutlined />,
   },
 ];
