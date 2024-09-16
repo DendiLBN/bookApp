@@ -12,24 +12,24 @@ import React, {
 
 import axios from "axios";
 
-import { TBookType } from "@/types/types";
+import { TBookBody } from "@/types/types";
 
 export type TBookFormContext = {
   searchText: string;
   collapsed: boolean;
   loading: boolean;
   selectedRowKeys: Key[];
-  bookList: TBookType[];
-  filteredBooks: TBookType[];
+  bookList: TBookBody[];
+  filteredBooks: TBookBody[];
   error: string | null;
   selectedCategories: string[];
   setError: Dispatch<SetStateAction<string | null>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setSearchText: Dispatch<SetStateAction<string>>;
   setCollapsed: Dispatch<SetStateAction<boolean>>;
-  setBookList: Dispatch<SetStateAction<TBookType[]>>;
+  setBookList: Dispatch<SetStateAction<TBookBody[]>>;
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
-  setFilteredBooks: Dispatch<SetStateAction<TBookType[]>>;
+  setFilteredBooks: Dispatch<SetStateAction<TBookBody[]>>;
   setSelectedRowKeys: Dispatch<SetStateAction<React.Key[]>>;
 };
 
@@ -42,9 +42,9 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const [searchText, setSearchText] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [filteredBooks, setFilteredBooks] = useState<TBookType[]>([]);
+  const [filteredBooks, setFilteredBooks] = useState<TBookBody[]>([]);
   const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [bookList, setBookList] = useState<TBookType[]>([]);
+  const [bookList, setBookList] = useState<TBookBody[]>([]);
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);

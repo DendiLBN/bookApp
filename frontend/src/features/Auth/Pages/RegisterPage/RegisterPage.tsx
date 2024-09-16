@@ -72,13 +72,13 @@ export const RegisterPage = () => {
         justifyContent: "center",
         alignItems: "center",
         minHeight: "100vh",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+        boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
       }}
     >
       {" "}
       <img
         style={{
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
         }}
         src="https://picsum.photos/600/700.jpg"
         height={"700px"}
@@ -100,7 +100,7 @@ export const RegisterPage = () => {
           width: "100%",
           background: isDarkMode ? "#708090" : "#D3D3D3",
           padding: "40px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
           border: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
