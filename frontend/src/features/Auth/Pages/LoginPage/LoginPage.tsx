@@ -10,11 +10,14 @@ import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
 
 import { TFetchLoginUser } from "@/types/types";
 import { setTokens } from "@/common/utils/setTokens";
+import { Link } from "react-router-dom";
+import { useThemeContext } from "@/context/hooks/use-theme-context";
 
 export const LoginPage = () => {
   const { loading, setLoading, setError, setUser, openNotification } =
     useAuthFormContext();
 
+  const { isDarkMode } = useThemeContext();
   // const navigate = useNavigate();
 
   const fetchBodyLoginUser = useCallback(
@@ -89,6 +92,7 @@ export const LoginPage = () => {
           height: 700,
           width: "100%",
           padding: "40px",
+          background: isDarkMode ? "#708090" : "#D3D3D3",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
         }}
@@ -153,7 +157,7 @@ export const LoginPage = () => {
               "Log in"
             )}
           </Button>
-          or <a href="http://localhost:5173/auth/register">Register now!</a>
+          or <Link to="/auth/register">Register now!</Link>
         </Form.Item>
       </Form>
 

@@ -1,11 +1,7 @@
-.ant-layout-header {
-  background-color: white;
-}
-
 .header {
   display: flex;
-  justify-content: center;
   padding: 0px;
+  justify-content: center;
 }
 
 .header-content {
@@ -15,11 +11,14 @@
   align-items: center;
 }
 
-.mid-menu {
+.left-menu {
   flex: 1;
 }
 
 .right-menu {
   margin-left: auto;
   width: 350px;
+}
+.middle-menu {
+  width: 180px;
 }

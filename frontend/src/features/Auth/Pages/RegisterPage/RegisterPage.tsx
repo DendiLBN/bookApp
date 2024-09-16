@@ -10,11 +10,15 @@ import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
 
 import { useNavigate } from "react-router-dom";
 
+import { useThemeContext } from "@/context/hooks/use-theme-context";
+
 const { Option } = Select;
 
 export const RegisterPage = () => {
   const { setLoading, setError, setUser, openNotification } =
     useAuthFormContext();
+
+  const { isDarkMode } = useThemeContext();
 
   const navigate = useNavigate();
 
@@ -94,6 +98,7 @@ export const RegisterPage = () => {
           height: 700,
           maxHeight: 720,
           width: "100%",
+          background: isDarkMode ? "#708090" : "#D3D3D3",
           padding: "40px",
           boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
