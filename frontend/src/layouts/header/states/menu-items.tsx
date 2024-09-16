@@ -6,8 +6,9 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { MenuProps } from "antd";
+import { ThemeButton } from "assets/theme/theme-button";
 
-export const middleMenuItems: MenuProps["items"] = [
+export const leftMenuItems: MenuProps["items"] = [
   {
     key: "home",
     label: <Link to="/home">Home</Link>,
@@ -19,6 +20,14 @@ export const middleMenuItems: MenuProps["items"] = [
     icon: <SnippetsFilled />,
   },
 ];
+
+export const middleMenuItems: MenuProps["items"] = [
+  {
+    key: "theme-button",
+    label: <ThemeButton />,
+  },
+];
+
 export const rightMenuItems: MenuProps["items"] = [
   {
     key: "account-login",

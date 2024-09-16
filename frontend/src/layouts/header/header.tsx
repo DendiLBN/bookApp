@@ -1,12 +1,11 @@
 import { Layout, Menu } from "antd";
 
 import {
+  leftMenuItems,
   middleMenuItems,
   rightMenuItems,
 } from "@/layouts/header/states/menu-items";
 import "@/assets/layouts-styles/header.css";
-
-import { ThemeButton } from "assets/theme/themeButton";
 
 const { Header } = Layout;
 
@@ -16,10 +15,15 @@ export const LandingPageHeader = () => (
       <Menu
         mode="horizontal"
         theme="light"
-        items={middleMenuItems}
-        className="mid-menu"
+        items={leftMenuItems}
+        className="left-menu"
       />
-      <ThemeButton />
+      <Menu
+        mode="horizontal"
+        theme="light"
+        items={middleMenuItems}
+        className="middle-menu"
+      />
       <Menu
         mode="horizontal"
         theme="light"
