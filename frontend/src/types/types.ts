@@ -1,6 +1,6 @@
 import { Key } from "react";
 
-export type TBookType = {
+export type TBookBody = {
   _id: string;
   category: string[];
   key: string;
@@ -25,8 +25,8 @@ export type TDeleteBooksButtonProps = {
 export type TUseFilteredBooksProps = {
   searchText: string;
   selectedCategories: string[];
-  bookList: TBookType[];
-  setFilteredBooks: (filteredBooks: TBookType[]) => void;
+  bookList: TBookBody[];
+  setFilteredBooks: (filteredBooks: TBookBody[]) => void;
 };
 
 export type TCategorySelectProps = {
@@ -51,13 +51,6 @@ export type TFetchLoginUser = {
   password: string;
 };
 
-// export interface ILoginData extends Pick<IUser, "email"> {
-//   password: string;
-// }
-// export interface IRegisterData extends Pick<IUser, "email"> {
-//   password: string;
-// }
 export type ITokens = {
   accessToken: string;
-  // refreshToken: string;
 };

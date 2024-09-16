@@ -37,7 +37,9 @@ export const LoginPage = () => {
         // TODO  handle token and user data before storing it in local storage
         // TODO protect against sending requests in short of time frame / add throuttling config on the server side
 
-        setTokens({ accessToken });
+        setTokens({
+          accessToken,
+        });
         setUser(res.data);
 
         // TODO setUser to Redux store
@@ -93,7 +95,7 @@ export const LoginPage = () => {
           width: "100%",
           padding: "40px",
           background: isDarkMode ? "#708090" : "#D3D3D3",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
           borderRadius: "8px",
         }}
         onFinish={handleSubmitLogin}
@@ -163,7 +165,7 @@ export const LoginPage = () => {
 
       <img
         style={{
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
         }}
         src="https://picsum.photos/600/700.jpg"
         height={"700px"}
