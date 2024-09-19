@@ -9,18 +9,20 @@ export class User {
     type: String,
     required: true,
     unique: true,
-    trim: true,
     lowercase: true,
+    minlength: 3,
+    maxlength: 50,
   })
   email: string;
 
   @Prop({
     type: String,
     required: true,
-    minlength: 6,
-    select: false,
   })
   password: string;
+
+  @Prop({ type: String, default: null })
+  refreshToken: string;
 
   @Prop({
     type: String,
@@ -41,6 +43,6 @@ export class User {
   lastName: string;
 }
 
-export type UserDocument = User & Document;
-
 export const UserSchema = SchemaFactory.createForClass(User);
+
+export type UsersDocument = User & Document & { _id: string };
