@@ -18,7 +18,7 @@ import { AddBookButton } from "@/components/book-view/buttons/add-books-button";
 
 import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks";
 
-import { TBookType } from "@/types/types";
+import { TBookBody } from "@/types/types";
 
 export const BookView: React.FC = () => {
   const {
@@ -73,7 +73,7 @@ export const BookView: React.FC = () => {
     }
   };
 
-  const rowSelection: TableProps<TBookType>["rowSelection"] = {
+  const rowSelection: TableProps<TBookBody>["rowSelection"] = {
     selectedRowKeys,
     onChange: onSelectChange,
   };

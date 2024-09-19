@@ -6,7 +6,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { MenuProps } from "antd";
-import { ThemeButton } from "assets/theme/theme-button";
+import { ThemeButton } from "@/layouts/header/buttons/theme-button";
 
 export const leftMenuItems: MenuProps["items"] = [
   {

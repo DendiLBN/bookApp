@@ -9,7 +9,7 @@ import {
   TeamOutlined,
 } from "@ant-design/icons";
 
-import { TBookType } from "@/types/types";
+import { TBookBody } from "@/types/types";
 
 import { tagColors } from "@/components/book-view/states/book-categories-colors";
 
@@ -23,7 +23,7 @@ const customIcons: { [key: number]: JSX.Element } = {
   3: <SmileOutlined />,
 };
 
-export const columns: ColumnsType<TBookType> = [
+export const columns: ColumnsType<TBookBody> = [
   {
     title: "",
     dataIndex: "avatar",
