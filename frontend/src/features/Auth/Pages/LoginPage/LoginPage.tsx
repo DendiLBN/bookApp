@@ -18,7 +18,6 @@ export const LoginPage = () => {
     useAuthFormContext();
 
   const { isDarkMode } = useThemeContext();
-  // const navigate = useNavigate();
 
   const fetchBodyLoginUser = useCallback(
     async ({ email, password }: TFetchLoginUser) => {
@@ -26,27 +25,16 @@ export const LoginPage = () => {
       setError(null);
 
       try {
-        localStorage.clear();
         const res = await axios.post("/api/auth/login", { email, password });
-
-        const accessToken = res.data.token;
-
-        // TODO correct all names fetchLoginUser correct names for components
-        // TODO setToken function to store token in local storage
-        // TODO accesToken is stored in local storage
-        // TODO  handle token and user data before storing it in local storage
-        // TODO protect against sending requests in short of time frame / add throuttling config on the server side
-
+        const accessToken = res.data.accessToken;
         setTokens({
           accessToken,
         });
         setUser(res.data);
 
-        // TODO setUser to Redux store
-
-        // navigate("/");
-
-        console.log("Fetched Token:", accessToken);
+        console.log(res.data);
+        console.log(accessToken);
+        console.log(res.data.token);
 
         openNotification(
           "top",
