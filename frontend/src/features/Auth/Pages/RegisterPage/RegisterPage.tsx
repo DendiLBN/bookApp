@@ -27,7 +27,7 @@ export const RegisterPage = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.post("/api/singup", {
+        const res = await axios.post("/api/auth/register", {
           firstName,
           lastName,
           email,
@@ -41,7 +41,7 @@ export const RegisterPage = () => {
         );
         setUser(res.data.data);
         setTimeout(() => {
-          navigate("/Login");
+          navigate("/auth/login");
         }, 3000);
       } catch (error) {
         openNotification(
