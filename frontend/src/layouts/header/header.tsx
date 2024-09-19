@@ -11,7 +11,7 @@ const { Header } = Layout;
 
 export const LandingPageHeader = () => (
   <Header className="header">
-    <div className="header-content">
+    <div className="header__content">
       <Menu
         mode="horizontal"
         theme="light"
