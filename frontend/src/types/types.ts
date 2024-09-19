@@ -54,13 +54,3 @@ export type TFetchLoginUser = {
 export type ITokens = {
   accessToken: string;
 };
-
-export type TRegisterData = {
-  email: string;
-  password: string;
-};
-
-export type TLoginData = {
-  email: string;
-  password: string;
-};

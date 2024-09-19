@@ -1,5 +1,4 @@
 import { useCallback } from "react";
-// import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -31,10 +30,6 @@ export const LoginPage = () => {
           accessToken,
         });
         setUser(res.data);
-
-        console.log(res.data);
-        console.log(accessToken);
-        console.log(res.data.token);
 
         openNotification(
           "top",

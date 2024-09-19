@@ -1,64 +1,19 @@
-import { useCallback } from "react";
-
-import axios from "axios";
-
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Select } from "antd";
-import { TFetchBodyRegister } from "@/types/types";
-
-import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
-
-import { useNavigate } from "react-router-dom";
 
 import { useThemeContext } from "@/context/hooks/use-theme-context";
+import { TFetchBodyRegister } from "@/types/types";
+
+import { useRegisterForm } from "@/features/Pages/RegisterPage/hooks/useRegisterForm";
+
+import initialRegisterValues from "@/features/Pages/RegisterPage/state/registerState";
 
 const { Option } = Select;
 
 export const RegisterPage = () => {
-  const { setLoading, setError, setUser, openNotification } =
-    useAuthFormContext();
-
   const { isDarkMode } = useThemeContext();
 
-  const navigate = useNavigate();
-
-  const fetchRegistrationUser = useCallback(
-    async ({ email, password, firstName, lastName }: TFetchBodyRegister) => {
-      setLoading(true);
-      setError(null);
-      try {
-        const res = await axios.post("/api/auth/register", {
-          firstName,
-          lastName,
-          email,
-          password,
-        });
-        openNotification(
-          "topRight",
-          "success",
-          `Your account has been created successfully! ${res.data.email}. Welcome to our bookstore! ${res.data.firstName}! Please login now.`,
-          false
-        );
-        setUser(res.data.data);
-        setTimeout(() => {
-          navigate("/auth/login");
-        }, 3000);
-      } catch (error) {
-        openNotification(
-          "topRight",
-          "error",
-          "An error occurred while registering user!. Please try again later.",
-          false
-        );
-        setError("An error occurred while registering user.");
-      } finally {
-        setLoading(false);
-      }
-    },
-    [navigate, openNotification, setError, setLoading, setUser]
-  );
-
-  // TODO protect against sending requests in short of time frame / add throuttling config on the server side
+  const { fetchRegistrationUser } = useRegisterForm();
 
   const handleSubmitRegister = (values: TFetchBodyRegister) => {
     fetchRegistrationUser(values);
@@ -86,13 +41,7 @@ export const RegisterPage = () => {
       ></img>
       <Form
         name="register"
-        initialValues={{
-          firstName: "",
-          lastName: "",
-          email: "",
-          password: "",
-          remember: true,
-        }}
+        initialValues={initialRegisterValues}
         style={{
           maxWidth: 500,
           height: 700,
