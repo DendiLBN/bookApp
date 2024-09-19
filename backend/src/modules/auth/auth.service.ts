@@ -25,7 +25,9 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async register(createUserDto: CreateUserDto): Promise<boolean> {
+  async register(
+    createUserDto: CreateUserDto,
+  ): Promise<{ firstName: string; email: string }> {
     const isUserExists = await this.usersService.getUserByEmail(
       createUserDto.email,
     );
@@ -34,9 +36,12 @@ export class AuthService {
     const hashedPsssword = await hashData(createUserDto.password);
     createUserDto.password = hashedPsssword;
 
-    await this.usersService.createUser(createUserDto);
+    const newUser = await this.usersService.createUser(createUserDto);
 
-    return true;
+    return {
+      firstName: newUser.firstName,
+      email: newUser.email,
+    };
   }
 
   async login(loginDto: LoginDto) {
