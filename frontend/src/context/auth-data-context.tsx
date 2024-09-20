@@ -20,11 +20,11 @@ export type TAuthContextForm = {
   loading: boolean;
   error: string | null;
   user: TFetchBodyRegister | null;
+  isLoggedIn: boolean;
   setError: Dispatch<SetStateAction<string | null>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setUser: Dispatch<SetStateAction<TFetchBodyRegister | null>>;
-  isAuthenticated: boolean;
-  setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
   openNotification: (
     placement: NotificationPlacement,
     type: IconType,
@@ -45,7 +45,7 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
   const [user, setUser] = useState<TFetchBodyRegister | null>(null);
   const [api, contextHolder] = notification.useNotification();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const openNotification = useCallback(
     (
@@ -82,19 +82,18 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const memoizedValue = useMemo(
     () => ({
-      isAuthenticated,
-      setIsAuthenticated,
       error,
       loading,
       user,
       setLoading,
       setError,
       setUser,
-
+      isLoggedIn,
+      setIsLoggedIn,
       openNotification,
     }),
 
-    [error, isAuthenticated, loading, openNotification, user]
+    [error, isLoggedIn, loading, openNotification, user]
   );
 
   return (

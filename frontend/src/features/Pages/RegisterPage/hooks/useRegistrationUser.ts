@@ -1,11 +1,10 @@
-// useRegisterForm.ts
 import { useCallback } from "react";
 import axios from "axios";
 import { TFetchBodyRegister } from "@/types/types";
 import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
 import { useNavigate } from "react-router-dom";
 
-export const useRegisterForm = () => {
+export const useRegistrationUser = () => {
   const { setLoading, setError, setUser, openNotification } =
     useAuthFormContext();
   const navigate = useNavigate();

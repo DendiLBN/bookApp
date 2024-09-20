@@ -1,0 +1,83 @@
+.register__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+.register__image {
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  width: 720px;
+  height: 780px;
+}
+
+@media (max-width: 820px) {
+  .register__image {
+    display: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .register__image {
+    display: none;
+  }
+}
+
+.register__form {
+  flex: 1 1 50%;
+  max-width: 480px;
+  background: #d3d3d3;
+  padding: 40px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  height: 780px;
+}
+
+.register__title {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .register__form,
+  .register__image {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  .register__form {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register__form {
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .register__title {
+    font-size: 18px;
+  }
+
+  .register__container {
+    padding: 10px;
+  }
+}
+.register__container-agreement-checkbox {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 34px;
+}
+
+.register__container-submit-button {
+  display: flex;
+  justify-content: center;
+}

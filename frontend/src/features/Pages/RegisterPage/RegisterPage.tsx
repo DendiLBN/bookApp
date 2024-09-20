@@ -4,67 +4,42 @@ import { Button, Checkbox, Form, Input, Select } from "antd";
 import { useThemeContext } from "@/context/hooks/use-theme-context";
 import { TFetchBodyRegister } from "@/types/types";
 
-import { useRegisterForm } from "@/features/Pages/RegisterPage/hooks/useRegisterForm";
+import { useRegistrationUser } from "@/features/Pages/RegisterPage/hooks/useRegistrationUser";
 
-import initialRegisterValues from "@/features/Pages/RegisterPage/state/registerState";
+import initialRegisterValues from "@/features/Pages/RegisterPage/state/register-state-values";
+
+import "@/assets/layouts-styles/register-styles/register-page.css";
 
 const { Option } = Select;
 
 export const RegisterPage = () => {
   const { isDarkMode } = useThemeContext();
 
-  const { fetchRegistrationUser } = useRegisterForm();
+  const { fetchRegistrationUser } = useRegistrationUser();
 
   const handleSubmitRegister = (values: TFetchBodyRegister) => {
     fetchRegistrationUser(values);
-    console.log(values);
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh",
-        boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
-      }}
-    >
+    <div className="register__container">
       {" "}
       <img
-        style={{
-          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
-        }}
+        className="register__image"
         src="https://picsum.photos/600/700.jpg"
-        height={"700px"}
-        width={"720px"}
       ></img>
       <Form
         name="register"
         initialValues={initialRegisterValues}
         style={{
-          maxWidth: 500,
-          height: 700,
-          maxHeight: 720,
-          width: "100%",
           background: isDarkMode ? "#708090" : "#D3D3D3",
-          padding: "40px",
-          boxShadow: "0 8px 8px rgba(0, 0, 0, 0.1)",
-          borderRadius: "8px",
-          border: "0 4px 8px rgba(0, 0, 0, 0.1)",
         }}
+        className="register__form"
         onFinish={handleSubmitRegister}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
       >
-        <h1
-          style={{
-            textAlign: "center",
-            marginBottom: "24px",
-          }}
-        >
-          Enter your details below to create an account:
-        </h1>
+        <h1 className="register__title">Enter your details </h1>
 
         <Form.Item
           label="E-mail"
@@ -168,10 +143,7 @@ export const RegisterPage = () => {
 
         <Form.Item
           wrapperCol={{ span: 14, offset: 6 }}
-          style={{
-            textAlign: "center",
-            marginBottom: "34px",
-          }}
+          className="register__agreement-checkbox"
           name="agreement"
           valuePropName="checked"
           rules={[
@@ -189,7 +161,11 @@ export const RegisterPage = () => {
         </Form.Item>
         <Form.Item wrapperCol={{ span: 14, offset: 6 }}>
           {" "}
-          <Button type="primary" htmlType="submit" block>
+          <Button
+            className="register__submit-button"
+            type="primary"
+            htmlType="submit"
+          >
             click here to register account!
           </Button>
         </Form.Item>
