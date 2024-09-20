@@ -6,6 +6,7 @@ import {
   rightMenuItems,
 } from "@/layouts/header/states/menu-items";
 import "@/assets/layouts-styles/header.css";
+import { LogoutButton } from "@/features/Pages/LoginPage/hooks/useLogout";
 
 const { Header } = Layout;
 
@@ -24,6 +25,7 @@ export const LandingPageHeader = () => (
         items={middleMenuItems}
         className="middle-menu"
       />
+      <LogoutButton />
       <Menu
         mode="horizontal"
         theme="light"

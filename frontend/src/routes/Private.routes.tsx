@@ -1,13 +1,9 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 
-import { Routes, Route } from "react-router-dom";
-
-const LoginTestTest = lazy(() => import("@/pages/Auth/loginTest"));
+import { Routes } from "react-router-dom";
 
 export const PrivateRoutes = () => (
   <Suspense fallback={<div>Loading...</div>}>
-    <Routes>
-      <Route path="loginTest" element={<LoginTestTest />} />
-    </Routes>
+    <Routes></Routes>
   </Suspense>
 );
