@@ -1,13 +1,49 @@
-import { useCallback } from "react";
-import axios from "axios";
-import { TFetchBodyRegister } from "@/types/types";
-import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
 import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+
+import { useRegisterUserMutation } from "@/common/store/api/user";
+
+import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
+
+import { TFetchBodyRegister } from "@/types/types";
+import { TRegisterUserResponse } from "@/types/api/user";
 
 export const useRegistrationUser = () => {
+  const [registerUser] = useRegisterUserMutation();
+
   const { setLoading, setError, setUser, openNotification } =
     useAuthFormContext();
+
   const navigate = useNavigate();
+
+  const handleSuccess = useCallback(
+    (data: TRegisterUserResponse) => {
+      openNotification(
+        "topRight",
+        "success",
+        `Your account has been created successfully! ${data.email}. Welcome to our bookstore! ${data.firstName}! Please login now.`,
+        false
+      );
+
+      setUser(null);
+
+      setTimeout(() => {
+        navigate("/auth/login");
+      }, 3000);
+    },
+    [navigate, openNotification, setUser]
+  );
+
+  const handleError = useCallback(() => {
+    openNotification(
+      "topRight",
+      "error",
+      "An error occurred while registering user!. Please try again later.",
+      false
+    );
+
+    setError("An error occurred while registering user.");
+  }, [openNotification, setError]);
 
   const fetchRegistrationUser = useCallback(
     async ({ email, password, firstName, lastName }: TFetchBodyRegister) => {
@@ -15,40 +51,25 @@ export const useRegistrationUser = () => {
       setError(null);
 
       try {
-        const res = await axios.post("/api/auth/register", {
+        const response = await registerUser({
           firstName,
           lastName,
           email,
           password,
-        });
+        }).unwrap();
 
-        console.log(res.data);
-        openNotification(
-          "topRight",
-          "success",
-          `Your account has been created successfully! ${res.data.email}. Welcome to our bookstore! ${res.data.firstName}! Please login now.`,
-          false
-        );
+        if (!response) {
+          return handleError();
+        }
 
-        setUser(res.data.data);
-
-        setTimeout(() => {
-          navigate("/auth/login");
-        }, 3000);
+        handleSuccess(response);
       } catch (error) {
-        openNotification(
-          "topRight",
-          "error",
-          "An error occurred while registering user!. Please try again later.",
-          false
-        );
-
-        setError("An error occurred while registering user.");
+        handleError();
       } finally {
         setLoading(false);
       }
     },
-    [navigate, openNotification, setError, setLoading, setUser]
+    [handleError, registerUser, setError, setLoading, handleSuccess]
   );
 
   return { fetchRegistrationUser };

@@ -1,19 +1,22 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
+
+import { Button } from "antd";
+
+import { ACCESS_TOKEN } from "@/common/consts/local-storage";
 
 export const LogoutButton: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("accessToken");
+    const token = localStorage.getItem(ACCESS_TOKEN);
     if (token) {
       setIsLoggedIn(true);
     }
   }, []);
 
   const logout = useCallback(() => {
-    localStorage.removeItem("accessToken");
+    localStorage.removeItem(ACCESS_TOKEN);
     localStorage.removeItem("refreshToken");
     setIsLoggedIn(false);
   }, []);
