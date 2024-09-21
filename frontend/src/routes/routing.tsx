@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { Home } from "@/pages/Home/Home";
 import { Book } from "@/pages/Book/Books";
-import { AuthRoutes } from "@/routes/Auth.routes"; // Dodaj import AuthRoutes
+import { AuthRoutes } from "@/routes/Auth.routes";
 import { PrivateRoutes } from "./Private.routes";
 
 export const LandingPageRouting = () => (

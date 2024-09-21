@@ -2,13 +2,13 @@ import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Select } from "antd";
 
 import { useThemeContext } from "@/context/hooks/use-theme-context";
-import { TFetchBodyRegister } from "@/types/types";
+import { TRegisterUserRequestBody } from "@/types/types";
 
 import { useRegistrationUser } from "@/features/Pages/RegisterPage/hooks/useRegistrationUser";
 
 import initialRegisterValues from "@/features/Pages/RegisterPage/state/register-state-values";
 
-import "@/assets/layouts-styles/register-styles/register-page.css";
+import "@/assets/layouts-styles/register-styles/register.css";
 
 const { Option } = Select;
 
@@ -17,7 +17,7 @@ export const RegisterPage = () => {
 
   const { fetchRegistrationUser } = useRegistrationUser();
 
-  const handleSubmitRegister = (values: TFetchBodyRegister) => {
+  const handleSubmitRegister = (values: TRegisterUserRequestBody) => {
     fetchRegistrationUser(values);
   };
 

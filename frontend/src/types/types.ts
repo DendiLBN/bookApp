@@ -39,18 +39,18 @@ export type TBookSearchProps = {
   onSearch: (value: string) => void;
 };
 
-export type TFetchBodyRegister = {
+export type TRegisterUserRequestBody = {
   email: string;
   password: string;
   firstName: string;
   lastName: string;
 };
 
-export type TFetchLoginUser = {
+export type TLoginUserRequestBody = {
   email: string;
   password: string;
 };
 
-export type ITokens = {
+export type TTokens = {
   accessToken: string;
 };

@@ -9,22 +9,10 @@ import {
   FC,
   ReactNode,
   useMemo,
-  Dispatch,
-  SetStateAction,
   useCallback,
 } from "react";
 
-import { TFetchBodyRegister } from "@/types/types";
-
-export type TAuthContextForm = {
-  loading: boolean;
-  error: string | null;
-  user: TFetchBodyRegister | null;
-  isLoggedIn: boolean;
-  setError: Dispatch<SetStateAction<string | null>>;
-  setLoading: Dispatch<SetStateAction<boolean>>;
-  setUser: Dispatch<SetStateAction<TFetchBodyRegister | null>>;
-  setIsLoggedIn: Dispatch<SetStateAction<boolean>>;
+export type TNotificationContext = {
   openNotification: (
     placement: NotificationPlacement,
     type: IconType,
@@ -33,19 +21,15 @@ export type TAuthContextForm = {
   ) => void;
 };
 
-export const AuthContext = createContext<TAuthContextForm | undefined>(
-  undefined
-);
+export const AntdNotificationContext = createContext<
+  TNotificationContext | undefined
+>(undefined);
 
-export const AuthContextProvider: FC<{ children: ReactNode }> = ({
+export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<TFetchBodyRegister | null>(null);
   const [api, contextHolder] = notification.useNotification();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   const openNotification = useCallback(
     (
@@ -82,24 +66,15 @@ export const AuthContextProvider: FC<{ children: ReactNode }> = ({
 
   const memoizedValue = useMemo(
     () => ({
-      error,
-      loading,
-      user,
-      setLoading,
-      setError,
-      setUser,
-      isLoggedIn,
-      setIsLoggedIn,
       openNotification,
     }),
-
-    [error, isLoggedIn, loading, openNotification, user]
+    [openNotification]
   );
 
   return (
-    <AuthContext.Provider value={memoizedValue}>
+    <AntdNotificationContext.Provider value={memoizedValue}>
       {contextHolder}
       {children}
-    </AuthContext.Provider>
+    </AntdNotificationContext.Provider>
   );
 };

@@ -3,16 +3,15 @@ import { useCallback } from "react";
 
 import { useRegisterUserMutation } from "@/common/store/api/user";
 
-import { useAuthFormContext } from "@/context/hooks/use-form-auth-context";
+import { useNotificationContext } from "@/context/hooks/use-notification-context";
 
-import { TFetchBodyRegister } from "@/types/types";
+import { TRegisterUserRequestBody } from "@/types/types";
 import { TRegisterUserResponse } from "@/types/api/user";
 
 export const useRegistrationUser = () => {
-  const [registerUser] = useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
-  const { setLoading, setError, setUser, openNotification } =
-    useAuthFormContext();
+  const { openNotification } = useNotificationContext();
 
   const navigate = useNavigate();
 
@@ -24,16 +23,16 @@ export const useRegistrationUser = () => {
         `Your account has been created successfully! ${data.email}. Welcome to our bookstore! ${data.firstName}! Please login now.`,
         false
       );
-
-      setUser(null);
-
       setTimeout(() => {
         navigate("/auth/login");
       }, 3000);
     },
-    [navigate, openNotification, setUser]
+    [navigate, openNotification]
   );
 
+  // TODO - przenieść akcję do reduxa i zmieniać tekst po 3 sekundach na `undefined` lub `null`,
+  // a same błędy obsłużyć w pliku `frontend/src/common/store/api/user/index.ts`
+  // w `catch` w metodzie `onQueryStarted`
   const handleError = useCallback(() => {
     openNotification(
       "topRight",
@@ -41,15 +40,15 @@ export const useRegistrationUser = () => {
       "An error occurred while registering user!. Please try again later.",
       false
     );
-
-    setError("An error occurred while registering user.");
-  }, [openNotification, setError]);
+  }, [openNotification]);
 
   const fetchRegistrationUser = useCallback(
-    async ({ email, password, firstName, lastName }: TFetchBodyRegister) => {
-      setLoading(true);
-      setError(null);
-
+    async ({
+      email,
+      password,
+      firstName,
+      lastName,
+    }: TRegisterUserRequestBody) => {
       try {
         const response = await registerUser({
           firstName,
@@ -65,12 +64,10 @@ export const useRegistrationUser = () => {
         handleSuccess(response);
       } catch (error) {
         handleError();
-      } finally {
-        setLoading(false);
       }
     },
-    [handleError, registerUser, setError, setLoading, handleSuccess]
+    [handleError, registerUser, handleSuccess]
   );
 
-  return { fetchRegistrationUser };
+  return { fetchRegistrationUser, loading: isLoading };
 };
