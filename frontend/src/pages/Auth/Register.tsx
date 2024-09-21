@@ -1,10 +1,5 @@
-import { AuthContextProvider } from "@/context/auth-data-context";
-import RegisterPage from "@/features/Pages/RegisterPage/RegisterPage";
+import RegisterPage from "@/features/Pages/RegisterPage/index";
 
-export const Register = () => (
-  <AuthContextProvider>
-    <RegisterPage />
-  </AuthContextProvider>
-);
+export const Register = () => <RegisterPage />;
 
 export default Register;

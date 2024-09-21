@@ -1,11 +1,8 @@
-import { AuthContextProvider } from "@/context/auth-data-context";
-import LoginPage from "@/features/Pages/LoginPage/LoginPage";
+import LoginPage from "@/features/Pages/LoginPage/index";
 
 export const Login = () => (
   <>
-    <AuthContextProvider>
-      <LoginPage />
-    </AuthContextProvider>
+    <LoginPage />
   </>
 );
 export default Login;
