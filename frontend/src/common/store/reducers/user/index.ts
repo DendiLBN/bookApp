@@ -1,11 +1,11 @@
 import { RootState } from "@/common/hooks/redux-toolkit";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type AuthState = {
+type TUserReducerState = {
   isLoggedIn: boolean;
 };
 
-const initialState: AuthState = {
+const initialState: TUserReducerState = {
   isLoggedIn: false,
 };
 

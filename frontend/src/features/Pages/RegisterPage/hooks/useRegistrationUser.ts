@@ -23,6 +23,7 @@ export const useRegistrationUser = () => {
         `Your account has been created successfully! ${data.email}. Welcome to our bookstore! ${data.firstName}! Please login now.`,
         false
       );
+
       setTimeout(() => {
         navigate("/auth/login");
       }, 3000);
@@ -30,9 +31,6 @@ export const useRegistrationUser = () => {
     [navigate, openNotification]
   );
 
-  // TODO - przenieść akcję do reduxa i zmieniać tekst po 3 sekundach na `undefined` lub `null`,
-  // a same błędy obsłużyć w pliku `frontend/src/common/store/api/user/index.ts`
-  // w `catch` w metodzie `onQueryStarted`
   const handleError = useCallback(() => {
     openNotification(
       "topRight",
@@ -49,22 +47,16 @@ export const useRegistrationUser = () => {
       firstName,
       lastName,
     }: TRegisterUserRequestBody) => {
-      try {
-        const response = await registerUser({
+      registerUser({
+        data: {
           firstName,
           lastName,
           email,
           password,
-        }).unwrap();
-
-        if (!response) {
-          return handleError();
-        }
-
-        handleSuccess(response);
-      } catch (error) {
-        handleError();
-      }
+        },
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
     },
     [handleError, registerUser, handleSuccess]
   );

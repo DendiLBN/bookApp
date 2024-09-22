@@ -2,39 +2,36 @@ import { useCallback } from "react";
 
 import { useLoginUserMutation } from "@/common/store/api/user";
 
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
-
 import { TLoginUserRequestBody } from "@/types/types";
+import { useNotificationContext } from "@/context/hooks/use-notification-context";
 
 export const useLoginUser = () => {
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const { openNotification } = useNotificationContext();
 
+  const handleSuccess = useCallback(() => {
+    openNotification("topRight", "success", "You are logged in!", true);
+  }, [openNotification]);
+
+  const handleError = useCallback(() => {
+    openNotification(
+      "topRight",
+      "error",
+      "An error occurred while login!. Please check your password or email.",
+      false
+    );
+  }, [openNotification]);
+
   const fetchBodyLoginUser = useCallback(
     async ({ email, password }: TLoginUserRequestBody) => {
-      try {
-        await loginUser({
-          email,
-          password,
-        }).unwrap();
-
-        openNotification(
-          "top",
-          "success",
-          "You are logged in! Welcome back!",
-          true
-        );
-      } catch (error) {
-        openNotification(
-          "top",
-          "error",
-          "Please provide correct email or password!",
-          true
-        );
-      }
+      loginUser({
+        data: { email, password },
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
     },
-    [openNotification, loginUser]
+    [handleError, handleSuccess, loginUser]
   );
 
   return { fetchBodyLoginUser, loading: isLoading };

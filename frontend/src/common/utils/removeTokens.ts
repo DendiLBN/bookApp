@@ -1,6 +1,6 @@
-import { ACCESS_TOKEN } from "../consts/local-storage";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
 
-export const removeTokens = (): void => {
+export const removeTokens = () => {
   localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem("refreshToken");
+  localStorage.removeItem(REFRESH_TOKEN);
 };

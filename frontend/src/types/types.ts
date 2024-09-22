@@ -1,4 +1,5 @@
 import { Key } from "react";
+import { TLoginUserResponse, TRegisterUserResponse } from "./api/user";
 
 export type TBookBody = {
   _id: string;
@@ -46,9 +47,21 @@ export type TRegisterUserRequestBody = {
   lastName: string;
 };
 
+export type TRegisterUserParams = {
+  data: TRegisterUserRequestBody;
+  onSuccess: (data: TRegisterUserResponse) => void;
+  onError: () => void;
+};
+
 export type TLoginUserRequestBody = {
   email: string;
   password: string;
+};
+
+export type TLoginUserParams = {
+  data: TLoginUserRequestBody;
+  onSuccess: (data: TLoginUserResponse) => void;
+  onError: () => void;
 };
 
 export type TTokens = {
