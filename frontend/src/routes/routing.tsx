@@ -6,10 +6,8 @@ import { PrivateRoutes } from "./Private.routes";
 
 export const LandingPageRouting = () => (
   <Routes>
-    <Route path="/" element={<Home />} />
     <Route path="/home" element={<Home />} />
     <Route path="/book" element={<Book />} />
-    <Route path="/auth/*" element={<AuthRoutes />} />
     <Route path="/auth/*" element={<AuthRoutes />} />
     <Route path="/private/*" element={<PrivateRoutes />} />
     <Route path="*" element={<NotFound />} />

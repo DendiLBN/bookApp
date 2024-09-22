@@ -22,13 +22,11 @@ import { TBookBody } from "@/types/types";
 
 export const BookView: React.FC = () => {
   const {
-    loading,
     selectedCategories,
     selectedRowKeys,
     filteredBooks,
     searchText,
     bookList,
-    setLoading,
     setSearchText,
     setFilteredBooks,
     setSelectedCategories,

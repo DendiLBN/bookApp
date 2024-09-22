@@ -1,29 +1,24 @@
-import React, { useEffect, useState, useCallback } from "react";
 import { LogoutOutlined } from "@ant-design/icons";
 
 import { Button } from "antd";
 
-import { ACCESS_TOKEN } from "@/common/consts/local-storage";
+import { useDispatch } from "react-redux";
+
+import { setIsLoggedIn } from "@/common/store/reducers/user";
+
+import { removeTokens } from "@/common/utils/removeTokens";
 
 export const LogoutButton: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  const handleOnClick = () => {
+    removeTokens();
+    dispatch(setIsLoggedIn(false));
+  };
 
-  const logout = useCallback(() => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    localStorage.removeItem("refreshToken");
-    setIsLoggedIn(false);
-  }, []);
-
-  return isLoggedIn ? (
-    <Button icon={<LogoutOutlined />} onClick={logout}>
+  return (
+    <Button icon={<LogoutOutlined />} onClick={handleOnClick}>
       Logout
     </Button>
-  ) : null;
+  );
 };

@@ -4,7 +4,7 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { setIsLoggedIn } from "../../reducers/user";
 
 import { TLoginUserResponse, TRegisterUserResponse } from "@/types/api/user";
-import { TRegisterUserRequestBody, TLoginUserRequestBody } from "@/types/types";
+import { TLoginUserParams, TRegisterUserParams } from "@/types/types";
 import { setTokens } from "@/common/utils/setTokens";
 
 export const userApi = createApi({
@@ -12,23 +12,39 @@ export const userApi = createApi({
   baseQuery: axiosBaseQuery(),
   tagTypes: [],
   endpoints: (builder) => ({
-    registerUser: builder.mutation<
-      TRegisterUserResponse,
-      TRegisterUserRequestBody
-    >({
-      query: (data) => ({
+    registerUser: builder.mutation<TRegisterUserResponse, TRegisterUserParams>({
+      query: ({ data }) => ({
         method: "POST",
         url: `auth/register/`,
         data,
       }),
+      onQueryStarted: async (
+        { onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) => {
+        try {
+          const response = await queryFulfilled;
+
+          if (response) {
+            onSuccess(response.data);
+          }
+
+          dispatch(setIsLoggedIn(true));
+        } catch (error) {
+          onError();
+        }
+      },
     }),
-    loginUser: builder.mutation<TLoginUserResponse, TLoginUserRequestBody>({
-      query: (data) => ({
+    loginUser: builder.mutation<TLoginUserResponse, TLoginUserParams>({
+      query: ({ data }) => ({
         method: "POST",
         url: `auth/login/`,
         data,
       }),
-      onQueryStarted: async (_arg, { dispatch, queryFulfilled }) => {
+      onQueryStarted: async (
+        { onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) => {
         try {
           const response = await queryFulfilled;
 
@@ -38,10 +54,12 @@ export const userApi = createApi({
             setTokens({
               accessToken,
             });
+            onSuccess(response.data);
           }
 
           dispatch(setIsLoggedIn(true));
         } catch (error) {
+          onError();
           return;
         }
       },

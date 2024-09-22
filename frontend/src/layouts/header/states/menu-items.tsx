@@ -36,7 +36,7 @@ export const rightMenuItems: MenuProps["items"] = [
   },
   {
     key: "account-register",
-    label: <Link to="/auth/register">Sing up</Link>,
+    label: <Link to="/auth/register">Register</Link>,
     icon: <UserOutlined />,
   },
   {
