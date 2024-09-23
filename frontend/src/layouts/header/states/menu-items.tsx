@@ -16,7 +16,7 @@ export const leftMenuItems: MenuProps["items"] = [
   },
   {
     key: "bookList",
-    label: <Link to="/book">List your books</Link>,
+    label: <Link to="/book">Books</Link>,
     icon: <SnippetsFilled />,
   },
 ];

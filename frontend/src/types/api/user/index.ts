@@ -7,3 +7,8 @@ export type TLoginUserResponse = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type TLogoutUserResponse = {
+  accessToken: string;
+  refreshToken: string;
+};

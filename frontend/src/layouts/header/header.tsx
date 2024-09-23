@@ -6,7 +6,7 @@ import {
   rightMenuItems,
 } from "@/layouts/header/states/menu-items";
 import "@/assets/layouts-styles/header.css";
-import { LogoutButton } from "@/features/Pages/LoginPage/hooks/useLogout";
+import { LogoutButton } from "@/features/Pages/LoginPage/hooks/useLogoutUser";
 
 const { Header } = Layout;
 

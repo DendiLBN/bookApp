@@ -2,10 +2,9 @@ import { useState } from "react";
 import { Layout, Menu } from "antd";
 
 import { itemsSideBar } from "@/layouts/side-bar/states/items-side-bar";
-
 import { useIsLoggedIn } from "@/common/hooks/use-is-logged-in";
 
-import "@/assets/layouts-styles/side-bar.css";
+import "@/assets/layouts-styles/sidebar.css";
 
 const { Sider } = Layout;
 
@@ -24,10 +23,12 @@ export const LandingPageSideBar = () => {
 
   return (
     <Sider
+      className="landing-page-sidebar"
       theme="light"
-      collapsible
+      defaultCollapsed
       collapsed={collapsed}
       onCollapse={toggleCollapsed}
+      style={{ maxHeight: "645px", overflow: "auto" }}
     >
       <Menu
         mode="inline"

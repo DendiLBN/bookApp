@@ -19,6 +19,7 @@ import { AddBookButton } from "@/components/book-view/buttons/add-books-button";
 import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks";
 
 import { TBookBody } from "@/types/types";
+import { useNotificationContext } from "@/context/hooks/use-notification-context";
 
 export const BookView: React.FC = () => {
   const {
@@ -27,11 +28,15 @@ export const BookView: React.FC = () => {
     filteredBooks,
     searchText,
     bookList,
+    setLoading,
+    loading,
     setSearchText,
     setFilteredBooks,
     setSelectedCategories,
     setSelectedRowKeys,
   } = useBooksFormContext();
+
+  const { openNotification } = useNotificationContext();
 
   useFilteredBooks({
     searchText,
@@ -44,7 +49,12 @@ export const BookView: React.FC = () => {
     if (newSelectedRowKeys.length <= 20) {
       setSelectedRowKeys(newSelectedRowKeys);
     } else {
-      console.log("Maximum you can select 20 books");
+      openNotification(
+        "topRight",
+        "error",
+        "Cannot select more than 20 books.",
+        true
+      );
     }
   };
 
