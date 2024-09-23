@@ -67,3 +67,13 @@ export type TLoginUserParams = {
 export type TTokens = {
   accessToken: string;
 };
+
+export type TLogoutRequestBody = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type TLogoutUserParams = {
+  onSuccess: (data: void) => void;
+  onError: () => void;
+};

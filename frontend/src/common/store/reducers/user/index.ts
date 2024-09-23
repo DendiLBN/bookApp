@@ -1,4 +1,5 @@
 import { RootState } from "@/common/hooks/redux-toolkit";
+import { removeTokens } from "@/common/utils/removeTokens";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TUserReducerState = {
@@ -16,10 +17,14 @@ export const userReducer = createSlice({
     setIsLoggedIn(state, action: PayloadAction<boolean>) {
       state.isLoggedIn = action.payload;
     },
+    logoutUser(state) {
+      removeTokens();
+      state.isLoggedIn = false;
+    },
   },
 });
 
 export const selectIsLoggedIn = (state: RootState) =>
   state.userReducer.isLoggedIn;
 
-export const { setIsLoggedIn } = userReducer.actions;
+export const { setIsLoggedIn, logoutUser } = userReducer.actions;

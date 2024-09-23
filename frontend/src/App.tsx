@@ -10,7 +10,7 @@ import { store } from "./common/store";
 import { ThemeProvider } from "./context/theme-context";
 
 import { LandingPageHeader } from "@/layouts/header/header";
-import { LandingPageSideBar } from "./layouts/side-bar/side-bar";
+import { LandingPageSideBar } from "@/layouts/side-bar/sidebar";
 import { LandingPageContent } from "@/layouts/content/content";
 import LandingPageFooter from "./layouts/footer/footer";
 
