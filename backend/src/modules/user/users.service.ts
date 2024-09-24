@@ -19,7 +19,7 @@ export class UsersService {
   async getUserById(userId: string) {
     const user = await this.userModel
       .findById(userId)
-      .select('-password -refreshToken')
+      .select('-password')
       .lean()
       .exec();
     if (!user) throw new NotFoundException();
