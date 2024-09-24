@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
@@ -31,13 +24,13 @@ export class AuthController {
   }
 
   @UseGuards(RefreshTokenGuard)
-  @Get('refresh-token')
+  @Post('refresh-token')
   refreshToken(@GetUserFromToken() user: RefreshTokenPayload) {
     return this.authService.refreshTokens(user.id, user.refreshToken);
   }
 
   @UseGuards(AccessTokenGuard)
-  @Get('logout')
+  @Post('logout')
   logout(@GetUserFromToken() user: JwtPayload) {
     return this.authService.logout(user.id);
   }
