@@ -7,17 +7,22 @@ import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "@/common/store/reducers/user";
 
 import { useLogoutUserMutation } from "@/common/store/api/user";
+import { useNavigate } from "react-router-dom";
 
 export const LogoutButton: React.FC = () => {
   const { openNotification } = useNotificationContext();
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
+  const navigate = useNavigate();
+
   const [logoutUser] = useLogoutUserMutation();
 
   const handleSuccess = useCallback(() => {
     openNotification("topRight", "success", "Logged out successfully!", true);
-  }, [openNotification]);
+
+    navigate("/auth/login");
+  }, [navigate, openNotification]);
 
   const handleError = useCallback(() => {
     openNotification(

@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { TDeleteBooksButtonProps } from "@/types/types";
 
 export const DeleteBooksButton: React.FC<TDeleteBooksButtonProps> = ({
-  selectedRowKeys,
+  selectedBookRowKeys,
   loading,
   onDelete,
 }) => (
@@ -11,9 +11,9 @@ export const DeleteBooksButton: React.FC<TDeleteBooksButtonProps> = ({
     type="primary"
     danger
     onClick={onDelete}
-    disabled={!selectedRowKeys.length || loading}
+    disabled={!selectedBookRowKeys.length || loading}
     loading={loading}
   >
-    Delete Selected: <div>{selectedRowKeys.length}</div>
+    Delete Selected: <div>{selectedBookRowKeys.length}</div>
   </Button>
 );

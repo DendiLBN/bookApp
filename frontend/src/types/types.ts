@@ -13,21 +13,21 @@ export type TBookBody = {
 };
 
 export type IBookSearchProps = {
-  searchText: string;
+  bookSearchText: string;
   value: string;
 };
 
 export type TDeleteBooksButtonProps = {
-  selectedRowKeys: Key[];
+  selectedBookRowKeys: Key[];
   loading: boolean;
   onDelete: () => void;
 };
 
 export type TUseFilteredBooksProps = {
-  searchText: string;
+  bookSearchText: string;
   selectedCategories: string[];
-  bookList: TBookBody[];
-  setFilteredBooks: (filteredBooks: TBookBody[]) => void;
+  fetchBookList: TBookBody[];
+  setFilteredBookList: (filteredBookList: TBookBody[]) => void;
 };
 
 export type TCategorySelectProps = {
@@ -36,7 +36,7 @@ export type TCategorySelectProps = {
 };
 
 export type TBookSearchProps = {
-  searchText: string;
+  bookSearchText: string;
   onSearch: (value: string) => void;
 };
 

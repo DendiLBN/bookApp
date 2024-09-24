@@ -3,28 +3,30 @@ import { useEffect } from "react";
 import { TUseFilteredBooksProps } from "@/types/types";
 
 export const useFilteredBooks = ({
-  searchText,
+  bookSearchText,
   selectedCategories,
-  bookList,
-  setFilteredBooks,
+  fetchBookList,
+  setFilteredBookList,
 }: TUseFilteredBooksProps) => {
   useEffect(() => {
-    const lowerSearchText = searchText.toLowerCase();
-    const filtered = bookList.filter(
+    const lowerSearchText = bookSearchText.toLowerCase();
+
+    const filteredBySearch = fetchBookList.filter(
       (item) =>
         item.title.toLowerCase().includes(lowerSearchText) ||
         item.author.toLowerCase().includes(lowerSearchText) ||
         item.rate.toString().includes(lowerSearchText)
     );
 
-    const result = selectedCategories.length
-      ? filtered.filter((book) =>
+    const filteredByCategories = selectedCategories.length
+      ? filteredBySearch.filter((book) =>
           book.category.some((category) =>
             selectedCategories.includes(category)
           )
         )
-      : filtered;
+      : filteredBySearch;
 
-    setFilteredBooks(result);
-  }, [searchText, selectedCategories, bookList, setFilteredBooks]);
+    // Ustawienie przefiltrowanej listy książek
+    setFilteredBookList(filteredByCategories);
+  }, [bookSearchText, selectedCategories, setFilteredBookList, fetchBookList]);
 };
