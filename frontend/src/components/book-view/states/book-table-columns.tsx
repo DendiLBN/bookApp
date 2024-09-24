@@ -6,7 +6,6 @@ import {
   ProfileOutlined,
   ShoppingCartOutlined,
   SmileOutlined,
-  TeamOutlined,
 } from "@ant-design/icons";
 
 import { TBookBody } from "@/types/types";
@@ -91,11 +90,9 @@ export const columns: ColumnsType<TBookBody> = [
           <Button type="primary" icon={<ShoppingCartOutlined />}>
             Add to cart
           </Button>
-          <Button type="primary" icon={<TeamOutlined />}>
-            Exchange book
-          </Button>
+
           <Button type="default" icon={<ProfileOutlined />}>
-            Review
+            pre-review
           </Button>
         </Space>
       );

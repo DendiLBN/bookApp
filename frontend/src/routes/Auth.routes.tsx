@@ -1,10 +1,18 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "@/common/store/reducers/user";
 
 const LoginPage = lazy(() => import("@/pages/Auth/Login"));
 const RegisterPage = lazy(() => import("@/pages/Auth/Register"));
 
 export const AuthRoutes = () => {
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  if (isLoggedIn) {
+    return <Navigate to="/home" replace />;
+  }
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>

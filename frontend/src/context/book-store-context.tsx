@@ -5,32 +5,24 @@ import React, {
   FC,
   Dispatch,
   SetStateAction,
-  useEffect,
   Key,
-  useCallback,
 } from "react";
-
-import axios from "axios";
 
 import { TBookBody } from "@/types/types";
 
 export type TBookFormContext = {
-  searchText: string;
-  collapsed: boolean;
-  loading: boolean;
-  selectedRowKeys: Key[];
-  bookList: TBookBody[];
-  filteredBooks: TBookBody[];
-  error: string | null;
+  bookSearchText: string;
+  isSidebarCollapsed: boolean;
+  selectedBookRowKeys: Key[];
+  fetchBookList: TBookBody[];
+  filteredBookList: TBookBody[];
   selectedCategories: string[];
-  setError: Dispatch<SetStateAction<string | null>>;
-  setLoading: Dispatch<SetStateAction<boolean>>;
-  setSearchText: Dispatch<SetStateAction<string>>;
-  setCollapsed: Dispatch<SetStateAction<boolean>>;
-  setBookList: Dispatch<SetStateAction<TBookBody[]>>;
+  setBookSearchText: Dispatch<SetStateAction<string>>;
+  setIsSidebarCollapsed: Dispatch<SetStateAction<boolean>>;
+  setFetchBookList: Dispatch<SetStateAction<TBookBody[]>>;
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
-  setFilteredBooks: Dispatch<SetStateAction<TBookBody[]>>;
-  setSelectedRowKeys: Dispatch<SetStateAction<React.Key[]>>;
+  setFilteredBookList: Dispatch<SetStateAction<TBookBody[]>>;
+  setSelectedBookRowKeys: Dispatch<SetStateAction<Key[]>>;
 };
 
 export const BookFormContext = createContext<TBookFormContext | undefined>(
@@ -40,68 +32,35 @@ export const BookFormContext = createContext<TBookFormContext | undefined>(
 export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [searchText, setSearchText] = useState<string>("");
+  const [bookSearchText, setBookSearchText] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [filteredBooks, setFilteredBooks] = useState<TBookBody[]>([]);
-  const [collapsed, setCollapsed] = useState<boolean>(false);
-  const [bookList, setBookList] = useState<TBookBody[]>([]);
-  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchBooks = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get("/api/books", {
-        params: {
-          page: 1,
-          perPage: 100,
-          searchString: searchText,
-          categories: selectedCategories,
-        },
-      });
-      setBookList(res.data.data);
-    } catch (error) {
-      setError("An error occurred while fetching books.");
-    } finally {
-      setLoading(false);
-    }
-  }, [searchText, selectedCategories]);
-
-  // TODO PAGINATION AND FILTERING
-
-  useEffect(() => {
-    fetchBooks();
-  }, [fetchBooks]);
+  const [filteredBookList, setFilteredBookList] = useState<TBookBody[]>([]);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
+  const [fetchBookList, setFetchBookList] = useState<TBookBody[]>([]);
+  const [selectedBookRowKeys, setSelectedBookRowKeys] = useState<Key[]>([]);
 
   const memoizedValue = useMemo(
     () => ({
-      error,
-      loading,
-      selectedRowKeys,
-      searchText,
+      selectedBookRowKeys,
+      bookSearchText,
       selectedCategories,
-      filteredBooks,
-      collapsed,
-      bookList,
-      setLoading,
-      setError,
+      filteredBookList,
+      isSidebarCollapsed,
+      fetchBookList,
       setSelectedCategories,
-      setBookList,
-      setSearchText,
-      setFilteredBooks,
-      setCollapsed,
-      setSelectedRowKeys,
+      setFetchBookList,
+      setBookSearchText,
+      setFilteredBookList,
+      setIsSidebarCollapsed,
+      setSelectedBookRowKeys,
     }),
     [
-      error,
-      loading,
-      selectedRowKeys,
-      searchText,
+      selectedBookRowKeys,
+      bookSearchText,
       selectedCategories,
-      filteredBooks,
-      collapsed,
-      bookList,
+      filteredBookList,
+      isSidebarCollapsed,
+      fetchBookList,
     ]
   );
 

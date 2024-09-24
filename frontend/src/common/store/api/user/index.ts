@@ -68,13 +68,18 @@ export const userApi = createApi({
       },
     }),
     logoutUser: builder.mutation<TLogoutUserResponse, TLogoutUserParams>({
-      query: () => ({
-        method: "GET",
-        url: `auth/logout/`,
-        headers: {
-          Authorization: `Bearer ("accessToken", refreshToken)}`,
-        },
-      }),
+      query: () => {
+        const accessToken = localStorage.getItem("accessToken");
+        const refreshToken = localStorage.getItem("refreshToken");
+
+        return {
+          method: "GET",
+          url: `auth/logout/`,
+          headers: {
+            Authorization: `Bearer ${accessToken}, ${refreshToken}  `,
+          },
+        };
+      },
       onQueryStarted: async (
         { onSuccess, onError },
         { dispatch, queryFulfilled }

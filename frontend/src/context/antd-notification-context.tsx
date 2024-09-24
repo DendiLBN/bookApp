@@ -10,9 +10,15 @@ import {
   ReactNode,
   useMemo,
   useCallback,
+  SetStateAction,
+  Dispatch,
 } from "react";
 
 export type TNotificationContext = {
+  loading: boolean;
+  error: string | null;
+  setError: Dispatch<SetStateAction<string | null>>;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   openNotification: (
     placement: NotificationPlacement,
     type: IconType,
@@ -30,6 +36,8 @@ export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({
 }) => {
   const [api, contextHolder] = notification.useNotification();
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   const openNotification = useCallback(
     (
@@ -66,9 +74,13 @@ export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({
 
   const memoizedValue = useMemo(
     () => ({
+      error,
+      loading,
       openNotification,
+      setLoading,
+      setError,
     }),
-    [openNotification]
+    [error, loading, openNotification, setLoading]
   );
 
   return (

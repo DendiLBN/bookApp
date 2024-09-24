@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import {
   HomeOutlined,
-  ShoppingCartOutlined,
+  // ShoppingCartOutlined,
   SnippetsFilled,
   UserOutlined,
 } from "@ant-design/icons";
@@ -39,9 +39,9 @@ export const rightMenuItems: MenuProps["items"] = [
     label: <Link to="/auth/register">Register</Link>,
     icon: <UserOutlined />,
   },
-  {
-    key: "shoppingCart",
-    label: <Link to="/shoppingCart">Shopping Cart</Link>,
-    icon: <ShoppingCartOutlined />,
-  },
+  // {
+  //   key: "shoppingCart",
+  //   label: <Link to="/shoppingCart">Shopping Cart</Link>,
+  //   icon: <ShoppingCartOutlined />,
+  // },
 ];
