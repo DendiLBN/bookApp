@@ -73,10 +73,10 @@ export const userApi = createApi({
         const refreshToken = localStorage.getItem("refreshToken");
 
         return {
-          method: "GET",
+          method: "POST",
           url: `auth/logout/`,
           headers: {
-            Authorization: `Bearer ${accessToken}, ${refreshToken}  `,
+            Authorization: `Bearer ${accessToken}, ${refreshToken} `,
           },
         };
       },

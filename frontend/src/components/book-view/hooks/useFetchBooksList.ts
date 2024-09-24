@@ -5,35 +5,43 @@ import axios from "axios";
 import { useCallback } from "react";
 
 export const UseFetchBodyBooks = () => {
-  const { setLoading, setError } = useNotificationContext();
+  const { setLoading, openNotification } = useNotificationContext();
   const {
     selectedCategories,
     selectedBookRowKeys,
     bookSearchText,
     setFetchBookList,
     setSelectedBookRowKeys,
+    currentPage,
+    itemsPerPage,
   } = useBooksFormContext();
 
   const { data: fetchedBookList = [] } = useFetchBooksQuery({
-    page: 1,
-    perPage: 100,
+    page: currentPage,
+    perPage: itemsPerPage,
     searchString: bookSearchText,
     category: selectedCategories,
   });
 
-  // TODO ADD ERRORR HANDLER & LOADING SPINNER
+  const handleError = useCallback(() => {
+    openNotification(
+      "topRight",
+      "error",
+      "An error occurred while fetch books!. Please refresh page.",
+      false
+    );
+  }, [openNotification]);
 
   const fetchBooksList = useCallback(async () => {
     setLoading(true);
     try {
       setFetchBookList(fetchedBookList);
-    } catch (err) {
-      console.error("Error fetching books:", err);
-      setError("An error occurred while fetching books.");
+    } catch {
+      handleError();
     } finally {
       setLoading(false);
     }
-  }, [setLoading, setFetchBookList, fetchedBookList, setError]);
+  }, [setLoading, setFetchBookList, fetchedBookList, handleError]);
 
   const handleDeleteBooksAsArray = async () => {
     if (!selectedBookRowKeys.length) return;
@@ -44,7 +52,7 @@ export const UseFetchBodyBooks = () => {
       await axios.post("/api/books/delete-multiple-id", {
         ids: selectedBookRowKeys,
       });
-
+      console.log("Deleted books:", selectedBookRowKeys);
       setFetchBookList((prevData) =>
         prevData.filter((item) => !selectedBookRowKeys.includes(item._id))
       );
@@ -58,5 +66,10 @@ export const UseFetchBodyBooks = () => {
     }
   };
 
-  return { fetchBooksList, handleDeleteBooksAsArray };
+  return {
+    fetchBooksList,
+    handleDeleteBooksAsArray,
+    currentPage,
+    itemsPerPage,
+  };
 };

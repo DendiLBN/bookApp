@@ -18,6 +18,7 @@ export const bookApi = createApi({
         url: "books",
         params: {
           page,
+          take: perPage,
           searchString,
           perPage,
           category,
@@ -25,7 +26,6 @@ export const bookApi = createApi({
       }),
       transformResponse: ({ data }: { data: TBookBodyTransformResponse }) =>
         data || [],
-
       providesTags: [],
     }),
     deleteBooks: builder.mutation<void, Key[]>({

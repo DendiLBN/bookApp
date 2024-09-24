@@ -14,7 +14,12 @@ import { UseFetchBodyBooks } from "./hooks/useFetchBooksList";
 export const BookView: React.FC = () => {
   const { loading, openNotification } = useNotificationContext();
 
-  const { fetchBooksList, handleDeleteBooksAsArray } = UseFetchBodyBooks();
+  const {
+    fetchBooksList,
+    handleDeleteBooksAsArray,
+    currentPage,
+    itemsPerPage,
+  } = UseFetchBodyBooks();
 
   const {
     selectedCategories,
@@ -26,6 +31,8 @@ export const BookView: React.FC = () => {
     setFilteredBookList,
     setSelectedCategories,
     setSelectedBookRowKeys,
+    setItemsPerPage,
+    setCurrentPage,
   } = useBooksFormContext();
 
   useFilteredBooks({
@@ -50,7 +57,12 @@ export const BookView: React.FC = () => {
 
   useEffect(() => {
     fetchBooksList();
-  }, [fetchBooksList]);
+  }, [fetchBooksList, currentPage, itemsPerPage]);
+
+  const handleChangePagination = (page: number, pageSize: number) => {
+    setCurrentPage(page);
+    setItemsPerPage(pageSize);
+  };
 
   const rowSelection: TableProps<TBookBody>["rowSelection"] = {
     selectedRowKeys: selectedBookRowKeys,
@@ -88,7 +100,11 @@ export const BookView: React.FC = () => {
           pagination={{
             position: ["bottomCenter"],
             showSizeChanger: true,
-            defaultPageSize: 20,
+            defaultPageSize: 10,
+            pageSizeOptions: [10, 20, 30, 40],
+            current: currentPage,
+            pageSize: itemsPerPage,
+            onChange: handleChangePagination,
           }}
         />
       </Spin>
