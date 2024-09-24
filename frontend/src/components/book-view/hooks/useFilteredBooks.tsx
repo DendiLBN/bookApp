@@ -26,7 +26,6 @@ export const useFilteredBooks = ({
         )
       : filteredBySearch;
 
-    // Ustawienie przefiltrowanej listy książek
     setFilteredBookList(filteredByCategories);
   }, [bookSearchText, selectedCategories, setFilteredBookList, fetchBookList]);
 };

@@ -7,9 +7,10 @@ import { TBookSearchProps } from "@/types/types";
 export const BookSearch: React.FC<TBookSearchProps> = ({
   bookSearchText,
   onSearch,
+  // TODO ADD DEBOUNCE FOR SEARCH
 }) => (
   <Input
-    placeholder="Search..."
+    placeholder="Search by Title or Author"
     value={bookSearchText}
     onChange={(e) => onSearch(e.target.value)}
     prefix={<SearchOutlined />}
