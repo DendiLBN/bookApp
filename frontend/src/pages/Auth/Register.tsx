@@ -1,4 +1,4 @@
-import RegisterPage from "@/features/Pages/RegisterPage/index";
+import RegisterPage from "@/features/register-page/index";
 
 export const Register = () => <RegisterPage />;
 

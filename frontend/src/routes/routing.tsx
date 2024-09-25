@@ -1,10 +1,15 @@
+import { useSelector } from "react-redux";
+
 import { Routes, Route } from "react-router-dom";
+
 import { Home } from "@/pages/Home/Home";
 import { Book } from "@/pages/Book/Books";
+
 import { AuthRoutes } from "@/routes/Auth.routes";
+
 import { ProtectedRoutes } from "./Protected.routes";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/common/store/reducers/user";
+
+import { selectIsLoggedIn } from "../store/reducers/user/index";
 
 export const LandingPageRouting = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);

@@ -1,12 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
-import { useRegisterUserMutation } from "@/common/store/api/user";
-
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
-
 import { TRegisterUserRequestBody } from "@/types/types";
+
 import { TRegisterUserResponse } from "@/types/api/user";
+
+import { useRegisterUserMutation } from "@/store/api/user";
+
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 export const useRegistrationUser = () => {
   const [registerUser, { isLoading }] = useRegisterUserMutation();

@@ -1,5 +1,5 @@
 import "@/assets/global-styles/content.css";
-import { HomeView } from "@/components/home-view/home-view";
+import { HomeView } from "@/features/home-page/Home";
 
 export const Home = () => (
   <>

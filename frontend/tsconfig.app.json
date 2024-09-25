@@ -12,6 +12,7 @@
     "paths": {
       "@/features/*": ["features/*"],
       "@/api/*": ["api/*"],
+      "@/store/*": ["store/*"],
       "@/common/*": ["common/*"],
       "@/services/authentication/*": ["services/authentication/*"],
       "@/services/book-related/*": ["services/book-related/*"],
@@ -25,7 +26,7 @@
       "@/components/*": ["components/*"],
       "@/components/book-view/*": ["components/book-view/*"],
       "@/layouts/*": ["layouts/*"],
-      "@/context/*": ["context/*"],
+      "@/contexts/*": ["contexts/*"],
       "@/hooks/*": ["hooks/*"],
       "@/pages/*": ["pages/*"]
     },

@@ -1,8 +1,7 @@
 import { Select } from "antd";
 
-import { categories } from "@/components/book-view/states/book-categories";
-
 import { TCategorySelectProps } from "@/types/types";
+import { categories } from "../states/book-categories";
 
 const { Option } = Select;
 

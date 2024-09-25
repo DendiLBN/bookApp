@@ -1,6 +1,8 @@
 import { Switch } from "antd";
-import { useThemeContext } from "@/context/hooks/use-theme-context";
+
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
+
+import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
 
 export const ThemeButton: React.FC = () => {
   const { isDarkMode, handleToggleTheme } = useThemeContext();

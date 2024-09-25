@@ -1,13 +1,14 @@
 import { useCallback } from "react";
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
-import { LogoutOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { selectIsLoggedIn } from "@/common/store/reducers/user";
+import { Button } from "antd";
+import { LogoutOutlined } from "@ant-design/icons";
 
-import { useLogoutUserMutation } from "@/common/store/api/user";
-import { useNavigate } from "react-router-dom";
+import { selectIsLoggedIn } from "@/store/reducers/user";
+import { useLogoutUserMutation } from "@/store/api/user/index";
+
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 export const LogoutButton: React.FC = () => {
   const { openNotification } = useNotificationContext();

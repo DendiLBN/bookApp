@@ -1,7 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/common/store/reducers/user";
+import { selectIsLoggedIn } from "@/store/reducers/user/index";
 
 const LoginPage = lazy(() => import("@/pages/Auth/Login"));
 const RegisterPage = lazy(() => import("@/pages/Auth/Register"));

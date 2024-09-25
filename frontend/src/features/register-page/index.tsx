@@ -1,12 +1,14 @@
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
+
 import { Button, Checkbox, Form, Input, Select } from "antd";
 
-import { useThemeContext } from "@/context/hooks/use-theme-context";
 import { TRegisterUserRequestBody } from "@/types/types";
 
-import { useRegistrationUser } from "@/features/Pages/RegisterPage/hooks/useRegistrationUser";
+import { useRegistrationUser } from "./hooks/useRegistrationUser";
 
-import initialRegisterValues from "@/features/Pages/RegisterPage/state/register-state-values";
+import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
+
+import initialRegisterValues from "./state/register-state-values";
 
 import "@/assets/layouts-styles/register-styles/register.css";
 
