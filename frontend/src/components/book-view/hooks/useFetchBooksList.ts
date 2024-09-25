@@ -1,7 +1,10 @@
-import { useFetchBooksQuery } from "@/common/store/api/books";
+import {
+  useDeleteManyBooksMutation,
+  useFetchBooksQuery,
+} from "@/common/store/api/books";
 import { useBooksFormContext } from "@/context/hooks/use-form-book-context";
 import { useNotificationContext } from "@/context/hooks/use-notification-context";
-import axios from "axios";
+
 import { useCallback } from "react";
 
 export const UseFetchBodyBooks = () => {
@@ -16,6 +19,8 @@ export const UseFetchBodyBooks = () => {
     itemsPerPage,
   } = useBooksFormContext();
 
+  const [deleteBooks] = useDeleteManyBooksMutation();
+
   const { data: fetchedBookList = [] } = useFetchBooksQuery({
     page: currentPage,
     perPage: itemsPerPage,
@@ -27,7 +32,7 @@ export const UseFetchBodyBooks = () => {
     openNotification(
       "topRight",
       "error",
-      "An error occurred while fetch books!. Please refresh page.",
+      "An error occurred while fetching books! Please refresh the page.",
       false
     );
   }, [openNotification]);
@@ -36,33 +41,40 @@ export const UseFetchBodyBooks = () => {
     setLoading(true);
     try {
       setFetchBookList(fetchedBookList);
+      setLoading(false);
     } catch {
       handleError();
-    } finally {
-      setLoading(false);
     }
   }, [setLoading, setFetchBookList, fetchedBookList, handleError]);
 
+  const handleOnSuccesDelete = useCallback(() => {
+    openNotification(
+      "topRight",
+      "success",
+      "Book delete successfully!.",
+      false
+    );
+    setSelectedBookRowKeys([]);
+  }, [openNotification, setSelectedBookRowKeys]);
+
+  const handleErrorDelete = useCallback(() => {
+    openNotification(
+      "topRight",
+      "error",
+      "An error occurred while deleting books! Please try again.",
+      false
+    );
+  }, [openNotification]);
+
   const handleDeleteBooksAsArray = async () => {
     if (!selectedBookRowKeys.length) return;
-
     setLoading(true);
-
     try {
-      await axios.post("/api/books/delete-multiple-id", {
-        ids: selectedBookRowKeys,
-      });
-      console.log("Deleted books:", selectedBookRowKeys);
-      setFetchBookList((prevData) =>
-        prevData.filter((item) => !selectedBookRowKeys.includes(item._id))
-      );
-      setSelectedBookRowKeys([]);
+      await deleteBooks(selectedBookRowKeys).unwrap();
+      handleOnSuccesDelete();
     } catch (error) {
-      console.error("Error during deleting selected items:", error);
-    } finally {
-      setTimeout(() => {
-        setLoading(false);
-      }, 1300);
+      handleErrorDelete();
+      setLoading(false);
     }
   };
 
