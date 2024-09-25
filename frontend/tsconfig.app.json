@@ -24,7 +24,6 @@
       "@/routes/*": ["routes/*"],
       "@/types/*": ["types/*"],
       "@/components/*": ["components/*"],
-      "@/components/book-view/*": ["components/book-view/*"],
       "@/layouts/*": ["layouts/*"],
       "@/contexts/*": ["contexts/*"],
       "@/hooks/*": ["hooks/*"],

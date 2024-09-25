@@ -5,7 +5,7 @@ import { Layout } from "antd";
 
 import { BrowserRouter } from "react-router-dom";
 
-import { store } from "../src/store/index";
+import { store } from "@/store/index";
 
 import { ThemeProvider } from "@/common/contexts/theme-context";
 

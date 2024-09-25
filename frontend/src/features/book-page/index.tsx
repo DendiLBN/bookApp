@@ -9,15 +9,16 @@ import { UseFetchBodyBooks } from "./hooks/useFetchBooksList";
 import { useDeleteAsArrayBooks } from "./hooks/useDeleteAsArrayBooks";
 import { useFilteredBooks } from "./hooks/useFilteredBooks";
 
-import { columns } from "./states/book-table-columns";
-
-import { BookSearch } from "./filters/book-search";
-import { CategorySelect } from "./filters/category-select";
-
 import { useBooksFormContext } from "./contexts/hooks/use-form-book-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 import { TBookBody } from "@/types/types";
+
+import { BookSearch } from "./components/filters/book-search";
+
+import { CategorySelect } from "@/features/book-page/components/filters/category-select";
+
+import { columns } from "@/features/book-page/consts/book-table-columns";
 
 export const BookView: React.FC = () => {
   const { loading, openNotification } = useNotificationContext();
