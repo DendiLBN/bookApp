@@ -1,4 +1,4 @@
-import LoginPage from "@/features/Pages/LoginPage/index";
+import LoginPage from "@/features/login-page/index";
 
 export const Login = () => (
   <>

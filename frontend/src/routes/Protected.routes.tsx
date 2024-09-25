@@ -4,7 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Home } from "@/pages/Home/Home";
 
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/common/store/reducers/user";
+import { selectIsLoggedIn } from "@/store/reducers/user/index";
 
 export const ProtectedRoutes = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);

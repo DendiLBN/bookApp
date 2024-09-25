@@ -10,9 +10,8 @@ import {
 
 import { TBookBody } from "@/types/types";
 
-import { tagColors } from "@/components/book-view/states/book-categories-colors";
-
 import avatar from "@/assets/images/avatar.jpg";
+import { tagColors } from "./book-categories-colors";
 
 // TODO avatars fix on backend images.
 

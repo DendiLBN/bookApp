@@ -2,23 +2,22 @@ import { Key, useEffect } from "react";
 
 import { Spin, Table, TableProps } from "antd";
 
-import { columns } from "@/components/book-view/states/book-table-columns";
-
-import { useBooksFormContext } from "@/context/hooks/use-form-book-context";
-
-import { BookSearch } from "@/components/book-view/filters/book-search";
-
-import { CategorySelect } from "@/components/book-view/filters/category-select";
-import { DeleteBooksButton } from "@/components/book-view/buttons/delete-books-button";
+import { DeleteBooksButton } from "@/features/book-page/components/delete-button/index";
 
 import { UseFetchBodyBooks } from "./hooks/useFetchBooksList";
 
-import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks";
+import { useDeleteAsArrayBooks } from "./hooks/useDeleteAsArrayBooks";
+import { useFilteredBooks } from "./hooks/useFilteredBooks";
 
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
+import { columns } from "./states/book-table-columns";
+
+import { BookSearch } from "./filters/book-search";
+import { CategorySelect } from "./filters/category-select";
+
+import { useBooksFormContext } from "./contexts/hooks/use-form-book-context";
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 import { TBookBody } from "@/types/types";
-import { useDeleteAsArrayBooks } from "./hooks/useDeleteAsArrayBooks";
 
 export const BookView: React.FC = () => {
   const { loading, openNotification } = useNotificationContext();

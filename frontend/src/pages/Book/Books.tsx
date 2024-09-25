@@ -1,6 +1,6 @@
-import { BookFormContextProvider } from "@/context/book-store-context";
+import { BookFormContextProvider } from "@/features/book-page/contexts/book-store-context";
 
-import { BookView } from "@/components/book-view/book-view";
+import { BookView } from "@/features/book-page/Book";
 
 export const Book = () => (
   <>

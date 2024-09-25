@@ -1,13 +1,17 @@
-import { Layout, Menu } from "antd";
 import { useSelector } from "react-redux";
+
+import { Layout, Menu } from "antd";
+
 import {
   leftMenuItems,
   middleMenuItems,
   rightMenuItems,
 } from "@/layouts/header/states/menu-items";
+
 import "@/assets/layouts-styles/header.css";
-import { LogoutButton } from "@/features/Pages/LoginPage/hooks/useLogoutUser";
-import { selectIsLoggedIn } from "@/common/store/reducers/user";
+
+import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
+import { selectIsLoggedIn } from "@/store/reducers/user/index";
 
 const { Header } = Layout;
 

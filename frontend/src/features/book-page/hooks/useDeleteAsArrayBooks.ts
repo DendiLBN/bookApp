@@ -1,13 +1,13 @@
 import { useCallback } from "react";
 
-import { useDeleteManyBooksMutation } from "@/common/store/api/books";
+import { useDeleteManyBooksMutation } from "@/store/api/books";
 
-import { useBooksFormContext } from "@/context/hooks/use-form-book-context";
-
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
+import { useBooksFormContext } from "../contexts/hooks/use-form-book-context";
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 export const useDeleteAsArrayBooks = () => {
   const { setLoading, openNotification } = useNotificationContext();
+
   const { selectedBookRowKeys, setSelectedBookRowKeys } = useBooksFormContext();
 
   const [deleteBooks] = useDeleteManyBooksMutation();

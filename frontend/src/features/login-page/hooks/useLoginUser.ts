@@ -1,9 +1,10 @@
 import { useCallback } from "react";
 
-import { useLoginUserMutation } from "@/common/store/api/user";
+import { useLoginUserMutation } from "@/store/api/user";
+
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 import { TLoginUserRequestBody } from "@/types/types";
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
 
 export const useLoginUser = () => {
   const [loginUser, { isLoading }] = useLoginUserMutation();
