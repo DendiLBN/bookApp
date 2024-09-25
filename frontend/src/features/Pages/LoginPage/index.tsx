@@ -15,9 +15,7 @@ export const LoginPage = () => {
   const { fetchBodyLoginUser, loading } = useLoginUser();
 
   const handleSubmitLogin = (values: TLoginUserRequestBody) => {
-    if (!loading) {
-      fetchBodyLoginUser(values);
-    }
+    fetchBodyLoginUser(values);
   };
 
   return (

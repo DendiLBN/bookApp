@@ -1,15 +1,23 @@
 import { Key, useEffect } from "react";
+
 import { Spin, Table, TableProps } from "antd";
 
 import { columns } from "@/components/book-view/states/book-table-columns";
+
 import { useBooksFormContext } from "@/context/hooks/use-form-book-context";
+
 import { BookSearch } from "@/components/book-view/filters/book-search";
+
 import { CategorySelect } from "@/components/book-view/filters/category-select";
 import { DeleteBooksButton } from "@/components/book-view/buttons/delete-books-button";
-import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks";
-import { TBookBody } from "@/types/types";
-import { useNotificationContext } from "@/context/hooks/use-notification-context";
+
 import { UseFetchBodyBooks } from "./hooks/useFetchBooksList";
+
+import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks";
+
+import { useNotificationContext } from "@/context/hooks/use-notification-context";
+
+import { TBookBody } from "@/types/types";
 
 export const BookView: React.FC = () => {
   const { loading, openNotification } = useNotificationContext();
@@ -49,7 +57,7 @@ export const BookView: React.FC = () => {
       openNotification(
         "topRight",
         "error",
-        "Cannot select more than 20 books.",
+        "An error occurred while selecting books. You can select up to 20 books.",
         true
       );
     }
