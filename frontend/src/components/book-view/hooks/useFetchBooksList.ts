@@ -1,7 +1,4 @@
-import {
-  useDeleteManyBooksMutation,
-  useFetchBooksQuery,
-} from "@/common/store/api/books";
+import { useFetchBooksQuery } from "@/common/store/api/books";
 import { useBooksFormContext } from "@/context/hooks/use-form-book-context";
 import { useNotificationContext } from "@/context/hooks/use-notification-context";
 
@@ -11,15 +8,11 @@ export const UseFetchBodyBooks = () => {
   const { setLoading, openNotification } = useNotificationContext();
   const {
     selectedCategories,
-    selectedBookRowKeys,
     bookSearchText,
     setFetchBookList,
-    setSelectedBookRowKeys,
     currentPage,
     itemsPerPage,
   } = useBooksFormContext();
-
-  const [deleteBooks] = useDeleteManyBooksMutation();
 
   const { data: fetchedBookList = [] } = useFetchBooksQuery({
     page: currentPage,
@@ -47,40 +40,8 @@ export const UseFetchBodyBooks = () => {
     }
   }, [setLoading, setFetchBookList, fetchedBookList, handleError]);
 
-  const handleOnSuccesDelete = useCallback(() => {
-    openNotification(
-      "topRight",
-      "success",
-      "Book delete successfully!.",
-      false
-    );
-    setSelectedBookRowKeys([]);
-  }, [openNotification, setSelectedBookRowKeys]);
-
-  const handleErrorDelete = useCallback(() => {
-    openNotification(
-      "topRight",
-      "error",
-      "An error occurred while deleting books! Please try again.",
-      false
-    );
-  }, [openNotification]);
-
-  const handleDeleteBooksAsArray = async () => {
-    if (!selectedBookRowKeys.length) return;
-    setLoading(true);
-    try {
-      await deleteBooks(selectedBookRowKeys).unwrap();
-      handleOnSuccesDelete();
-    } catch (error) {
-      handleErrorDelete();
-      setLoading(false);
-    }
-  };
-
   return {
     fetchBooksList,
-    handleDeleteBooksAsArray,
     currentPage,
     itemsPerPage,
   };

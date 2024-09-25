@@ -18,16 +18,14 @@ import { useFilteredBooks } from "@/components/book-view/hooks/useFilteredBooks"
 import { useNotificationContext } from "@/context/hooks/use-notification-context";
 
 import { TBookBody } from "@/types/types";
+import { useDeleteAsArrayBooks } from "./hooks/useDeleteAsArrayBooks";
 
 export const BookView: React.FC = () => {
   const { loading, openNotification } = useNotificationContext();
 
-  const {
-    fetchBooksList,
-    handleDeleteBooksAsArray,
-    currentPage,
-    itemsPerPage,
-  } = UseFetchBodyBooks();
+  const { fetchBooksList, currentPage, itemsPerPage } = UseFetchBodyBooks();
+
+  const { handleDeleteArray } = useDeleteAsArrayBooks();
 
   const {
     selectedCategories,
@@ -92,7 +90,7 @@ export const BookView: React.FC = () => {
           <DeleteBooksButton
             selectedBookRowKeys={selectedBookRowKeys}
             loading={loading}
-            onDelete={handleDeleteBooksAsArray}
+            onDelete={handleDeleteArray}
           />
         </div>
       </div>
