@@ -6,7 +6,7 @@ import {
   leftMenuItems,
   middleMenuItems,
   rightMenuItems,
-} from "@/layouts/header/states/menu-items";
+} from "@/layouts/header/consts/menu-items";
 
 import "@/assets/layouts-styles/header.css";
 

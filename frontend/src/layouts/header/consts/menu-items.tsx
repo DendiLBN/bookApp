@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
+
 import {
   HomeOutlined,
   // ShoppingCartOutlined,
   SnippetsFilled,
   UserOutlined,
 } from "@ant-design/icons";
+
 import { MenuProps } from "antd";
-import { ThemeButton } from "@/layouts/header/buttons/theme-button";
+
+import { ThemeButton } from "@/layouts/header/components/theme-button/index.tsx";
 
 export const leftMenuItems: MenuProps["items"] = [
   {
