@@ -1,33 +1,26 @@
-import { useSelector } from "react-redux";
-
 import { Routes, Route } from "react-router-dom";
 
 import { Home } from "@/pages/Home/Home";
+
 import { Book } from "@/pages/Book/Books";
 
 import { AuthRoutes } from "@/routes/Auth.routes";
 
 import { ProtectedRoutes } from "./Protected.routes";
 
-import { selectIsLoggedIn } from "../store/reducers/user/index";
+import { Error404 } from "@/common/error-boundary/error/404";
 
 export const LandingPageRouting = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
   return (
     <Routes>
       <Route path="/*" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/book" element={<Book />} />
 
-      {!isLoggedIn && <Route path="/auth/*" element={<AuthRoutes />} />}
-      {!isLoggedIn && <Route path="/private/*" element={<ProtectedRoutes />} />}
+      <Route path="/auth/*" element={<AuthRoutes />} />
+      <Route path="/protected/*" element={<ProtectedRoutes />} />
 
-      <Route path="*" element={<NotFound />} />
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
-};
-// TODO ADD ERROR BOUNDARIES FOR NOT FOUND PAGE
-const NotFound: React.FC = () => {
-  return <div>404 - Page Not Found</div>;
 };

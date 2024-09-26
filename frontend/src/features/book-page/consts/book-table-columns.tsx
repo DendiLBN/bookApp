@@ -3,8 +3,7 @@ import { ColumnsType } from "antd/es/table";
 import {
   FrownOutlined,
   MehOutlined,
-  ProfileOutlined,
-  ShoppingCartOutlined,
+  DeleteOutlined,
   SmileOutlined,
 } from "@ant-design/icons";
 
@@ -86,12 +85,8 @@ export const columns: ColumnsType<TBookBody> = [
     render: () => {
       return (
         <Space>
-          <Button type="primary" icon={<ShoppingCartOutlined />}>
-            Add to cart
-          </Button>
-
-          <Button type="default" icon={<ProfileOutlined />}>
-            pre-review
+          <Button type="primary" icon={<DeleteOutlined />}>
+            Remove from favorites
           </Button>
         </Space>
       );

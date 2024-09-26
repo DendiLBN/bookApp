@@ -8,7 +8,7 @@ import { useRegistrationUser } from "./hooks/useRegistrationUser";
 
 import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
 
-import initialRegisterValues from "./state/register-state-values";
+import initialRegisterValues from "./consts/register-state-values";
 
 import "@/assets/layouts-styles/register-styles/register.css";
 
