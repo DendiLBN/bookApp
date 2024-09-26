@@ -1,15 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { userApi } from "./api/user";
-import { userReducer } from "./reducers/user";
+
 import { bookApi } from "./api/books";
+import { authApi } from "./api/auth";
+import { authReducer } from "./reducers/auth";
 
 const apiReducers = {
-  [userApi.reducerPath]: userApi.reducer,
+  [authApi.reducerPath]: authApi.reducer,
   [bookApi.reducerPath]: bookApi.reducer,
-  [userReducer.name]: userReducer.reducer,
+  [authReducer.name]: authReducer.reducer,
 };
 
-export const apiMiddlewares = [userApi.middleware, bookApi.middleware];
+export const apiMiddlewares = [authApi.middleware, bookApi.middleware];
 
 export const store = configureStore({
   reducer: apiReducers,

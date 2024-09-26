@@ -8,7 +8,14 @@ export type TLoginUserResponse = {
   refreshToken: string;
 };
 
-export type TLogoutUserResponse = {
-  accessToken: string;
-  refreshToken: string;
+export type TLogOutUserResponse = TLoginUserResponse;
+
+export type IUser = {
+  _id: string;
+  email: string;
+};
+
+export type TUserData = {
+  user: IUser;
+  password: string;
 };

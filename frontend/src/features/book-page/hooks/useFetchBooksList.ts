@@ -4,16 +4,15 @@ import { useFetchBooksQuery } from "@/store/api/books";
 
 import { useBooksFormContext } from "../contexts/hooks/use-form-book-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
+import { UsePagination } from "@/common/hooks/pagination/usePagination";
 
 export const UseFetchBodyBooks = () => {
   const { setLoading, openNotification } = useNotificationContext();
-  const {
-    selectedCategories,
-    bookSearchText,
-    setFetchBookList,
-    currentPage,
-    itemsPerPage,
-  } = useBooksFormContext();
+
+  const { currentPage, itemsPerPage } = UsePagination();
+
+  const { selectedCategories, bookSearchText, setFetchBookList } =
+    useBooksFormContext();
 
   const { data: fetchedBookList = [] } = useFetchBooksQuery({
     page: currentPage,

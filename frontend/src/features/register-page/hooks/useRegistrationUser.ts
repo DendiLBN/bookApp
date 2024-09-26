@@ -5,7 +5,7 @@ import { TRegisterUserRequestBody } from "@/types/types";
 
 import { TRegisterUserResponse } from "@/types/api/user";
 
-import { useRegisterUserMutation } from "@/store/api/user";
+import { useRegisterUserMutation } from "@/store/api/auth/index";
 
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 

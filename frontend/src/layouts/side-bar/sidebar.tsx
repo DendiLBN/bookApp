@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Layout, Menu } from "antd";
 
-import { itemsSideBar } from "@/layouts/side-bar/states/items-side-bar";
-import { useIsLoggedIn } from "@/common/hooks/use-is-logged-in";
+import { itemsSideBar } from "@/layouts/side-bar/consts/items-side-bar";
 
 import "@/assets/layouts-styles/sidebar.css";
 
@@ -11,15 +10,9 @@ const { Sider } = Layout;
 export const LandingPageSideBar = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
-  const isLoggedIn = useIsLoggedIn();
-
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
-
-  if (!isLoggedIn) {
-    return null;
-  }
 
   return (
     <Sider

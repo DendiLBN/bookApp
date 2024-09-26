@@ -33,7 +33,7 @@ export const LoginPage = () => {
         }}
         onFinish={handleSubmitLogin}
       >
-        <h1 className="login__title">Please login here!</h1>
+        <h1 className="login__title">Please login!</h1>
 
         <Form.Item
           name="email"

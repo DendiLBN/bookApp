@@ -8,10 +8,11 @@ import {
   rightMenuItems,
 } from "@/layouts/header/consts/menu-items";
 
-import "@/assets/layouts-styles/header.css";
+import { selectIsLoggedIn } from "@/store/reducers/auth";
 
 import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
-import { selectIsLoggedIn } from "@/store/reducers/user/index";
+
+import "@/assets/layouts-styles/header.css";
 
 const { Header } = Layout;
 

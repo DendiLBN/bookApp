@@ -1,10 +1,10 @@
 import { Suspense } from "react";
+import { useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import { Home } from "@/pages/Home/Home";
 
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/store/reducers/user/index";
+import { selectIsLoggedIn } from "@/store/reducers/auth";
 
 export const ProtectedRoutes = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);

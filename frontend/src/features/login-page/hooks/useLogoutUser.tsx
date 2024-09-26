@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
 
-import { selectIsLoggedIn } from "@/store/reducers/user";
-import { useLogoutUserMutation } from "@/store/api/user/index";
+import { selectIsLoggedIn } from "@/store/reducers/auth";
+import { useLogOutUserMutation } from "@/store/api/auth";
 
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
@@ -17,7 +17,7 @@ export const LogoutButton: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const [logoutUser] = useLogoutUserMutation();
+  const [logOutUser] = useLogOutUserMutation();
 
   const handleSuccess = useCallback(() => {
     openNotification("topRight", "success", "Logged out successfully!", true);
@@ -35,11 +35,11 @@ export const LogoutButton: React.FC = () => {
   }, [openNotification]);
 
   const fetchBodyLogout = useCallback(async () => {
-    logoutUser({
+    logOutUser({
       onSuccess: handleSuccess,
       onError: handleError,
     }).unwrap();
-  }, [logoutUser, handleSuccess, handleError]);
+  }, [logOutUser, handleSuccess, handleError]);
 
   return isLoggedIn ? (
     <Button

@@ -19,13 +19,16 @@ import { BookSearch } from "./components/filters/book-search";
 import { CategorySelect } from "@/features/book-page/components/filters/category-select";
 
 import { columns } from "@/features/book-page/consts/book-table-columns";
+import { UsePagination } from "@/common/hooks/pagination/usePagination";
 
 export const BookView: React.FC = () => {
   const { loading, openNotification } = useNotificationContext();
 
-  const { fetchBooksList, currentPage, itemsPerPage } = UseFetchBodyBooks();
+  const { fetchBooksList } = UseFetchBodyBooks();
 
   const { handleDeleteArray } = useDeleteAsArrayBooks();
+
+  const { handleChangePagination, currentPage, itemsPerPage } = UsePagination();
 
   const {
     selectedCategories,
@@ -37,8 +40,6 @@ export const BookView: React.FC = () => {
     setFilteredBookList,
     setSelectedCategories,
     setSelectedBookRowKeys,
-    setItemsPerPage,
-    setCurrentPage,
   } = useBooksFormContext();
 
   useFilteredBooks({
@@ -64,11 +65,6 @@ export const BookView: React.FC = () => {
   useEffect(() => {
     fetchBooksList();
   }, [fetchBooksList, currentPage, itemsPerPage]);
-
-  const handleChangePagination = (page: number, pageSize: number) => {
-    setCurrentPage(page);
-    setItemsPerPage(pageSize);
-  };
 
   const rowSelection: TableProps<TBookBody>["rowSelection"] = {
     selectedRowKeys: selectedBookRowKeys,

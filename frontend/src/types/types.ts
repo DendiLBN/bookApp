@@ -66,6 +66,7 @@ export type TLoginUserParams = {
 
 export type TTokens = {
   accessToken: string;
+  refreshToken: string;
 };
 
 export type TLogoutRequestBody = {

@@ -1,11 +1,9 @@
 import axiosBaseQuery from "@/common/vendors/axios-base-query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-
-import { logoutUser, setIsLoggedIn } from "../../reducers/user";
-
+import { logOutUser, setIsLoggedIn } from "../../reducers/auth";
 import {
   TLoginUserResponse,
-  TLogoutUserResponse,
+  TLogOutUserResponse,
   TRegisterUserResponse,
 } from "@/types/api/user";
 import {
@@ -15,10 +13,9 @@ import {
 } from "@/types/types";
 import { setTokens } from "@/common/utils/setTokens";
 
-export const userApi = createApi({
-  reducerPath: "userApi",
+export const authApi = createApi({
+  reducerPath: "authApi",
   baseQuery: axiosBaseQuery(),
-  tagTypes: [],
   endpoints: (builder) => ({
     registerUser: builder.mutation<TRegisterUserResponse, TRegisterUserParams>({
       query: ({ data }) => ({
@@ -29,7 +26,6 @@ export const userApi = createApi({
       onQueryStarted: async ({ onSuccess, onError }, { queryFulfilled }) => {
         try {
           const response = await queryFulfilled;
-
           if (response) {
             onSuccess(response.data);
           }
@@ -50,24 +46,21 @@ export const userApi = createApi({
       ) => {
         try {
           const response = await queryFulfilled;
-
           if (response) {
-            const accessToken = response.data.accessToken;
+            const { accessToken, refreshToken } = response.data;
 
-            setTokens({
-              accessToken,
-            });
+            setTokens({ accessToken, refreshToken });
+
             onSuccess(response.data);
           }
-
           dispatch(setIsLoggedIn(true));
         } catch (error) {
           onError();
-          return;
         }
       },
     }),
-    logoutUser: builder.mutation<TLogoutUserResponse, TLogoutUserParams>({
+
+    logOutUser: builder.mutation<TLogOutUserResponse, TLogoutUserParams>({
       query: () => {
         const accessToken = localStorage.getItem("accessToken");
         const refreshToken = localStorage.getItem("refreshToken");
@@ -76,8 +69,9 @@ export const userApi = createApi({
           method: "POST",
           url: `auth/logout/`,
           headers: {
-            Authorization: `Bearer ${accessToken}, ${refreshToken} `,
+            Authorization: `Bearer ${accessToken}`,
           },
+          data: { refreshToken },
         };
       },
       onQueryStarted: async (
@@ -88,7 +82,10 @@ export const userApi = createApi({
           const response = await queryFulfilled;
 
           if (response) {
-            dispatch(logoutUser());
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+
+            dispatch(logOutUser());
             onSuccess();
           }
 
@@ -104,5 +101,5 @@ export const userApi = createApi({
 export const {
   useRegisterUserMutation,
   useLoginUserMutation,
-  useLogoutUserMutation,
-} = userApi;
+  useLogOutUserMutation,
+} = authApi;

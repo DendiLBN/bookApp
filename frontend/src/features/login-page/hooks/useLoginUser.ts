@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 
-import { useLoginUserMutation } from "@/store/api/user";
+import { useLoginUserMutation } from "@/store/api/auth/index";
 
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
