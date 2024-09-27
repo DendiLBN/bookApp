@@ -3,6 +3,11 @@ export type TRegisterUserResponse = {
   email: string;
 };
 
+export type TLoginUserResponseData = {
+  email: string;
+  firstName: string;
+};
+
 export type TLoginUserResponse = {
   accessToken: string;
   refreshToken: string;
