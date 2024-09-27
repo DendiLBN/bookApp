@@ -3,7 +3,7 @@ import { useCallback } from "react";
 
 import { TRegisterUserRequestBody } from "@/types/types";
 
-import { TRegisterUserResponse } from "@/types/api/user";
+import { TRegisterUserResponse } from "@/types/api/auth-user";
 
 import { useRegisterUserMutation } from "@/store/api/auth/index";
 
@@ -21,7 +21,7 @@ export const useRegistrationUser = () => {
       openNotification(
         "topRight",
         "success",
-        `Your account has been created successfully! ${data.email}. Welcome to our bookstore! ${data.firstName}! Please login now.`,
+        `Your account has been created successfully! ${data.email}, ${data.firstName}.`,
         false
       );
 

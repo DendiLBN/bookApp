@@ -5,7 +5,7 @@ import {
   TLoginUserResponse,
   TLogOutUserResponse,
   TRegisterUserResponse,
-} from "@/types/api/user";
+} from "@/types/api/auth-user";
 import {
   TLoginUserParams,
   TLogoutUserParams,
@@ -23,6 +23,7 @@ export const authApi = createApi({
         url: `auth/register/`,
         data,
       }),
+
       onQueryStarted: async ({ onSuccess, onError }, { queryFulfilled }) => {
         try {
           const response = await queryFulfilled;
@@ -34,6 +35,7 @@ export const authApi = createApi({
         }
       },
     }),
+
     loginUser: builder.mutation<TLoginUserResponse, TLoginUserParams>({
       query: ({ data }) => ({
         method: "POST",
@@ -74,6 +76,7 @@ export const authApi = createApi({
           data: { refreshToken },
         };
       },
+
       onQueryStarted: async (
         { onSuccess, onError },
         { dispatch, queryFulfilled }
