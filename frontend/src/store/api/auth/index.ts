@@ -12,6 +12,7 @@ import {
   TRegisterUserParams,
 } from "@/types/types";
 import { setTokens } from "@/common/utils/setTokens";
+import { userApi } from "../users";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -42,22 +43,29 @@ export const authApi = createApi({
         url: `auth/login/`,
         data,
       }),
-      onQueryStarted: async (
-        { onSuccess, onError },
-        { dispatch, queryFulfilled }
-      ) => {
+      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
         try {
           const response = await queryFulfilled;
-          if (response) {
-            const { accessToken, refreshToken } = response.data;
 
-            setTokens({ accessToken, refreshToken });
-
-            onSuccess(response.data);
+          if (!response) {
+            return;
           }
+
+          const { accessToken, refreshToken } = response.data;
+
+          setTokens({ accessToken, refreshToken });
+
+          const userResponse = await dispatch(
+            userApi.endpoints.fetchUsers.initiate()
+          );
+
+          if (!userResponse) {
+            return;
+          }
+
           dispatch(setIsLoggedIn(true));
         } catch (error) {
-          onError();
+          console.log(`error`, error);
         }
       },
     }),

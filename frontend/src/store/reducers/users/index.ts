@@ -1,28 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type TUserReducer = {
+export type TUserState = {
   _id: string;
   email: string;
 };
 
-const initialState: TUserReducer = {
+const initialState: TUserState = {
   _id: "",
   email: "",
 };
 
-export const userReducer = createSlice({
-  name: "userReducer",
+export const userSlice = createSlice({
+  name: "user",
   initialState,
   reducers: {
-    refetchUser: (state, action: PayloadAction<TUserReducer>) => {
+    setUser: (state, action: PayloadAction<TUserState>) => {
       state._id = action.payload._id;
       state.email = action.payload.email;
-    },
-    clearUser: (state) => {
-      state._id = "";
-      state.email = "";
     },
   },
 });
 
-export const { refetchUser, clearUser } = userReducer.actions;
+export const { setUser } = userSlice.actions;
+export default userSlice.reducer;
