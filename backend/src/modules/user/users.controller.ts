@@ -1,41 +1,23 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 import { AccessTokenGuard } from '../../common/guards/access-token-guard';
+import { JwtPayload } from 'src/common/strategy/acces-token-strategy';
+import { GetUserFromToken } from 'src/common/decorators/get-users-from-token-decorators';
 
-@Controller('register')
-export class UserController {
-  constructor(private readonly userService: UsersService) {}
+@Controller('users')
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
 
-  @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.userService.createUser(createUserDto);
+  @UseGuards(AccessTokenGuard)
+  @Get('me')
+  getMe(@GetUserFromToken() user: JwtPayload) {
+    return this.usersService.getUserById(user.id);
   }
 
   @UseGuards(AccessTokenGuard)
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.userService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(id, updateUserDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(id);
+  @Delete('me')
+  deleteMe(@GetUserFromToken() user: JwtPayload) {
+    return this.usersService.remove(user.id);
   }
 }
