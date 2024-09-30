@@ -9,6 +9,7 @@ import { AuthRoutes } from "@/routes/Auth.routes";
 import { ProtectedRoutes } from "./Protected.routes";
 
 import { Error404 } from "@/common/error-boundary/error/404";
+import SuccessFully from "@/common/error-boundary/on-success/index";
 
 export const LandingPageRouting = () => {
   return (
@@ -19,6 +20,7 @@ export const LandingPageRouting = () => {
 
       <Route path="/auth/*" element={<AuthRoutes />} />
       <Route path="/protected/*" element={<ProtectedRoutes />} />
+      <Route path="/success" element={<SuccessFully />} />
 
       <Route path="*" element={<Error404 />} />
     </Routes>

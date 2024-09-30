@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
 import { TRegisterUserRequestBody } from "@/types/types";
 
-import { TRegisterUserResponse } from "@/types/api/auth-user";
-
 import { useRegisterUserMutation } from "@/store/api/auth/index";
 
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
+
+import { useNavigate } from "react-router-dom";
+
+import { TRegisterUserResponse } from "@/types/api/auth-user";
 
 export const useRegistrationUser = () => {
   const [registerUser, { isLoading }] = useRegisterUserMutation();
@@ -18,25 +19,18 @@ export const useRegistrationUser = () => {
 
   const handleSuccess = useCallback(
     (data: TRegisterUserResponse) => {
-      openNotification(
-        "topRight",
-        "success",
-        `Your account has been created successfully! ${data.email}, ${data.firstName}.`,
-        false
-      );
-
-      setTimeout(() => {
-        navigate("/auth/login");
-      }, 3000);
+      navigate("/success", {
+        state: { firstName: data.firstName, email: data.email },
+      });
     },
-    [navigate, openNotification]
+    [navigate]
   );
 
   const handleError = useCallback(() => {
     openNotification(
       "topRight",
       "error",
-      "An error occurred while registering user!. Please try again later.",
+      "An error occurred while registering user. Please try again later.",
       false
     );
   }, [openNotification]);
@@ -57,7 +51,7 @@ export const useRegistrationUser = () => {
         },
         onSuccess: handleSuccess,
         onError: handleError,
-      });
+      }).unwrap();
     },
     [handleError, registerUser, handleSuccess]
   );
