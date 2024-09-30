@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { selectIsLoggedIn } from "@/store/reducers/auth";
 
 const LoginPage = lazy(() => import("@/pages/Auth/Login"));
+
 const RegisterPage = lazy(() => import("@/pages/Auth/Register"));
 
 export const AuthRoutes = () => {

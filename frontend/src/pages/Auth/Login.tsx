@@ -1,6 +1,6 @@
 import LoginPage from "@/features/login-page/index";
 
-export const Login = () => (
+const Login = () => (
   <>
     <LoginPage />
   </>
