@@ -100,7 +100,7 @@ export const LoginPage = () => {
               "Log in"
             )}
           </Button>
-          or <Link to="/auth/register">Register now!</Link>
+          or <Link to="pages/auth/register">Register now!</Link>
         </Form.Item>
       </Form>
 

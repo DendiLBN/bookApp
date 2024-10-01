@@ -1,20 +1,16 @@
 import { Suspense } from "react";
-import { useSelector } from "react-redux";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import { Home } from "@/pages/Home/Home";
-
-import { selectIsLoggedIn } from "@/store/reducers/auth";
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 export const ProtectedRoutes = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { loading } = useNotificationContext();
 
-  if (!isLoggedIn) {
-    return <Navigate to="/auth/login" replace />;
-  }
-  // TODO Add loading spinner
+  if (loading) return;
+
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={loading}>
       <Routes>
         <Route path="/*" element={<Home />} />
       </Routes>

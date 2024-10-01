@@ -1,25 +1,19 @@
 import { lazy, Suspense } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { Routes, Route } from "react-router-dom";
 
-import { selectIsLoggedIn } from "@/store/reducers/auth";
+import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 const LoginPage = lazy(() => import("@/pages/Auth/Login"));
 
-const RegisterPage = lazy(() => import("@/pages/Auth/Register"));
-
 export const AuthRoutes = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { loading } = useNotificationContext();
 
-  if (isLoggedIn) {
-    return <Navigate to="/home" replace />;
-  }
+  if (loading) return;
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={loading}>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
       </Routes>
     </Suspense>
   );
