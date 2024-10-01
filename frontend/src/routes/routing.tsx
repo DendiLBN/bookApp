@@ -10,6 +10,7 @@ import { ProtectedRoutes } from "./Protected.routes";
 
 import { Error404 } from "@/common/error-boundary/error/404";
 import SuccessFully from "@/common/error-boundary/on-success/index";
+import Register from "@/pages/Auth/Register";
 
 export const LandingPageRouting = () => {
   return (
@@ -19,6 +20,7 @@ export const LandingPageRouting = () => {
       <Route path="/book" element={<Book />} />
 
       <Route path="/auth/*" element={<AuthRoutes />} />
+      <Route path="/register" element={<Register />} />
       <Route path="/protected/*" element={<ProtectedRoutes />} />
       <Route path="/success" element={<SuccessFully />} />
 

@@ -13,6 +13,7 @@ import {
 } from "@/types/types";
 import { setTokens } from "@/common/utils/setTokens";
 import { userApi } from "../users";
+import { clearUser } from "@/store/reducers/users";
 
 export const authApi = createApi({
   reducerPath: "authApi",
@@ -63,9 +64,11 @@ export const authApi = createApi({
             return;
           }
 
-          dispatch(setIsLoggedIn(true));
+          if (userResponse?.data) {
+            dispatch(setIsLoggedIn(true));
+          }
         } catch (error) {
-          console.log(`error`, error);
+          console.log(`Error during login, process`, error);
         }
       },
     }),
@@ -81,6 +84,7 @@ export const authApi = createApi({
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
+
           data: { refreshToken },
         };
       },
@@ -95,7 +99,7 @@ export const authApi = createApi({
           if (response) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
-
+            clearUser();
             dispatch(logOutUser());
             onSuccess();
           }
