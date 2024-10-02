@@ -77,4 +77,5 @@ export type TLogoutRequestBody = {
 export type TLogoutUserParams = {
   onSuccess: (data: void) => void;
   onError: () => void;
+  refreshToken: string;
 };
