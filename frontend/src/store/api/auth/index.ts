@@ -25,15 +25,12 @@ export const authApi = createApi({
         url: `auth/register/`,
         data,
       }),
-
-      onQueryStarted: async ({ onSuccess, onError }, { queryFulfilled }) => {
+      async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           const response = await queryFulfilled;
-          if (response) {
-            onSuccess(response.data);
-          }
+          console.log("User registered successfully!", response);
         } catch (error) {
-          onError();
+          console.error("Error during registration:", error);
         }
       },
     }),
@@ -48,27 +45,20 @@ export const authApi = createApi({
         try {
           const response = await queryFulfilled;
 
-          if (!response) {
-            return;
-          }
+          if (!response) return;
 
           const { accessToken, refreshToken } = response.data;
-
           setTokens({ accessToken, refreshToken });
 
           const userResponse = await dispatch(
             userApi.endpoints.fetchUsers.initiate()
           );
 
-          if (!userResponse) {
-            return;
-          }
-
           if (userResponse?.data) {
             dispatch(setIsLoggedIn(true));
           }
         } catch (error) {
-          console.log(`Error during login, process`, error);
+          console.error("Error during login process:", error);
         }
       },
     }),
@@ -84,29 +74,26 @@ export const authApi = createApi({
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-
           data: { refreshToken },
         };
       },
 
-      onQueryStarted: async (
-        { onSuccess, onError },
-        { dispatch, queryFulfilled }
-      ) => {
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const response = await queryFulfilled;
 
           if (response) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
-            clearUser();
-            dispatch(logOutUser());
-            onSuccess();
-          }
 
-          dispatch(setIsLoggedIn(false));
+            dispatch(clearUser());
+            dispatch(logOutUser());
+            dispatch(setIsLoggedIn(false));
+
+            console.log("User logged out successfully!");
+          }
         } catch (error) {
-          onError();
+          console.error("Error during logout:", error);
         }
       },
     }),

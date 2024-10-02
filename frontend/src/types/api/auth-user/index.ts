@@ -13,4 +13,7 @@ export type TLoginUserResponse = {
   refreshToken: string;
 };
 
-export type TLogOutUserResponse = TLoginUserResponse;
+export type TLogOutUserResponse = {
+  accessToken: string;
+  refreshToken: string;
+};

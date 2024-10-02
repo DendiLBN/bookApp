@@ -1,28 +1,20 @@
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
-
-import { selectIsLoggedIn } from "@/store/reducers/auth";
 import { useLogOutUserMutation } from "@/store/api/auth";
-
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 export const LogoutButton: React.FC = () => {
   const { openNotification } = useNotificationContext();
-
-  const isLoggedIn = useSelector(selectIsLoggedIn);
-
   const navigate = useNavigate();
-
   const [logOutUser] = useLogOutUserMutation();
 
   const handleSuccess = useCallback(() => {
     openNotification("topRight", "success", "Logged out successfully!", true);
 
     navigate("/auth/login");
+    window.location.reload();
   }, [navigate, openNotification]);
 
   const handleError = useCallback(() => {
@@ -34,23 +26,31 @@ export const LogoutButton: React.FC = () => {
     );
   }, [openNotification]);
 
-  const fetchBodyLogout = useCallback(async () => {
-    logOutUser({
-      onSuccess: handleSuccess,
-      onError: handleError,
-    }).unwrap();
-  }, [logOutUser, handleSuccess, handleError]);
+  const handleLogout = async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
 
-  return isLoggedIn ? (
+    if (!refreshToken) {
+      throw new Error("You get logout!");
+    }
+
+    try {
+      await logOutUser({
+        refreshToken,
+        onSuccess: handleSuccess,
+        onError: handleError,
+      }).unwrap();
+    } catch (error) {
+      error;
+    }
+  };
+
+  return (
     <Button
-      style={{
-        padding: "31px",
-        borderRadius: "0px",
-      }}
+      style={{ padding: "31px", borderRadius: "0px" }}
       icon={<LogoutOutlined />}
-      onClick={fetchBodyLogout}
+      onClick={handleLogout}
     >
       Logout
     </Button>
-  ) : null;
+  );
 };

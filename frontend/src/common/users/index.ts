@@ -1,24 +1,25 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { setUser, clearUser } from "@/store/reducers/users";
 import { useFetchUsersQuery } from "@/store/api/users";
 
-const useFetchUser = () => {
-  const { data: userData, error, refetch } = useFetchUsersQuery();
+const useUser = () => {
+  const { data: user, error, refetch } = useFetchUsersQuery();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (userData) {
-      dispatch(setUser(userData));
+    if (user) {
+      dispatch(setUser(user));
     } else if (error) {
       dispatch(clearUser());
-      navigate("/login");
     }
-  }, [userData, error, dispatch, navigate]);
+  }, [user, error, dispatch]);
 
-  return { user: userData, refetchUser: refetch };
+  return {
+    user,
+    userId: user?._id,
+    refetchUser: refetch,
+  };
 };
 
-export default useFetchUser;
+export default useUser;

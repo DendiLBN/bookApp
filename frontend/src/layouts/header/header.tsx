@@ -1,5 +1,3 @@
-import { useSelector } from "react-redux";
-
 import { Layout, Menu } from "antd";
 
 import {
@@ -8,17 +6,18 @@ import {
   rightMenuItems,
 } from "@/layouts/header/consts/menu-items";
 
-import { selectIsLoggedIn } from "@/store/reducers/auth";
-
 import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
 
 import "@/assets/layouts-styles/header.css";
+import useUser from "@/common/users";
 
 const { Header } = Layout;
 
 export const LandingPageHeader = () => {
-  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { user } = useUser();
 
+  const isLoggedIn = !!user;
+  console.log(user);
   return (
     <Header className="header">
       <div className="header__content">
