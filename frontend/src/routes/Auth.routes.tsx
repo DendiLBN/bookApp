@@ -5,6 +5,8 @@ import { useNotificationContext } from "@/common/contexts/hooks/use-notification
 
 const LoginPage = lazy(() => import("@/pages/Auth/Login"));
 
+const RegisterPage = lazy(() => import("@/pages/Auth/Register"));
+
 export const AuthRoutes = () => {
   const { loading } = useNotificationContext();
 
@@ -14,6 +16,7 @@ export const AuthRoutes = () => {
     <Suspense fallback={loading}>
       <Routes>
         <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
       </Routes>
     </Suspense>
   );

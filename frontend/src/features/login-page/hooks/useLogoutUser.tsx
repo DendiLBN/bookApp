@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -7,14 +7,14 @@ import { useNotificationContext } from "@/common/contexts/hooks/use-notification
 
 export const LogoutButton: React.FC = () => {
   const { openNotification } = useNotificationContext();
+
   const navigate = useNavigate();
+
   const [logOutUser] = useLogOutUserMutation();
 
   const handleSuccess = useCallback(() => {
     openNotification("topRight", "success", "Logged out successfully!", true);
-
     navigate("/auth/login");
-    window.location.reload();
   }, [navigate, openNotification]);
 
   const handleError = useCallback(() => {
@@ -26,21 +26,22 @@ export const LogoutButton: React.FC = () => {
     );
   }, [openNotification]);
 
+  useEffect(() => {
+    console.log("Component mounted");
+
+    return () => {
+      console.log("Component unmounted");
+    };
+  }, []);
+
   const handleLogout = async () => {
-    const refreshToken = localStorage.getItem("refreshToken");
-
-    if (!refreshToken) {
-      throw new Error("You get logout!");
-    }
-
     try {
       await logOutUser({
-        refreshToken,
         onSuccess: handleSuccess,
         onError: handleError,
       }).unwrap();
     } catch (error) {
-      error;
+      console.error("Logout error:", error);
     }
   };
 
