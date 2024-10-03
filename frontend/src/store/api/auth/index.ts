@@ -78,22 +78,23 @@ export const authApi = createApi({
         };
       },
 
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      onQueryStarted: async (
+        { onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) => {
         try {
           const response = await queryFulfilled;
 
           if (response) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
-
+            onSuccess();
             dispatch(clearUser());
             dispatch(logOutUser());
             dispatch(setIsLoggedIn(false));
-
-            console.log("User logged out successfully!");
           }
         } catch (error) {
-          console.error("Error during logout:", error);
+          onError();
         }
       },
     }),

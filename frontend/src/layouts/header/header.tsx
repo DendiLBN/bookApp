@@ -1,13 +1,10 @@
 import { Layout, Menu } from "antd";
-
 import {
   leftMenuItems,
   middleMenuItems,
   rightMenuItems,
 } from "@/layouts/header/consts/menu-items";
-
 import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
-
 import "@/assets/layouts-styles/header.css";
 import useUser from "@/common/users";
 
@@ -17,7 +14,7 @@ export const LandingPageHeader = () => {
   const { user } = useUser();
 
   const isLoggedIn = !!user;
-  console.log(user);
+
   return (
     <Header className="header">
       <div className="header__content">
@@ -34,9 +31,9 @@ export const LandingPageHeader = () => {
           className="middle-menu"
         />
 
-        {isLoggedIn && <LogoutButton />}
-
-        {!isLoggedIn && (
+        {isLoggedIn ? (
+          <LogoutButton />
+        ) : (
           <Menu
             mode="horizontal"
             theme="light"

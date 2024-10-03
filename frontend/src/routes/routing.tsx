@@ -1,41 +1,28 @@
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import { Home } from "@/pages/Home/Home";
+
 import { Book } from "@/pages/Book/Books";
-import { AuthRoutes } from "@/routes/Auth.routes";
+
 import { ProtectedRoutes } from "./Protected.routes";
+
+import { AuthRoutes } from "@/routes/Auth.routes";
+
 import { Error404 } from "@/common/error-boundary/error/404";
+
 import SuccessFully from "@/common/error-boundary/on-success/index";
-import Register from "@/pages/Auth/Register";
-import useUser from "@/common/users";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "@/store/reducers/auth";
 
 export const LandingPageRouting = () => {
-  const navigate = useNavigate();
-  const { user, refetchUser } = useUser();
-
-  useEffect(() => {
-    if (!user) {
-      refetchUser();
-      navigate("/auth/login");
-    }
-  }, [user, refetchUser, navigate]);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <Routes>
-      <Route
-        path="/auth/*"
-        element={!user ? <AuthRoutes /> : <Navigate to="/protected" replace />}
-      />
-      <Route
-        path="/register"
-        element={!user ? <Register /> : <Navigate to="/protected" replace />}
-      />
-      <Route
-        path="/protected/*"
-        element={
-          user ? <ProtectedRoutes /> : <Navigate to="/auth/login" replace />
-        }
-      />
+      {!isLoggedIn && <Route path="/auth/*" element={<AuthRoutes />} />}
+      {isLoggedIn && (
+        <Route path="/protected/*" element={<ProtectedRoutes />} />
+      )}
       <Route path="/*" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/book" element={<Book />} />
