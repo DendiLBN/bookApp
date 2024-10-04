@@ -17,10 +17,10 @@ const { Option } = Select;
 export const RegisterPage = () => {
   const { isDarkMode } = useThemeContext();
 
-  const { fetchRegistrationUser } = useRegistrationUser();
+  const { RegistrationUserData } = useRegistrationUser();
 
   const handleSubmitRegister = (values: TRegisterUserRequestBody) => {
-    fetchRegistrationUser(values);
+    RegistrationUserData(values);
   };
 
   return (

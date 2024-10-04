@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 export const SuccessFully = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  // TODO ADD TYPES TO LOCATION
   const { firstName, email } = location.state;
 
   const handleLoginRedirect = () => {

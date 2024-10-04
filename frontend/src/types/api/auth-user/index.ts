@@ -17,3 +17,9 @@ export type TLogOutUserResponse = {
   accessToken: string;
   refreshToken: string;
 };
+
+export type TUser = {
+  _id: string;
+  email: string;
+  firstName: string;
+};
