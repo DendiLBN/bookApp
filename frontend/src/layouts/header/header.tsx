@@ -6,7 +6,7 @@ import {
 } from "@/layouts/header/consts/menu-items";
 import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
 import "@/assets/layouts-styles/header.css";
-import useUser from "@/common/users";
+import useUser from "@/common/users/useUser";
 
 const { Header } = Layout;
 

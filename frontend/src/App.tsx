@@ -1,10 +1,6 @@
-import React from "react";
-import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
 import { Layout } from "antd";
-
-import { store } from "@/store/index";
 
 import { AntdNotificationProvider } from "@/common/contexts/antd-notification-context";
 import { ThemeProvider } from "@/common/contexts/theme-context";
@@ -18,22 +14,20 @@ import ErrorBoundary from "./common/error-boundary";
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <AntdNotificationProvider>
-          <BrowserRouter>
-            <ErrorBoundary>
-              <LandingPageHeader />
-              <Layout>
-                <LandingPageSideBar />
-                <LandingPageContent />
-              </Layout>
-              <LandingPageFooter />
-            </ErrorBoundary>
-          </BrowserRouter>
-        </AntdNotificationProvider>
-      </ThemeProvider>
-    </Provider>
+    <ThemeProvider>
+      <AntdNotificationProvider>
+        <BrowserRouter>
+          <ErrorBoundary>
+            <LandingPageHeader />
+            <Layout>
+              <LandingPageSideBar />
+              <LandingPageContent />
+            </Layout>
+            <LandingPageFooter />
+          </ErrorBoundary>
+        </BrowserRouter>
+      </AntdNotificationProvider>
+    </ThemeProvider>
   );
 };
 export default App;

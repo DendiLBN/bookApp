@@ -23,11 +23,11 @@ export const LandingPageRouting = () => {
       {isLoggedIn && (
         <Route path="/protected/*" element={<ProtectedRoutes />} />
       )}
-      <Route path="/*" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/book" element={<Book />} />
       <Route path="/success" element={<SuccessFully />} />
-      <Route path="*" element={<Error404 />} />
+      <Route path="/*" element={<Error404 />} />
     </Routes>
   );
 };

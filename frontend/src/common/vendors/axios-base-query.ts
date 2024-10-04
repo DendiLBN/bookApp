@@ -1,9 +1,8 @@
-import axios from "axios";
-import { AxiosError } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { BaseQueryFn } from "@reduxjs/toolkit/query";
-import { AxiosRequestConfig } from "axios";
 
-import { ACCESS_TOKEN } from "../consts/local-storage";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
+import { setTokens } from "../utils/setTokens";
 
 export type TBaseQueryParams = {
   url: string;
@@ -20,7 +19,7 @@ const axiosBaseQuery =
     }
   ): BaseQueryFn<TBaseQueryParams, unknown, unknown> =>
   async ({ method, url, data, params, headers: additionalHeader }) => {
-    const token = window.localStorage.getItem(ACCESS_TOKEN);
+    let token = window.localStorage.getItem(ACCESS_TOKEN);
 
     let headers = { ...additionalHeader };
 
@@ -40,9 +39,60 @@ const axiosBaseQuery =
         cancelToken: source.token,
       });
 
-      return { data: result.data, meta: result };
-    } catch (axiosError) {
-      const err = axiosError as AxiosError;
+      return { data: result.data };
+    } catch (error) {
+      const err = error as AxiosError;
+      // TODO ONLY IF USER GET RESPONSE 401 TOKEN WILL BE REQUESTED EXTENDED
+      if (err.response?.status === 401) {
+        const originalRequest = err.config;
+
+        if (!originalRequest) {
+          return {
+            error: {
+              status: err.response.status,
+              data: "Original request not found",
+            },
+          };
+        }
+
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+        if (!refreshToken) {
+          return {
+            error: {
+              status: err.response.status,
+              data: "Refresh token not found",
+            },
+          };
+        }
+
+        try {
+          const res = await axios.post("/api/auth/refresh-token", {
+            headers: { Authorization: `Bearer ${refreshToken}` },
+          });
+
+          const response = res.data;
+          console.log(response);
+          setTokens(response);
+
+          token = response.accessToken;
+          originalRequest.headers["Authorization"] = `Bearer ${token}`;
+
+          const retryResult = await axios(originalRequest);
+
+          console.log(originalRequest);
+
+          return { retryResult };
+        } catch (refreshError) {
+          return {
+            error: {
+              status: (refreshError as AxiosError).response?.status,
+              data:
+                (refreshError as AxiosError).response?.data ||
+                "Failed to refresh token",
+            },
+          };
+        }
+      }
 
       return {
         error: {

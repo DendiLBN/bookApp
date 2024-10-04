@@ -35,7 +35,7 @@ export const useRegistrationUser = () => {
     );
   }, [openNotification]);
 
-  const fetchRegistrationUser = useCallback(
+  const RegistrationUserData = useCallback(
     async ({
       email,
       password,
@@ -56,5 +56,5 @@ export const useRegistrationUser = () => {
     [handleError, registerUser, handleSuccess]
   );
 
-  return { fetchRegistrationUser, loading: isLoading };
+  return { RegistrationUserData, loading: isLoading };
 };

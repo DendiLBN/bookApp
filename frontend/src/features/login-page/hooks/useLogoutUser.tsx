@@ -27,10 +27,10 @@ export const LogoutButton: React.FC = () => {
   }, [openNotification]);
 
   useEffect(() => {
-    console.log("Component mounted");
+    console.log("component mounted");
 
     return () => {
-      console.log("Component unmounted");
+      console.log("component unmounted");
     };
   }, []);
 

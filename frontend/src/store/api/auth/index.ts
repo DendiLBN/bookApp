@@ -25,12 +25,12 @@ export const authApi = createApi({
         url: `auth/register/`,
         data,
       }),
-      async onQueryStarted(_arg, { queryFulfilled }) {
+      async onQueryStarted({ onSuccess, onError }, { queryFulfilled }) {
         try {
           const response = await queryFulfilled;
-          console.log("User registered successfully!", response);
+          onSuccess(response.data);
         } catch (error) {
-          console.error("Error during registration:", error);
+          onError();
         }
       },
     }),
@@ -55,7 +55,9 @@ export const authApi = createApi({
           );
 
           if (userResponse?.data) {
-            dispatch(setIsLoggedIn(true));
+            dispatch(
+              setIsLoggedIn({ isLoggedIn: true, user: userResponse?.data })
+            );
           }
         } catch (error) {
           console.error("Error during login process:", error);
@@ -91,7 +93,7 @@ export const authApi = createApi({
             onSuccess();
             dispatch(clearUser());
             dispatch(logOutUser());
-            dispatch(setIsLoggedIn(false));
+            dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
           }
         } catch (error) {
           onError();
