@@ -41,6 +41,12 @@ export class User {
     trim: true,
   })
   lastName: string;
+
+  @Prop()
+  resetToken?: string;
+
+  @Prop()
+  resetTokenExpiry?: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
