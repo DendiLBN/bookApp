@@ -44,6 +44,39 @@ export class AuthService {
     };
   }
 
+  async changePassword(
+    userId: string,
+    oldPassword: string,
+    newPassword: string,
+  ) {
+    const user = await this.usersService.getUserById(userId);
+    console.log('User data:', user);
+
+    if (!user) {
+      throw new NotFoundException('User not found...');
+    }
+    console.log('Old Password:', oldPassword);
+    console.log('User Password:', user.password);
+
+    if (!oldPassword || !user.password) {
+      throw new UnauthorizedException(
+        'Old password or user password is missing...',
+      );
+    }
+
+    const passwordMatches = await bcrypt.compare(oldPassword, user.password);
+    if (!passwordMatches) {
+      throw new UnauthorizedException('Incorrect password...');
+    }
+
+    const hashedPassword = await hashData(newPassword);
+    user.password = hashedPassword;
+    await this.usersService.update(userId, user);
+    return {
+      message: `Password has been changed '${oldPassword}' for'${newPassword}'`,
+    };
+  }
+
   async login(loginDto: LoginDto) {
     const user = await this.usersService.getUserByEmail(loginDto.email);
     if (!user) throw new NotFoundException();
@@ -90,31 +123,29 @@ export class AuthService {
     });
   }
 
-  private async getTokens(userId: string) {
-    const [accessToken, refreshToken] = await Promise.all([
-      this.jwtService.signAsync(
-        {
-          id: userId,
-        },
-        {
-          secret: this.configService.get('JWT_ACCESS_SECRET'),
-          expiresIn: this.configService.get('JWT_ACCESS_LIFETIME'),
-        },
-      ),
-      this.jwtService.signAsync(
-        {
-          id: userId,
-        },
-        {
-          secret: this.configService.get('JWT_REFRESH_SECRET'),
-          expiresIn: this.configService.get('JWT_REFRESH_LIFETIME'),
-        },
-      ),
-    ]);
-
-    return {
-      accessToken,
-      refreshToken,
-    };
+  private async getTokens(
+    userId: string,
+  ): Promise<{ accessToken: string; refreshToken: string }> {
+    try {
+      const [accessToken, refreshToken] = await Promise.all([
+        this.jwtService.signAsync(
+          { id: userId },
+          {
+            secret: this.configService.get('JWT_ACCESS_SECRET'),
+            expiresIn: this.configService.get('JWT_ACCESS_LIFETIME'),
+          },
+        ),
+        this.jwtService.signAsync(
+          { id: userId },
+          {
+            secret: this.configService.get('JWT_REFRESH_SECRET'),
+            expiresIn: this.configService.get('JWT_REFRESH_LIFETIME'),
+          },
+        ),
+      ]);
+      return { accessToken, refreshToken };
+    } catch (error) {
+      throw new UnauthorizedException('Token generation failed');
+    }
   }
 }

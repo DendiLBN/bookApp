@@ -9,7 +9,6 @@ const useUser = () => {
   const user = useSelector(selectUser);
 
   const { refetch } = useFetchUsersQuery();
-  console.log(user);
 
   useEffect(() => {
     const token = localStorage.getItem(ACCESS_TOKEN);

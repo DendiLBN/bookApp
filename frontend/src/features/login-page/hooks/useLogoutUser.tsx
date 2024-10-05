@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
@@ -25,14 +25,6 @@ export const LogoutButton: React.FC = () => {
       false
     );
   }, [openNotification]);
-
-  useEffect(() => {
-    console.log("component mounted");
-
-    return () => {
-      console.log("component unmounted");
-    };
-  }, []);
 
   const handleLogout = async () => {
     try {
