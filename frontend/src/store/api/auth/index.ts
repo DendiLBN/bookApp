@@ -41,7 +41,10 @@ export const authApi = createApi({
         url: `auth/login/`,
         data,
       }),
-      async onQueryStarted(_arg, { dispatch, queryFulfilled }) {
+      async onQueryStarted(
+        { onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) {
         try {
           const response = await queryFulfilled;
 
@@ -59,8 +62,9 @@ export const authApi = createApi({
               setIsLoggedIn({ isLoggedIn: true, user: userResponse?.data })
             );
           }
+          onSuccess(response.data);
         } catch (error) {
-          console.error("Error during login process:", error);
+          onError();
         }
       },
     }),

@@ -39,7 +39,9 @@ const axiosBaseQuery =
         cancelToken: source.token,
       });
 
-      return { data: result.data };
+      const reponse = result.data;
+
+      return { data: reponse };
     } catch (error) {
       const err = error as AxiosError;
       // TODO ONLY IF USER GET RESPONSE 401 TOKEN WILL BE REQUESTED EXTENDED

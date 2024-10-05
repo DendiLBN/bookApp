@@ -1,4 +1,11 @@
-import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from 'src/modules/user/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
@@ -7,6 +14,7 @@ import { JwtPayload } from 'src/common/strategy/acces-token-strategy';
 import { GetUserFromToken } from 'src/common/decorators/get-users-from-token-decorators';
 import { RefreshTokenPayload } from 'src/common/strategy/refresh-token-strategy';
 import { RefreshTokenGuard } from 'src/common/guards/refresh-token-guards';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -33,5 +41,19 @@ export class AuthController {
   @Post('logout')
   logout(@GetUserFromToken() user: JwtPayload) {
     return this.authService.logout(user.id);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Put('change-password')
+  changePassword(
+    @GetUserFromToken() user: JwtPayload,
+    @Body() changePasswordDto: ChangePasswordDto,
+  ) {
+    return this.authService.changePassword(
+      user.id,
+      changePasswordDto.oldPassword,
+
+      changePasswordDto.newPassword,
+    );
   }
 }
