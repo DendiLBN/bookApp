@@ -7,6 +7,9 @@ import { User, UsersDocument } from './schema/user.schema';
 
 @Injectable()
 export class UsersService {
+  findOneByEmail() {
+    throw new Error('Method not implemented.');
+  }
   constructor(
     @InjectModel(User.name) private userModel: Model<UsersDocument>,
   ) {}
@@ -22,7 +25,7 @@ export class UsersService {
       .select('+password')
       .lean()
       .exec();
-    if (!user) throw new NotFoundException();
+    if (!user) throw new NotFoundException(`User with id${userId} not found`);
 
     return user;
   }
@@ -36,6 +39,7 @@ export class UsersService {
       new: true,
     });
   }
+
   async findOne(userId: string) {
     console.log('service findOne', userId);
     return await this.userModel.findById(userId).exec();
