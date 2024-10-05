@@ -14,6 +14,10 @@ export class UsersService {
     @InjectModel(User.name) private userModel: Model<UsersDocument>,
   ) {}
 
+  async getUserByResetToken(resetToken: string): Promise<UsersDocument> {
+    return this.userModel.findOne({ resetToken }).lean().exec();
+  }
+
   async createUser(createUserDto: CreateUserDto) {
     const user = await this.userModel.create(createUserDto);
     return user;
@@ -29,7 +33,6 @@ export class UsersService {
 
     return user;
   }
-
   async getUserByEmail(email: string) {
     return this.userModel.findOne({ email }).lean().exec();
   }
@@ -41,7 +44,6 @@ export class UsersService {
   }
 
   async findOne(userId: string) {
-    console.log('service findOne', userId);
     return await this.userModel.findById(userId).exec();
   }
 
