@@ -30,7 +30,7 @@ const axiosBaseQuery =
     const source = axios.CancelToken.source();
 
     try {
-      const result = await axios({
+      const { data: result } = await axios({
         url: baseUrl + url,
         method,
         data,
@@ -39,9 +39,7 @@ const axiosBaseQuery =
         cancelToken: source.token,
       });
 
-      const reponse = result.data;
-
-      return { data: reponse };
+      return { data: result };
     } catch (error) {
       const err = error as AxiosError;
       // TODO ONLY IF USER GET RESPONSE 401 TOKEN WILL BE REQUESTED EXTENDED
