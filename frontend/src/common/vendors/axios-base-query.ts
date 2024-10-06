@@ -66,7 +66,7 @@ const axiosBaseQuery =
         }
 
         try {
-          const res = await axios.post(`${baseUrl}/auth/refresh-token`, {
+          const res = await axios.post(`api/auth/refresh-token`, {
             headers: { Authorization: `Bearer ${refreshToken}` },
           });
           const response = res.data;
