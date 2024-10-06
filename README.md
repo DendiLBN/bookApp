@@ -1,33 +1,30 @@
-Bookstore Application
-About the Project
-The Bookstore Application is a versatile platform designed to manage books and user interactions. Key features include:
+# React + TypeScript + Vite
 
-Book Management:
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-CRUD operations
-Pagination
-Book exchanges
-User Management:
+Currently, two official plugins are available:
 
-Registration
-Login
-User-specific book collections
-Transaction Management:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-Buying and selling books
-Book Exchange:
+## Expanding the ESLint configuration
 
-Facilitates book exchanges between users
-The application is built with performance, accessibility, and scalability in mind, leveraging modern technologies to deliver a robust user experience.
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
-Technology Stack
-Backend: NestJS,MongoDB
+- Configure the top-level `parserOptions` property like this:
 
-Frontend:React,TypeScript
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
-
-State Management: Context API
-
-HTTP Requests: Axios
-
-Testing:Jest
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
