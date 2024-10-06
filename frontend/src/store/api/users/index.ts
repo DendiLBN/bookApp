@@ -11,6 +11,7 @@ export const userApi = createApi({
       query: () => ({
         method: "GET",
         url: "users/me",
+        refetchOnMountOrArgChange: false,
       }),
     }),
   }),

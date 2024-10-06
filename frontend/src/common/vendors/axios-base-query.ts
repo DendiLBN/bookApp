@@ -20,7 +20,6 @@ const axiosBaseQuery =
   ): BaseQueryFn<TBaseQueryParams, unknown, unknown> =>
   async ({ method, url, data, params, headers: additionalHeader }) => {
     let token = window.localStorage.getItem(ACCESS_TOKEN);
-
     let headers = { ...additionalHeader };
 
     if (token) {
@@ -42,10 +41,11 @@ const axiosBaseQuery =
       return { data: result };
     } catch (error) {
       const err = error as AxiosError;
-      // TODO ONLY IF USER GET RESPONSE 401 TOKEN WILL BE REQUESTED EXTENDED
+
       if (err.response?.status === 401) {
         const originalRequest = err.config;
 
+        // Ensure originalRequest is defined
         if (!originalRequest) {
           return {
             error: {
@@ -66,26 +66,24 @@ const axiosBaseQuery =
         }
 
         try {
-          const res = await axios.post("/api/auth/refresh-token", {
+          const res = await axios.post(`${baseUrl}/auth/refresh-token`, {
             headers: { Authorization: `Bearer ${refreshToken}` },
           });
-
           const response = res.data;
-          console.log(response);
+
+          console.log("Refresh token response:", response);
+
           setTokens(response);
 
           token = response.accessToken;
           originalRequest.headers["Authorization"] = `Bearer ${token}`;
 
           const retryResult = await axios(originalRequest);
-
-          console.log(originalRequest);
-
-          return { retryResult };
+          return { data: retryResult.data };
         } catch (refreshError) {
           return {
             error: {
-              status: (refreshError as AxiosError).response?.status,
+              status: (refreshError as AxiosError).response?.status || 500,
               data:
                 (refreshError as AxiosError).response?.data ||
                 "Failed to refresh token",
@@ -96,7 +94,7 @@ const axiosBaseQuery =
 
       return {
         error: {
-          status: err.response?.status,
+          status: err.response?.status || 500,
           data: err.response?.data || err.message,
         },
       };

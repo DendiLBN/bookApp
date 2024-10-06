@@ -15,7 +15,7 @@ export class MailService {
     });
   }
 
-  async nodeMailSendPassword(to: string, token: string) {
+  async nodeSendEmail(to: string, token: string) {
     const resetLink = `http://localhost:5173/auth/reset-password?token=${token}`;
 
     const mailOptions = {

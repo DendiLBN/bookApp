@@ -7,13 +7,11 @@ import { ACCESS_TOKEN } from "../consts/local-storage";
 const useUser = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
   const { refetch } = useFetchUsersQuery();
 
   useEffect(() => {
     const token = localStorage.getItem(ACCESS_TOKEN);
-
-    if (token) {
+    if (token && !user) {
       refetch().then(({ data }) => {
         if (data) {
           dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
@@ -22,9 +20,10 @@ const useUser = () => {
         }
       });
     }
-  }, [dispatch, refetch]);
+  }, [dispatch, refetch, user]);
+
+  // TODO ONLY IF USER WILL LOG IN TRIGGER GET ME FROM QUERY
 
   return { user, userId: user?._id };
 };
-
 export default useUser;
