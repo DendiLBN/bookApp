@@ -1,6 +1,6 @@
 import "@/assets/layouts-styles/home-styles/home.css";
 
-export const HomeView: React.FC = () => {
+export const HomeView = () => {
   return (
     <div>
       <h1

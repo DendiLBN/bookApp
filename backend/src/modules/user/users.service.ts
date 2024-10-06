@@ -8,7 +8,7 @@ import { User, UsersDocument } from './schema/user.schema';
 @Injectable()
 export class UsersService {
   findOneByEmail() {
-    throw new Error('Method not implemented.');
+    throw new Error();
   }
   constructor(
     @InjectModel(User.name) private userModel: Model<UsersDocument>,

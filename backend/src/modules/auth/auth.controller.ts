@@ -16,8 +16,7 @@ import { RefreshTokenPayload } from 'src/common/strategy/refresh-token-strategy'
 import { RefreshTokenGuard } from 'src/common/guards/refresh-token-guards';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
-import { SendResetPasswordEmailDto } from './dto/send-reset-password.dto';
-// import { SendResetPasswordEmailDto } from './dto/send-reset-password.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -65,11 +64,11 @@ export class AuthController {
   }
 
   @Post('reset-password')
-  async sendResetPasswordEmail(
-    @Body() sendResetPasswordEmailDto: SendResetPasswordEmailDto,
-  ) {
-    return this.authService.sendResetPasswordEmail(
-      sendResetPasswordEmailDto.email,
+  async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+    console.log('Received body:', resetPasswordDto);
+    return this.authService.resetPassword(
+      resetPasswordDto.token,
+      resetPasswordDto.newPassword,
     );
   }
 }
