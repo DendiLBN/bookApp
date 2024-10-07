@@ -1,5 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 
+import { useSelector } from "react-redux";
+
 import { Home } from "@/pages/Home/Home";
 
 import { Book } from "@/pages/Book/Books";
@@ -8,11 +10,11 @@ import { ProtectedRoutes } from "./Protected.routes";
 
 import { AuthRoutes } from "@/routes/Auth.routes";
 
+import { selectIsLoggedIn } from "@/store/reducers/auth";
+
 import { Error404 } from "@/common/error-boundary/error/404";
 
-import SuccessFully from "@/common/error-boundary/on-success/index";
-import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "@/store/reducers/auth";
+import OnSuccessRegister from "@/features/register-page/results";
 
 export const LandingPageRouting = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -26,7 +28,7 @@ export const LandingPageRouting = () => {
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
       <Route path="/book" element={<Book />} />
-      <Route path="/success" element={<SuccessFully />} />
+      <Route path="/success" element={<OnSuccessRegister />} />
       <Route path="/*" element={<Error404 />} />
     </Routes>
   );

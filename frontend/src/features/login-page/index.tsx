@@ -11,7 +11,16 @@ import { TLoginUserRequestBody } from "@/types/types";
 
 import "@/assets/layouts-styles/login-styles/login.css";
 
+import ForgotPasswordModal from "./components/forms/forgot-password-form";
+import { useModalContext } from "@/common/contexts/hooks/use-modal-context";
+
 export const LoginPage = () => {
+  const { isModalVisible, showModal } = useModalContext();
+
+  const handleShowModal = () => {
+    showModal();
+  };
+
   const { isDarkMode } = useThemeContext();
 
   const { fetchBodyLoginUser, loading } = useLoginUser();
@@ -73,9 +82,14 @@ export const LoginPage = () => {
             <Form.Item name="remember" valuePropName="checked" noStyle>
               <Checkbox>Remember me</Checkbox>
             </Form.Item>
-            <a href="" style={{ marginLeft: "auto" }}>
+            <Button
+              type="text"
+              onClick={handleShowModal}
+              style={{ marginLeft: "auto" }}
+            >
               Forgot password
-            </a>
+            </Button>
+            <ForgotPasswordModal visible={isModalVisible} />
           </div>
         </Form.Item>
 
