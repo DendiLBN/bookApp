@@ -18,22 +18,27 @@ export const ForgotPasswordModal = ({ visible }: PasswordModalProps) => {
   // TODO ADD SOMETHING AGAINST TO SPAMMING REQUESTS
 
   const handleSuccess = useCallback(() => {
-    openNotification("topRight", "success", "Email has been send", true);
+    openNotification(
+      "topRight",
+      "success",
+      "Email has been send follow the instructions",
+      true
+    );
   }, [openNotification]);
 
   const handleError = useCallback(() => {
     openNotification(
       "topRight",
       "error",
-      "Error during sending request.",
+      "Unable to send the reset password email. Please check your email address and try again later.",
       false
     );
   }, [openNotification]);
 
-  const handleCancelModal = () => {
+  const handleCancelModal = useCallback(() => {
     hideModal();
     form.resetFields();
-  };
+  }, [form, hideModal]);
 
   const handleSendEmail = useCallback(
     async ({ email }: TFrogotPasswordEmail) => {
@@ -43,11 +48,12 @@ export const ForgotPasswordModal = ({ visible }: PasswordModalProps) => {
           onSuccess: handleSuccess,
           onError: handleError,
         }).unwrap();
+        handleCancelModal();
       } catch (error) {
         console.error(error);
       }
     },
-    [forgotPassword, handleError, handleSuccess]
+    [forgotPassword, handleCancelModal, handleError, handleSuccess]
   );
 
   return (
