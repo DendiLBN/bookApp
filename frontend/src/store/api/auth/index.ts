@@ -7,6 +7,7 @@ import {
   TRegisterUserResponse,
 } from "@/types/api/auth-user";
 import {
+  TForgotPasswordParams,
   TLoginUserParams,
   TLogoutUserParams,
   TRegisterUserParams,
@@ -91,6 +92,8 @@ export const authApi = createApi({
         try {
           const response = await queryFulfilled;
 
+          if (!response) return;
+
           if (response) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
@@ -104,6 +107,24 @@ export const authApi = createApi({
         }
       },
     }),
+    forgotPassword: builder.mutation<void, TForgotPasswordParams>({
+      query: ({ data }) => ({
+        method: "POST",
+        url: `auth/forgot-password/`,
+        data: { email: data.email },
+      }),
+      async onQueryStarted({ onSuccess, onError }, { queryFulfilled }) {
+        try {
+          const response = await queryFulfilled;
+
+          if (!response) return;
+
+          onSuccess();
+        } catch (error) {
+          onError();
+        }
+      },
+    }),
   }),
 });
 
@@ -111,4 +132,5 @@ export const {
   useRegisterUserMutation,
   useLoginUserMutation,
   useLogOutUserMutation,
+  useForgotPasswordMutation,
 } = authApi;

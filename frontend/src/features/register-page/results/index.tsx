@@ -1,7 +1,8 @@
-import { Button, Result } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export const SuccessFully = () => {
+import { Button, Result } from "antd";
+
+export const OnSuccessRegister = () => {
   const navigate = useNavigate();
   const location = useLocation();
   // TODO ADD TYPES TO LOCATION
@@ -25,4 +26,4 @@ export const SuccessFully = () => {
   );
 };
 
-export default SuccessFully;
+export default OnSuccessRegister;

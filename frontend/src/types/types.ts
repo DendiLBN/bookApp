@@ -78,3 +78,17 @@ export type TLogoutUserParams = {
   onSuccess: (data: void) => void;
   onError: () => void;
 };
+
+export type TFrogotPasswordEmail = {
+  email: string;
+};
+
+export type TForgotPasswordParams = {
+  data: TFrogotPasswordEmail;
+  onSuccess: (data: void) => void;
+  onError: () => void;
+};
+
+export type PasswordModalProps = {
+  visible: boolean;
+};
