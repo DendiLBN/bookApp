@@ -83,12 +83,17 @@ export type TFrogotPasswordEmail = {
   email: string;
 };
 
+export type TResetPasswordParams = {
+  oldPassword: string;
+  newPassword: string;
+};
+
 export type TForgotPasswordParams = {
   data: TFrogotPasswordEmail;
   onSuccess: (data: void) => void;
   onError: () => void;
 };
 
-export type PasswordModalProps = {
+export type TForgotPasswordProps = {
   visible: boolean;
 };

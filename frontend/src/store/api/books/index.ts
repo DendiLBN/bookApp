@@ -3,7 +3,7 @@ import { AxiosResponse } from "axios";
 
 import { createApi } from "@reduxjs/toolkit/query/react";
 
-import axiosBaseQuery from "@/common/vendors/axios-base-query";
+import axiosBaseQuery from "@/common/services/axios-base-query";
 
 import { TBookBodyParams, TBookBodyResponse } from "@/types/api/books";
 

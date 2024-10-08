@@ -1,4 +1,4 @@
-import axiosBaseQuery from "@/common/vendors/axios-base-query";
+import axiosBaseQuery from "@/common/services/axios-base-query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { logOutUser, setIsLoggedIn } from "../../reducers/auth";
 import {
@@ -111,7 +111,7 @@ export const authApi = createApi({
       query: ({ data }) => ({
         method: "POST",
         url: `auth/forgot-password/`,
-        data: { email: data.email },
+        data,
       }),
       async onQueryStarted({ onSuccess, onError }, { queryFulfilled }) {
         try {

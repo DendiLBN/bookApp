@@ -45,7 +45,6 @@ const axiosBaseQuery =
       if (err.response?.status === 401) {
         const originalRequest = err.config;
 
-        // Ensure originalRequest is defined
         if (!originalRequest) {
           return {
             error: {
