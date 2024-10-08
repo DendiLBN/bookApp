@@ -1,21 +1,21 @@
+import { useCallback } from "react";
+
 import { useModalContext } from "@/common/contexts/hooks/use-modal-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 import { useForgotPasswordMutation } from "@/store/api/auth";
 
-import { PasswordModalProps, TFrogotPasswordEmail } from "@/types/types";
+import { TForgotPasswordProps, TFrogotPasswordEmail } from "@/types/types";
 
 import { Button, Input, Form, Modal } from "antd";
-import { useCallback } from "react";
 
-export const ForgotPasswordModal = ({ visible }: PasswordModalProps) => {
+export const ForgotPasswordForm = ({ visible }: TForgotPasswordProps) => {
   const { openNotification } = useNotificationContext();
+
   const [forgotPassword] = useForgotPasswordMutation();
 
   const { hideModal } = useModalContext();
 
   const [form] = Form.useForm();
-
-  // TODO ADD SOMETHING AGAINST TO SPAMMING REQUESTS
 
   const handleSuccess = useCallback(() => {
     openNotification(
@@ -30,8 +30,8 @@ export const ForgotPasswordModal = ({ visible }: PasswordModalProps) => {
     openNotification(
       "topRight",
       "error",
-      "Unable to send the reset password email. Please check your email address and try again later.",
-      false
+      "Unable to send request. Probably too many requests have been sent in short time. Please check your email address and try again.",
+      true
     );
   }, [openNotification]);
 
@@ -42,16 +42,12 @@ export const ForgotPasswordModal = ({ visible }: PasswordModalProps) => {
 
   const handleSendEmail = useCallback(
     async ({ email }: TFrogotPasswordEmail) => {
-      try {
-        await forgotPassword({
-          data: { email },
-          onSuccess: handleSuccess,
-          onError: handleError,
-        }).unwrap();
-        handleCancelModal();
-      } catch (error) {
-        console.error(error);
-      }
+      forgotPassword({
+        data: { email },
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
+      handleCancelModal();
     },
     [forgotPassword, handleCancelModal, handleError, handleSuccess]
   );
@@ -97,4 +93,4 @@ export const ForgotPasswordModal = ({ visible }: PasswordModalProps) => {
   );
 };
 
-export default ForgotPasswordModal;
+export default ForgotPasswordForm;

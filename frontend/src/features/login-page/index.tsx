@@ -11,7 +11,7 @@ import { TLoginUserRequestBody } from "@/types/types";
 
 import "@/assets/layouts-styles/login-styles/login.css";
 
-import ForgotPasswordModal from "./components/forms/forgot-password-form";
+import ForgotPasswordForm from "./components/forms/forgot-password-form";
 import { useModalContext } from "@/common/contexts/hooks/use-modal-context";
 
 export const LoginPage = () => {
@@ -89,7 +89,7 @@ export const LoginPage = () => {
             >
               Forgot password
             </Button>
-            <ForgotPasswordModal visible={isModalVisible} />
+            <ForgotPasswordForm visible={isModalVisible} />
           </div>
         </Form.Item>
 
@@ -120,7 +120,7 @@ export const LoginPage = () => {
 
       <img
         className="login__image"
-        src="https://picsum.photos/600/700.jpg"
+        src="https://picsum.photos/600/700?grayscale"
         alt="Login"
       />
     </div>

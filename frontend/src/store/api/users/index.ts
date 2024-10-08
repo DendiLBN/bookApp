@@ -1,4 +1,4 @@
-import axiosBaseQuery from "@/common/vendors/axios-base-query";
+import axiosBaseQuery from "@/common/services/axios-base-query";
 import { TUserState } from "@/store/reducers/users";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
