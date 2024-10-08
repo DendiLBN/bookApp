@@ -17,7 +17,7 @@ import { RefreshTokenGuard } from 'src/common/guards/refresh-token-guards';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
-import { Throttle } from '@nestjs/throttler';
+import { SkipThrottle, Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
@@ -28,18 +28,21 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
+  @SkipThrottle()
   @HttpCode(200)
   @Post('login')
   login(@Body() loginDto: LoginDto) {
     return this.authService.login(loginDto);
   }
 
+  @SkipThrottle()
   @UseGuards(RefreshTokenGuard)
   @Post('refresh-token')
   refreshToken(@GetUserFromToken() user: RefreshTokenPayload) {
     return this.authService.refreshTokens(user.id, user.refreshToken);
   }
 
+  @SkipThrottle()
   @UseGuards(AccessTokenGuard)
   @Post('logout')
   logout(@GetUserFromToken() user: JwtPayload) {
