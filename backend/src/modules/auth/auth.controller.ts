@@ -17,6 +17,7 @@ import { RefreshTokenGuard } from 'src/common/guards/refresh-token-guards';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
 import { ResetPasswordDto } from './dto/reset-password.dto';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('auth')
 export class AuthController {
@@ -58,6 +59,7 @@ export class AuthController {
       changePasswordDto.newPassword,
     );
   }
+  @Throttle({})
   @Post('forgot-password')
   async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
     return this.authService.forgotPassword(forgotPasswordDto.email);

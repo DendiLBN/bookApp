@@ -58,7 +58,7 @@ export class AuthService {
       throw new NotFoundException('User not found...');
     }
 
-    if (!oldPassword || !user.password) {
+    if (!oldPassword) {
       throw new UnauthorizedException(
         'Old password or user password is missing...',
       );
@@ -117,7 +117,6 @@ export class AuthService {
         'Reset password email sent successfully, check your email and follow how to reset password',
     };
   }
-  // NOTE Reset password email & forgot password
 
   async resetPassword(resetToken: string, newPassword: string) {
     const user = await this.usersService.getUserByResetToken(resetToken);

@@ -4,9 +4,17 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from './user/users.module';
 import { AuthModule } from './auth/auth.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
+    ThrottlerModule.forRoot([
+      {
+        ttl: 600000,
+        limit: 2,
+      },
+    ]),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: [' .env', '.env'],
@@ -21,6 +29,12 @@ import { AuthModule } from './auth/auth.module';
     BooksModule,
     UserModule,
     AuthModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}
