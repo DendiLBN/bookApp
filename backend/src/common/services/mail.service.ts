@@ -38,9 +38,8 @@ export class MailService {
 
     try {
       await this.transporter.sendMail(mailOptions);
-      console.log('Password reset email sent successfully.');
     } catch (error) {
-      console.error('Error sending password reset email:', error);
+      throw new Error('Error sending password reset email');
     }
   }
 }
