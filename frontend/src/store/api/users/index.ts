@@ -1,4 +1,5 @@
 import axiosBaseQuery from "@/common/services/axios-base-query";
+
 import { TUserState } from "@/store/reducers/users";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
@@ -11,7 +12,6 @@ export const userApi = createApi({
       query: () => ({
         method: "GET",
         url: "users/me",
-        refetchOnMountOrArgChange: false,
       }),
     }),
   }),
