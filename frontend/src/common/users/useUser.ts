@@ -21,10 +21,12 @@ const useUser = () => {
     const existTokens =
       localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(REFRESH_TOKEN);
 
-    if (isLoggedIn && existTokens && !user) {
+    console.log("Attempting to fetch user...");
+    if (existTokens) {
       refetch().then(({ data }) => {
         if (data) {
           dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
+          console.log("user refetch", user);
         }
       });
     }
