@@ -10,32 +10,30 @@ import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
 
 const useUser = () => {
   const dispatch = useDispatch();
-
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
   const user = useSelector(selectUser);
 
-  const { refetch } = useFetchUsersQuery();
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
+  const { refetch } = useFetchUsersQuery(undefined, {
+    skip: !accessToken || !refreshToken || isLoggedIn,
+  });
 
   useEffect(() => {
-    const existTokens =
-      localStorage.getItem(ACCESS_TOKEN) && localStorage.getItem(REFRESH_TOKEN);
+    const existTokens = accessToken && refreshToken;
 
-    console.log("Attempting to fetch user...");
-    if (existTokens) {
+    if (existTokens && !user) {
+      console.log("Attempting to fetch user...");
       refetch().then(({ data }) => {
         if (data) {
           dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
-          console.log("user refetch", user);
         }
       });
     }
-  }, [dispatch, isLoggedIn, refetch, user]);
+  }, [dispatch, isLoggedIn, refetch, user, accessToken, refreshToken]);
 
-  console.log(user);
-
-  // TODO ONLY IF USER WILL LOG IN TRIGGER GET ME FROM QUERY
-
-  return { user, userId: user?._id };
+  return { user };
 };
+
 export default useUser;
