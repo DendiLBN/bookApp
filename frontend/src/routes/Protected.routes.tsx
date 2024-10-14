@@ -17,3 +17,5 @@ export const ProtectedRoutes = () => {
     </Suspense>
   );
 };
+
+export default ProtectedRoutes;

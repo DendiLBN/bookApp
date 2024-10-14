@@ -3,6 +3,7 @@ import { BaseQueryFn } from "@reduxjs/toolkit/query";
 
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
 import { setTokens } from "../utils/setTokens";
+import { removeTokens } from "../utils/removeTokens";
 
 export type TBaseQueryParams = {
   url: string;
@@ -55,6 +56,7 @@ const axiosBaseQuery =
         }
 
         const refreshToken = localStorage.getItem(REFRESH_TOKEN);
+
         if (!refreshToken) {
           return {
             error: {
@@ -64,22 +66,51 @@ const axiosBaseQuery =
           };
         }
 
-        try {
-          const res = await axios.post(`api/auth/refresh-token`, {
-            headers: { Authorization: `Bearer ${refreshToken}` },
-          });
-          const response = res.data;
+        console.log("Sending refresh token request with:", refreshToken);
 
-          console.log("Refresh token response:", response);
+        try {
+          const res = await axios.post(`/api/auth/refresh-token`, null, {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          });
+
+          console.log("Response from refresh token request:", res.data);
+
+          const response = res.data;
 
           setTokens(response);
 
           token = response.accessToken;
+
+          console.log("Response from refresh token:", response);
+
+          console.log(
+            "Retrying original request with new access token:",
+            token
+          );
+
           originalRequest.headers["Authorization"] = `Bearer ${token}`;
 
-          const retryResult = await axios(originalRequest);
+          console.log(response.accessToken, "new access token");
+
+          const retryResult = await axios({
+            ...originalRequest,
+            headers: {
+              ...originalRequest.headers,
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
           return { data: retryResult.data };
         } catch (refreshError) {
+          removeTokens();
+
+          console.log(
+            "Retrying original request with new access token:",
+            token
+          );
+
           return {
             error: {
               status: (refreshError as AxiosError).response?.status || 500,

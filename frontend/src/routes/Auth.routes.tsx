@@ -21,3 +21,4 @@ export const AuthRoutes = () => {
     </Suspense>
   );
 };
+export default AuthRoutes;
