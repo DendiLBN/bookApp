@@ -27,6 +27,8 @@ const useUser = () => {
     skip: !accessToken || !refreshToken || isLoggedIn,
   });
 
+  console.log(user)
+
   useEffect(() => {
     const existTokens = accessToken && refreshToken;
 

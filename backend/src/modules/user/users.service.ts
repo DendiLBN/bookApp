@@ -7,47 +7,41 @@ import { User, UsersDocument } from './schema/user.schema';
 
 @Injectable()
 export class UsersService {
-  findOneByEmail() {
-    throw new Error();
-  }
-  constructor(
-    @InjectModel(User.name) private userModel: Model<UsersDocument>,
-  ) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UsersDocument>) {}
 
-  async getUserByResetToken(resetToken: string): Promise<UsersDocument> {
-    return this.userModel.findOne({ resetToken }).lean().exec();
+  async getUserByResetToken(resetToken: string): Promise<UsersDocument | null> {
+    return this.userModel.findOne({ resetToken }).exec();
   }
 
-  async createUser(createUserDto: CreateUserDto) {
-    const user = await this.userModel.create(createUserDto);
-    return user;
+  async createUser(createUserDto: CreateUserDto): Promise<UsersDocument> {
+    return this.userModel.create(createUserDto);
   }
 
-  async getUserById(userId: string) {
+  async getUserById(userId: string): Promise<UsersDocument | null> {
     const user = await this.userModel
       .findById(userId)
       .select('+password')
-      .lean()
+      .lean() 
       .exec();
-    if (!user) throw new NotFoundException(`User with id${userId} not found`);
 
-    return user;
-  }
-  async getUserByEmail(email: string) {
-    return this.userModel.findOne({ email }).lean().exec();
+    if (!user) throw new NotFoundException(`User with id ${userId} not found`);
+    return user as UsersDocument;
   }
 
-  async update(userId: string, updateUserDto: UpdateUserDto) {
-    return await this.userModel.findByIdAndUpdate(userId, updateUserDto, {
-      new: true,
-    });
+  async getUserByEmail(email: string): Promise<UsersDocument | null> {
+    const user = await this.userModel.findOne({ email }).lean().exec();
+    return user as UsersDocument; 
+}
+
+  async update(userId: string, updateUserDto: UpdateUserDto): Promise<UsersDocument | null> {
+    return this.userModel.findByIdAndUpdate(userId, updateUserDto, { new: true }).exec();
   }
 
-  async findOne(userId: string) {
-    return await this.userModel.findById(userId).exec();
+  async findOne(userId: string): Promise<UsersDocument | null> {
+    return this.userModel.findById(userId).exec();
   }
 
-  async remove(userId: string) {
-    return await this.userModel.findByIdAndDelete(userId);
+  async remove(userId: string): Promise<UsersDocument | null> {
+    return this.userModel.findByIdAndDelete(userId).exec();
   }
 }
