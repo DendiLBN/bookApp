@@ -9,7 +9,6 @@ export const ThemeButton: React.FC = () => {
 
   return (
     <>
-      <div style={{ margin: " 0px 13px" }}>Theme switch</div>
       <Switch
         checked={isDarkMode}
         onChange={handleToggleTheme}

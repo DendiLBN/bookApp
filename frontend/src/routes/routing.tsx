@@ -28,7 +28,7 @@ export const LandingPageRouting = () => {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/home" element={<Home />} />
-      <Route path="/book" element={<Book />} />
+
       <Route path="/success" element={<OnSuccessRegister />} />
       <Route path="/*" element={<Error404 />} />
 
@@ -48,6 +48,16 @@ export const LandingPageRouting = () => {
           element={
             <Suspense fallback={loading}>
               <ProtectedRoutes />
+            </Suspense>
+          }
+        />
+      )}
+      {isLoggedIn && (
+        <Route
+          path="/book/*"
+          element={
+            <Suspense fallback={loading}>
+              <Book />
             </Suspense>
           }
         />

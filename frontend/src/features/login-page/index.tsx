@@ -64,12 +64,15 @@ export const LoginPage = () => {
             },
           ]}
         >
+          
           <Input
             prefix={<LockOutlined />}
             type="password"
             placeholder="Password"
           />
+
         </Form.Item>
+
         <Form.Item className="login__remember">
           <div
             style={{
@@ -120,7 +123,7 @@ export const LoginPage = () => {
 
       <img
         className="login__image"
-        src="https://picsum.photos/600/700?grayscale"
+        src="https://picsum.photos/600/700.jpg"
         alt="Login"
       />
     </div>

@@ -7,9 +7,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @ValidateIf((o) => !!o.refreshToken)
   @IsString()
   refreshToken?: string;
-
-  // NOTE ONLY VALIDATE WHEN IS AVAILABLE
-
+  
   @IsOptional()
   @ValidateIf((o) => !!o.resetToken)
   @IsString()
