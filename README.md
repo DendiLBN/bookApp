@@ -27,12 +27,13 @@ The goal of this app was to create a functional version of an online store with 
 
 ### On the server side, I used:
 
-- **NestJS** – a Node.js framework,
-- **Express** – as the HTTP server,
+- **nestjs** – a Node.js framework,
+- **express** – as the HTTP server,
 - **bcryptjs** – for password hashing,
 - **jsonwebtoken** – for handling JWT-based authentication,
 - **nodemailer** – for sending emails containing a new access token and a request to reset the password.
 - **mongoose** – as the MongoDB ORM.
+- **nestjs/throttle** – to prevent the server from being overwhelmed by excessive requests (or "to prevent server spamming").
 
 ---
 ## Todo: 
