@@ -4,14 +4,10 @@ The client side of this app was created using React and TypeScript, while the se
 
 My main goal in creating this app was to build a functional version of an online store with essential features, including:
 
-- User registration and email confirmation,
-- Password reset,
+- User registration, 
 - User login,
-- Adding and removing items from the shopping cart,
-- Viewing transaction history and purchase details,
+- Password reset & reminder.
 - Searching items by category or keywords,
-- Admin capabilities to manage user information, review transactions, and modify the store inventory.
-
 ---
 
 ## Technologies and libraries
@@ -37,6 +33,12 @@ My main goal in creating this app was to build a functional version of an online
 - **mongoose** – as the MongoDB ORM.
 
 ---
+Todo: 
+- Adding settings panel for user,
+- Adding option for change avatar,
+- Adding and removing items from the shopping cart, 
+- Viewing transaction history and purchase details,
+- Admin capabilities to manage user information, review transactions, and modify the store inventory.
 
 How to run this app?
 Clone repository with git clone https://github.com/DendiLBN/bookStore.
