@@ -1,34 +1,42 @@
-About this app
-This app is a part of a full-stack project, covering both frontend and backend, and built with modern web technologies. The frontend is developed using React with TypeScript, utilizing Redux Toolkit and RTK Query for state management. The backend is based on NestJS and Node.js with Express, providing authentication, image processing, and email notifications.
+# About this app
 
-Main features of the app include:
+The client side of this app was created using React and TypeScript, while the server side was developed using NestJS and Node.js with Express.
 
-User registration and login,
-Email password reset,
-Adding and removing items from the shopping cart, (inprogress)
-Viewing transaction history and purchase details, (inprogress)
-Searching items by category or keywords, (inprogress)
-Admin capabilities to modify user information and review transaction details.
-Technologies and libraries (inprogress)
+My main goal in creating this app was to build a functional version of an online store with essential features, including:
 
-On the frontend, the following technologies and libraries were used:
+- User registration and email confirmation,
+- Password reset,
+- User login,
+- Adding and removing items from the shopping cart,
+- Viewing transaction history and purchase details,
+- Searching items by category or keywords,
+- Admin capabilities to manage user information, review transactions, and modify the store inventory.
 
-TypeScript – for static typing,
-React – to build the user interface,
-Redux Toolkit – for state management,
-RTK Query – for handling queries and data caching,
-React Router – for navigation between components,
-Ant Design – UI components,
-Axios – for handling HTTP requests.
+---
 
-On the backend, I used:
+## Technologies and libraries
 
-NestJS – a Node.js framework,
-Express – as the core HTTP server,
-bcryptjs – for password hashing,
-jsonwebtoken – for authorization and generating JWT tokens,
-nodemailer – for sending emails,
-mongoose – as the ORM for MongoDB.
+### On the client side, I used the following technologies:
+
+- **TypeScript** – for static typing,
+- **React** – to build the user interface,
+- **Redux Toolkit** – for state management,
+- **RTK Query** – for handling data queries and caching,
+- **React Router** – for navigation between components,
+- **Ant Design** – UI components,
+- **Axios** – for HTTP requests.
+
+### On the server side, I used:
+
+- **NestJS** – a Node.js framework,
+- **Express** – as the HTTP server,
+- **bcryptjs** – for password hashing,
+- **jsonwebtoken** – for handling JWT-based authentication,
+- **sharp** – for image processing,
+- **nodemailer** – for sending email notifications,
+- **mongoose** – as the MongoDB ORM.
+
+---
 
 How to run this app?
 Clone repository with git clone https://github.com/DendiLBN/bookStore.
