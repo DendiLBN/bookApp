@@ -8,6 +8,8 @@ The goal of this app was to create a functional version of an online store with 
 - User login,
 - Password change and reset.
 - Searching items by category or keywords,
+- Access token,
+- Refresh token,
 ---
 
 ## Technologies and libraries
@@ -29,14 +31,14 @@ The goal of this app was to create a functional version of an online store with 
 - **Express** – as the HTTP server,
 - **bcryptjs** – for password hashing,
 - **jsonwebtoken** – for handling JWT-based authentication,
-- **nodemailer** – for sending email notifications,
+- **nodemailer** – for sending emails containing a new access token and a request to reset the password.
 - **mongoose** – as the MongoDB ORM.
 
 ---
 ## Todo: 
-- Add sharp for image processing or something similar.
-- Add settings panel for user,
-- Add option for change avatar,
+- Sharp to change the resolution of uploaded images on the server side,
+- Settings panel for user,
+- Option for change avatar,
 - Adding and removing items from the shopping cart, 
 - Viewing transaction history and purchase details,
 - Admin capabilities to manage user information, review transactions, and modify the store inventory.
