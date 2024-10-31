@@ -1,30 +1,37 @@
-# React + TypeScript + Vite
+About this app
+This app is a part of a full-stack project, covering both frontend and backend, and built with modern web technologies. The frontend is developed using React with TypeScript, utilizing Redux Toolkit and RTK Query for state management. The backend is based on NestJS and Node.js with Express, providing authentication, image processing, and email notifications.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Main features of the app include:
 
-Currently, two official plugins are available:
+User registration and login,
+Email password reset,
+Adding and removing items from the shopping cart, (inprogress)
+Viewing transaction history and purchase details, (inprogress)
+Searching items by category or keywords, (inprogress)
+Admin capabilities to modify user information and review transaction details.
+Technologies and libraries (inprogress)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+On the frontend, the following technologies and libraries were used:
 
-## Expanding the ESLint configuration
+TypeScript – for static typing,
+React – to build the user interface,
+Redux Toolkit – for state management,
+RTK Query – for handling queries and data caching,
+React Router – for navigation between components,
+Ant Design – UI components,
+Axios – for handling HTTP requests.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+On the backend, I used:
 
-- Configure the top-level `parserOptions` property like this:
+NestJS – a Node.js framework,
+Express – as the core HTTP server,
+bcryptjs – for password hashing,
+jsonwebtoken – for authorization and generating JWT tokens,
+nodemailer – for sending emails,
+mongoose – as the ORM for MongoDB.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+How to run this app?
+Clone repository with git clone https://github.com/DendiLBN/bookStore.
+Fetch all dependencies on the server side using npm install or yarn install and then go to the client - ./client and fetch all dependiences using also npm or yarn.
+Run app using npm run dev or yarn dev.
+Open http://localhost:3000 to view it in the browser.
