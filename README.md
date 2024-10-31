@@ -2,7 +2,7 @@
 
 The client side of this app was created using React and TypeScript, while the server side was developed using NestJS and Node.js with Express.
 
-My main goal in creating this app was to build a functional version of an online store with essential features, including:
+The goal of this app was to create a functional version of an online store with essential features, including below:
 
 - User registration, 
 - User login,
