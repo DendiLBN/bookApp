@@ -6,7 +6,7 @@ The goal of this app was to create a functional version of an online store with 
 
 - User registration, 
 - User login,
-- Password reset & reminder.
+- Password change and reset.
 - Searching items by category or keywords,
 ---
 
