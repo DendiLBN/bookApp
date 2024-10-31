@@ -21,6 +21,7 @@ My main goal in creating this app was to build a functional version of an online
 - **React Router** – for navigation between components,
 - **Ant Design** – UI components,
 - **Axios** – for HTTP requests.
+- **Error boundry** - for error handling.
 
 ### On the server side, I used:
 
@@ -28,14 +29,14 @@ My main goal in creating this app was to build a functional version of an online
 - **Express** – as the HTTP server,
 - **bcryptjs** – for password hashing,
 - **jsonwebtoken** – for handling JWT-based authentication,
-- **sharp** – for image processing,
 - **nodemailer** – for sending email notifications,
 - **mongoose** – as the MongoDB ORM.
 
 ---
 Todo: 
-- Adding settings panel for user,
-- Adding option for change avatar,
+- Add sharp for image processing or something similar.
+- Add settings panel for user,
+- Add option for change avatar,
 - Adding and removing items from the shopping cart, 
 - Viewing transaction history and purchase details,
 - Admin capabilities to manage user information, review transactions, and modify the store inventory.
