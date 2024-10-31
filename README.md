@@ -33,7 +33,7 @@ The goal of this app was to create a functional version of an online store with 
 - **mongoose** – as the MongoDB ORM.
 
 ---
-Todo: 
+## Todo: 
 - Add sharp for image processing or something similar.
 - Add settings panel for user,
 - Add option for change avatar,
