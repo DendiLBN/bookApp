@@ -43,8 +43,8 @@ Todo:
 
 ---
 
-How to run this app?
-###
+## How to run this app?
+
 
 Clone repository with git clone https://github.com/DendiLBN/bookStore.
 Fetch all dependencies on the server side using npm install or yarn install and then go to the client - ./client and fetch all dependiences using also npm or yarn.
