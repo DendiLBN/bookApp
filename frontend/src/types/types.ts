@@ -27,7 +27,7 @@ export type TUseFilteredBooksProps = {
   bookSearchText: string;
   selectedCategories: string[];
   fetchBookList: TBookBody[];
-  setFilteredBookList: (filteredBookList: TBookBody[]) => void;
+  setBookList: (filteredBookList: TBookBody[]) => void;
 };
 
 export type TCategorySelectProps = {
