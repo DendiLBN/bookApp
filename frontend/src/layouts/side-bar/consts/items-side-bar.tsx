@@ -2,8 +2,8 @@ import { MenuProps } from "antd";
 import {
   UserOutlined,
   SettingOutlined,
-  KeyOutlined,
 } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 
 export const itemsSideBar: MenuProps["items"] = [
   {
@@ -18,11 +18,13 @@ export const itemsSideBar: MenuProps["items"] = [
     children: [
       {
         key: "3",
-        label: "Change Password",
-        icon: <KeyOutlined />,
+        style: { paddingLeft: "10px" },
+        label: <Link to="/auth/change-password">Change Password</Link>,
+        icon:<UserOutlined />,
       },
       {
         key: "4",
+        style: { paddingLeft: "10px" },
         icon: <UserOutlined />,
         label: "Update Avatar",
       },

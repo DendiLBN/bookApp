@@ -15,13 +15,13 @@ export type TBookFormContext = {
   isSidebarCollapsed: boolean;
   selectedBookRowKeys: Key[];
   fetchBookList: TBookBody[];
-  filteredBookList: TBookBody[];
+  bookList: TBookBody[];
   selectedCategories: string[];
   setBookSearchText: Dispatch<SetStateAction<string>>;
   setIsSidebarCollapsed: Dispatch<SetStateAction<boolean>>;
   setFetchBookList: Dispatch<SetStateAction<TBookBody[]>>;
   setSelectedCategories: Dispatch<SetStateAction<string[]>>;
-  setFilteredBookList: Dispatch<SetStateAction<TBookBody[]>>;
+  setBookList: Dispatch<SetStateAction<TBookBody[]>>;
   setSelectedBookRowKeys: Dispatch<SetStateAction<Key[]>>;
 };
 
@@ -34,7 +34,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
 }) => {
   const [bookSearchText, setBookSearchText] = useState<string>("");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [filteredBookList, setFilteredBookList] = useState<TBookBody[]>([]);
+  const [bookList, setBookList] = useState<TBookBody[]>([]);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
   const [fetchBookList, setFetchBookList] = useState<TBookBody[]>([]);
   const [selectedBookRowKeys, setSelectedBookRowKeys] = useState<Key[]>([]);
@@ -44,13 +44,13 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       selectedBookRowKeys,
       bookSearchText,
       selectedCategories,
-      filteredBookList,
+      bookList,
       isSidebarCollapsed,
       fetchBookList,
       setSelectedCategories,
       setFetchBookList,
       setBookSearchText,
-      setFilteredBookList,
+      setBookList,
       setIsSidebarCollapsed,
       setSelectedBookRowKeys,
     }),
@@ -58,7 +58,7 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({
       selectedBookRowKeys,
       bookSearchText,
       selectedCategories,
-      filteredBookList,
+      bookList,
       isSidebarCollapsed,
       fetchBookList,
     ]

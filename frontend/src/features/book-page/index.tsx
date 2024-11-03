@@ -33,11 +33,11 @@ export const BookView: React.FC = () => {
   const {
     selectedCategories,
     selectedBookRowKeys,
-    filteredBookList,
+    bookList,
     bookSearchText,
     fetchBookList,
     setBookSearchText,
-    setFilteredBookList,
+    setBookList,
     setSelectedCategories,
     setSelectedBookRowKeys,
   } = useBooksFormContext();
@@ -46,7 +46,7 @@ export const BookView: React.FC = () => {
     bookSearchText,
     selectedCategories,
     fetchBookList,
-    setFilteredBookList,
+    setBookList,
   });
 
   const onSelectChange = (newSelectedRowKeys: Key[]) => {
@@ -70,6 +70,9 @@ export const BookView: React.FC = () => {
     selectedRowKeys: selectedBookRowKeys,
     onChange: onSelectChange,
   };
+
+  const bookItem = bookList.find(book => book._id);
+console.log(bookItem);
 
   return (
     <div>
@@ -95,7 +98,7 @@ export const BookView: React.FC = () => {
         <Table
           rowSelection={rowSelection}
           columns={columns}
-          dataSource={filteredBookList.map((book) => ({
+          dataSource={bookList.map((book) => ({
             ...book,
             key: book._id,
           }))}

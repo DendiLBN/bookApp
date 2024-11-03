@@ -6,7 +6,7 @@ export const useFilteredBooks = ({
   bookSearchText,
   selectedCategories,
   fetchBookList,
-  setFilteredBookList,
+  setBookList,
 }: TUseFilteredBooksProps) => {
   useEffect(() => {
     const lowerSearchText = bookSearchText.toLowerCase();
@@ -26,6 +26,6 @@ export const useFilteredBooks = ({
         )
       : filteredBySearch;
 
-    setFilteredBookList(filteredByCategories);
-  }, [bookSearchText, selectedCategories, setFilteredBookList, fetchBookList]);
+    setBookList(filteredByCategories);
+  }, [bookSearchText, selectedCategories, setBookList, fetchBookList]);
 };
