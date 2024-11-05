@@ -14,6 +14,7 @@ import { Error404 } from "@/common/error-boundary/error/404";
 
 import OnSuccessRegister from "@/features/register-page/results";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
+import ChangePasswordForm from "@/features/login-page/components/forms/change-password-form";
 
 const AuthRoutes = lazy(() => import("@/routes/Auth.routes"));
 
@@ -62,6 +63,7 @@ export const LandingPageRouting = () => {
           }
         />
       )}
+      <Route path="auth/change-password" element={<ChangePasswordForm />} />
     </Routes>
   );
 };

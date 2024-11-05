@@ -26,7 +26,7 @@ export const itemsSideBar: MenuProps["items"] = [
         key: "4",
         style: { paddingLeft: "10px" },
         icon: <UserOutlined />,
-        label: "Update Avatar",
+        label: "Change Avatar",
       },
     ],
   },

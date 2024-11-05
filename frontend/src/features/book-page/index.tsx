@@ -71,8 +71,6 @@ export const BookView: React.FC = () => {
     onChange: onSelectChange,
   };
 
-  const bookItem = bookList.find(book => book._id);
-console.log(bookItem);
 
   return (
     <div>
