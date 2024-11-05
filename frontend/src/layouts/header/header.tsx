@@ -4,7 +4,6 @@ import {
   leftMenuItems,
   middleMenuItems,
   rightMenuItems,
-  shoppingCart,
 } from "@/layouts/header/consts/menu-items";
 import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
 import "@/assets/layouts-styles/header.css";
@@ -53,15 +52,6 @@ export const LandingPageHeader = () => {
           className="right-menu"
           />
       )}
-      
-    {isLoggedIn ? (
-      <Menu
-        mode="horizontal"
-        theme="light" 
-        items={shoppingCart}
-        className="shopping-cart"
-      />
-    ) : null}
       </div>
     </Header>
   );
