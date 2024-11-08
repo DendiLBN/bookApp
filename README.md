@@ -10,6 +10,7 @@ The goal of this app was to create a functional version of an online store with 
 - Searching items by category or keywords,
 - Access token,
 - Refresh token,
+
 ---
 
 ## Technologies and libraries
@@ -33,7 +34,7 @@ The goal of this app was to create a functional version of an online store with 
 - **nodemailer** – for sending emails containing a new access token and a request to reset the password.
 - **mongoose** – as the MongoDB ORM.
 - **nestjs/throttle** – to prevent the server from being overwhelmed by excessive requests (or "to prevent server spamming").
-
+- **jwt** - JWT keys are currently stored in the .env file included in this repository. For security reasons, sensitive data like JWT keys should ideally be excluded from version control. 
 ---
 ## Todo: 
 - Sharp to change the resolution of uploaded images on the server side,
