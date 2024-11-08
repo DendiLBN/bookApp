@@ -27,8 +27,7 @@ The goal of this app was to create a functional version of an online store with 
 
 ### On the server side, I used:
 
-- **nestjs** – a Node.js framework,
-- **express** – as the HTTP server,
+- **nestjs** 
 - **bcryptjs** – for password hashing,
 - **jsonwebtoken** – for handling JWT-based authentication,
 - **nodemailer** – for sending emails containing a new access token and a request to reset the password.
