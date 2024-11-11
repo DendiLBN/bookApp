@@ -44,6 +44,7 @@ The goal of this app was to create a functional version of an online store with 
 - Viewing transaction history and purchase details,
 - Admin capabilities to manage user information, review transactions, and modify the store inventory,  
 - Tests e2e.
+- Books CRUD.
 ---
 
 ## How to run this app?
