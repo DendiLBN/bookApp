@@ -1,11 +1,13 @@
 import { useState, ReactNode, createContext } from "react";
 import { ConfigProvider, theme } from "antd";
 
-export type TThemeContextProps = {
-  isDarkMode: boolean;
-  handleToggleTheme: () => void;
-  previous: string;
-};
+export type TThemeContextProps =
+  | {
+      isDarkMode: boolean;
+      handleToggleTheme: () => void;
+      previous: string;
+    }
+  | undefined;
 
 export const ThemeContext = createContext<TThemeContextProps | undefined>(
   undefined
