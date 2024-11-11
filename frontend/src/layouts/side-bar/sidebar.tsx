@@ -21,23 +21,21 @@ export const LandingPageSideBar = () => {
 
   return (
     isLoggedIn && (
-      
       <Sider
-      className="landing-page-sidebar"
-      theme="light"
-      defaultCollapsed
-      collapsed={collapsed}
-      onCollapse={toggleCollapsed}
-      style={{ maxHeight: "345px", overflow: "auto" }}
+        className="landing__page-sidebar"
+        theme="light"
+        collapsed={collapsed}
+        onCollapse={toggleCollapsed}
+        width={200}
       >
-       <div style={{ textAlign: "center", padding: "20px" }}>
-
-        {/* TODO Add user avatar */}
+        <div style={{ textAlign: "center", padding: "20px" }}>
+          {/* TODO Add user avatar */}
           <Avatar size={64} icon={<UserOutlined />} /> {/* Default avatar */}
           <p style={{ marginTop: "10px" }}>Username</p>
         </div>
         <Menu
           mode="inline"
+          style={{ borderInlineEnd: "none" }}
           theme="light"
           defaultSelectedKeys={["1"]}
           defaultOpenKeys={["sub1"]}
