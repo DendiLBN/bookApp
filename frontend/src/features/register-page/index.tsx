@@ -1,3 +1,5 @@
+import { ThemeContext } from "@/common/contexts/theme-context";
+
 import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 
 import { Button, Checkbox, Form, Input, Select } from "antd";
@@ -6,18 +8,24 @@ import { TRegisterUserRequestBody } from "@/types/types";
 
 import { useRegistrationUser } from "./hooks/useRegistrationUser";
 
-import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
-
 import initialRegisterValues from "./consts/register-state-values";
 
 import "@/assets/layouts-styles/register-styles/register.css";
+import { useContext } from "react";
 
 const { Option } = Select;
 
 export const RegisterPage = () => {
-  const { isDarkMode } = useThemeContext();
+  const RegistrationUser = useRegistrationUser();
+  const themeContext = useContext(ThemeContext);
 
-  const { RegistrationUserData } = useRegistrationUser();
+  if (!RegistrationUser || !themeContext) {
+    return;
+  }
+
+  const { isDarkMode } = themeContext;
+
+  const { RegistrationUserData } = RegistrationUser;
 
   const handleSubmitRegister = (values: TRegisterUserRequestBody) => {
     RegistrationUserData(values);

@@ -8,6 +8,7 @@ import "@/assets/layouts-styles/sidebar.css";
 import { selectIsLoggedIn } from "@/store/reducers/auth";
 import { useSelector } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
+import useUser from "@/common/users/useUser";
 
 const { Sider } = Layout;
 
@@ -19,6 +20,12 @@ export const LandingPageSideBar = () => {
     setCollapsed(!collapsed);
   };
 
+  const { user } = useUser();
+
+  if (!user?.firstName) {
+    return;
+  }
+
   return (
     isLoggedIn && (
       <Sider
@@ -27,11 +34,12 @@ export const LandingPageSideBar = () => {
         collapsed={collapsed}
         onCollapse={toggleCollapsed}
         width={200}
+        trigger={true}
       >
-        <div style={{ textAlign: "center", padding: "20px" }}>
+        <div style={{ textAlign: "center", padding: "10px" }}>
           {/* TODO Add user avatar */}
           <Avatar size={64} icon={<UserOutlined />} /> {/* Default avatar */}
-          <p style={{ marginTop: "10px" }}>Username</p>
+          <p style={{ marginTop: "10px" }}>{user.firstName}</p>
         </div>
         <Menu
           mode="inline"
@@ -41,6 +49,19 @@ export const LandingPageSideBar = () => {
           defaultOpenKeys={["sub1"]}
           items={itemsSideBar}
         />
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: "20px",
+            left: "50%",
+            transform: "translateX(-50%)",
+          }}
+        >
+          <div onClick={toggleCollapsed} style={{ cursor: "pointer" }}>
+            {collapsed ? "▶" : "◁"}
+          </div>
+        </div>
       </Sider>
     )
   );

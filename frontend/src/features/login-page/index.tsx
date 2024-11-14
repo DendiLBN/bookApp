@@ -16,14 +16,19 @@ import { useModalContext } from "@/common/contexts/hooks/use-modal-context";
 
 export const LoginPage = () => {
   const { isModalVisible, showModal } = useModalContext();
+  const { fetchBodyLoginUser, loading } = useLoginUser();
 
   const handleShowModal = () => {
     showModal();
   };
 
-  const { isDarkMode } = useThemeContext();
+  const themeContext = useThemeContext();
 
-  const { fetchBodyLoginUser, loading } = useLoginUser();
+  if (!themeContext) {
+    return;
+  }
+
+  const { isDarkMode } = themeContext;
 
   const handleSubmitLogin = (values: TLoginUserRequestBody) => {
     fetchBodyLoginUser(values);
@@ -64,13 +69,11 @@ export const LoginPage = () => {
             },
           ]}
         >
-          
           <Input
             prefix={<LockOutlined />}
             type="password"
             placeholder="Password"
           />
-
         </Form.Item>
 
         <Form.Item className="login__remember">
