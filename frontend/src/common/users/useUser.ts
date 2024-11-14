@@ -27,13 +27,10 @@ const useUser = () => {
     skip: !accessToken || !refreshToken || isLoggedIn,
   });
 
-
   useEffect(() => {
-    
     const existTokens = accessToken && refreshToken;
 
     if (existTokens && !user) {
-      
       refetch().then(({ data }) => {
         if (data) {
           dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
@@ -43,6 +40,8 @@ const useUser = () => {
       });
     }
   }, [dispatch, isLoggedIn, refetch, user, accessToken, refreshToken]);
+
+  console.log(user);
 
   return { user };
 };

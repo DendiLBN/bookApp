@@ -2,8 +2,6 @@ import { Button, Form, Input } from "antd";
 import "../../../../assets/layouts-styles/login-styles/change-password-styles/password.css";
 
 const ChangePasswordForm = () => {
-  // const handlerOnSubmit = (values: string) => {};
-
   return (
     <div className="password__container-form">
       <Form>
@@ -18,7 +16,7 @@ const ChangePasswordForm = () => {
             },
           ]}
         >
-          <Input.Password visibilityToggle={false} />
+          <Input.Password />
         </Form.Item>
         <Form.Item
           name="newPassword"
@@ -32,7 +30,7 @@ const ChangePasswordForm = () => {
             },
           ]}
         >
-          <Input.Password visibilityToggle={false} />
+          <Input.Password />
         </Form.Item>
         <Form.Item
           name="confirmpassword"
@@ -46,7 +44,7 @@ const ChangePasswordForm = () => {
             },
           ]}
         >
-          <Input.Password visibilityToggle={false} />
+          <Input.Password />
         </Form.Item>
         <Form.Item>
           <Button

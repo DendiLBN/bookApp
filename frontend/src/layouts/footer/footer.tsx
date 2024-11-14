@@ -8,7 +8,7 @@ export const LandingPageFooter: FC = () => {
   const themeContext = useContext(ThemeContext);
 
   if (!themeContext) {
-    return null;
+    return;
   }
 
   const { isDarkMode } = themeContext;
