@@ -21,14 +21,14 @@ export const authReducer = createSlice({
       state,
       action: PayloadAction<{ isLoggedIn: boolean; user: TUser | null }>
     ) {
-      state.isLoggedIn = action.payload.isLoggedIn;
       state.user = action.payload.user;
+      state.isLoggedIn = action.payload.isLoggedIn;
     },
 
     logOutUser(state) {
       removeTokens();
-      state.isLoggedIn = false;
       state.user = null;
+      state.isLoggedIn = false;
     },
   },
 });
