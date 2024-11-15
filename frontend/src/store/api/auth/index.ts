@@ -92,7 +92,7 @@ export const authApi = createApi({
         try {
           const response = await queryFulfilled;
 
-          if (!response) return;
+          // if (!response) return;
 
           if (response) {
             localStorage.removeItem("accessToken");
@@ -100,6 +100,7 @@ export const authApi = createApi({
             onSuccess();
             dispatch(clearUser());
             dispatch(logOutUser());
+            window.location.reload();
             dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
           }
         } catch (error) {

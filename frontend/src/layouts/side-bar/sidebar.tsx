@@ -26,12 +26,12 @@ export const LandingPageSideBar = () => {
 
   const { user } = useUser();
 
-  if (!user?.firstName) {
-    return;
+  if (!user) {
+    return null;
   }
 
   if (!themeContext) {
-    return;
+    return null;
   }
 
   const { isDarkMode } = themeContext;

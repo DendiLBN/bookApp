@@ -24,26 +24,32 @@ const useUser = () => {
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
 
   const { refetch } = useFetchUsersQuery(undefined, {
-    skip: !accessToken || !refreshToken || isLoggedIn,
+    skip: !accessToken || !refreshToken,
   });
 
   useEffect(() => {
     const existTokens = accessToken && refreshToken;
 
-    if (existTokens && !user) {
-      refetch().then(({ data }) => {
-        if (data) {
-          dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
-        } else {
+    if (existTokens && !isLoggedIn) {
+      refetch()
+        .then(({ data }) => {
+          if (data) {
+            dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
+          } else {
+            dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
+          }
+        })
+        .catch(() => {
           dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
-        }
-      });
+        });
     }
   }, [dispatch, isLoggedIn, refetch, user, accessToken, refreshToken]);
 
-  console.log(user);
+  if (user !== null) {
+    console.log(user, "stan uzytkownika");
+  }
 
-  return { user };
+  return { user, isLoggedIn };
 };
 
 export default useUser;
