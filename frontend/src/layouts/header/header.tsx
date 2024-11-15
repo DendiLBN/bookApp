@@ -4,6 +4,7 @@ import {
   leftMenuItems,
   middleMenuItems,
   rightMenuItems,
+  userMenuItems,
 } from "@/layouts/header/consts/menu-items";
 import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
 import "@/assets/layouts-styles/header.css";
@@ -19,20 +20,19 @@ export const LandingPageHeader = () => {
   return (
     <Header className="header">
       <div className="header__content">
-            
-      <Menu
+        <Menu
+          mode="horizontal"
+          theme="light"
+          items={homeMenuItem}
+          className="home-item"
+        />
+        {isLoggedIn ? (
+          <Menu
             mode="horizontal"
             theme="light"
-            items={homeMenuItem}
-            className="home-item"
+            items={leftMenuItems}
+            className="left-menu"
           />
-        {isLoggedIn ? (
-        <Menu
-        mode="horizontal"
-        theme="light"
-        items={leftMenuItems}
-        className="left-menu"
-      />
         ) : null}
 
         <Menu
@@ -43,15 +43,18 @@ export const LandingPageHeader = () => {
         />
 
         {isLoggedIn ? (
+          <Menu mode="horizontal" theme="light" items={userMenuItems} />
+        ) : null}
+        {isLoggedIn ? (
           <LogoutButton />
         ) : (
-        <Menu
-          mode="horizontal"
-          theme="light"
-          items={rightMenuItems}
-          className="right-menu"
+          <Menu
+            mode="horizontal"
+            theme="light"
+            items={rightMenuItems}
+            className="right-menu"
           />
-      )}
+        )}
       </div>
     </Header>
   );

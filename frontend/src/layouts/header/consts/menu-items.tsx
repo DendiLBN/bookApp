@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
 import {
+  BellOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
   SnippetsFilled,
   UserOutlined,
 } from "@ant-design/icons";
@@ -32,7 +32,6 @@ export const middleMenuItems: MenuProps["items"] = [
     key: "theme-button",
     label: <ThemeButton />,
   },
-  
 ];
 
 export const rightMenuItems: MenuProps["items"] = [
@@ -48,10 +47,15 @@ export const rightMenuItems: MenuProps["items"] = [
   },
 ];
 
-export const shoppingCart: MenuProps["items"] =[
+export const userMenuItems: MenuProps["items"] = [
   {
-    key: "shoppingCart",
-    label: <Link to="/shoppingCart">Shopping Cart</Link>,
-    icon: <ShoppingCartOutlined />,
+    key: "notifications",
+    label: <Link to="/settings/notifications"></Link>,
+    style: { textDecoration: "none" },
+    icon: (
+      <span className="icon-notification">
+        <BellOutlined />
+      </span>
+    ),
   },
-]
+];

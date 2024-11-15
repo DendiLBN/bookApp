@@ -13,6 +13,7 @@ import avatar from "@/assets/images/avatar.jpg";
 import { tagColors } from "./book-categories-colors";
 
 // TODO avatars fix on backend images.
+// TODO change icons smile for stars or numbers
 
 const customIcons: { [key: number]: JSX.Element } = {
   1: <FrownOutlined />,

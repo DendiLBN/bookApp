@@ -9,12 +9,16 @@ import { selectIsLoggedIn } from "@/store/reducers/auth";
 import { useSelector } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
 import useUser from "@/common/users/useUser";
+import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
 
 const { Sider } = Layout;
 
 export const LandingPageSideBar = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
+
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
+  const themeContext = useThemeContext();
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
@@ -26,6 +30,12 @@ export const LandingPageSideBar = () => {
     return;
   }
 
+  if (!themeContext) {
+    return;
+  }
+
+  const { isDarkMode } = themeContext;
+
   return (
     isLoggedIn && (
       <Sider
@@ -36,10 +46,17 @@ export const LandingPageSideBar = () => {
         width={200}
         trigger={true}
       >
-        <div style={{ textAlign: "center", padding: "10px" }}>
+        <div style={{ textAlign: "center", padding: "5px", marginTop: "15px" }}>
           {/* TODO Add user avatar */}
-          <Avatar size={64} icon={<UserOutlined />} /> {/* Default avatar */}
-          <p style={{ marginTop: "10px" }}>{user.firstName}</p>
+          <Avatar size={64} icon={<UserOutlined />} />
+          <h3
+            style={{
+              marginTop: "20px",
+              color: isDarkMode ? "#e0e0e0" : "#333333",
+            }}
+          >
+            {user.firstName}
+          </h3>
         </div>
         <Menu
           mode="inline"
