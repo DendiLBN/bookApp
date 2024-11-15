@@ -36,7 +36,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({
         theme={{
           algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
           token: {
-            colorPrimary: isDarkMode ? "#4c6ef5" : "#4c6ef5",
+            colorPrimary: isDarkMode ? "#00b96b" : "#E0282E",
             colorText: isDarkMode ? "#e0e0e0" : "#333333",
             colorBgBase: isDarkMode ? "#1e1e2f" : "#f8f9fa",
             colorBgContainer: isDarkMode ? "#2b2b3c" : "#ffffff",
