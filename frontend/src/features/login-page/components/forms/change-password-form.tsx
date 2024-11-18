@@ -32,20 +32,6 @@ const ChangePasswordForm = () => {
         >
           <Input.Password />
         </Form.Item>
-        <Form.Item
-          name="confirmpassword"
-          label="Confirm Password"
-          rules={[
-            {
-              required: true,
-              message: "Please input your confirm password!",
-              min: 6,
-              max: 16,
-            },
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
         <Form.Item>
           <Button
             style={{ width: 300, justifyContent: "center" }}
