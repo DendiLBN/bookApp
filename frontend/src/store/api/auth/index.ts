@@ -100,7 +100,6 @@ export const authApi = createApi({
             onSuccess();
             dispatch(clearUser());
             dispatch(logOutUser());
-            window.location.reload();
             dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
           }
         } catch (error) {

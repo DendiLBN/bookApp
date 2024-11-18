@@ -30,7 +30,7 @@ const useUser = () => {
   useEffect(() => {
     const existTokens = accessToken && refreshToken;
 
-    if (existTokens && !isLoggedIn) {
+    if ((existTokens && !isLoggedIn) || !!user) {
       refetch()
         .then(({ data }) => {
           if (data) {
@@ -44,10 +44,6 @@ const useUser = () => {
         });
     }
   }, [dispatch, isLoggedIn, refetch, user, accessToken, refreshToken]);
-
-  if (user !== null) {
-    console.log(user, "stan uzytkownika");
-  }
 
   return { user, isLoggedIn };
 };

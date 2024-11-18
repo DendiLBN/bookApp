@@ -6,14 +6,16 @@ import { useNotificationContext } from "@/common/contexts/hooks/use-notification
 
 import { TLoginUserRequestBody } from "@/types/types";
 
+import useUser from "@/common/users/useUser";
+
 export const useLoginUser = () => {
   const [loginUser, { isLoading }] = useLoginUserMutation();
+  const { user } = useUser();
 
   const { openNotification } = useNotificationContext();
-
   const handleSuccess = useCallback(() => {
-    openNotification("topRight", "success", "You are logged in!", true);
-  }, [openNotification]);
+    openNotification("topRight", "success", `You are logged in ${user}!`, true);
+  }, [openNotification, user]);
 
   const handleError = useCallback(() => {
     openNotification(
