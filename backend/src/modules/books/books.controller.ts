@@ -40,13 +40,13 @@ export class BooksController {
     return this.booksService.updateOne(id, updateBookDto);
   }
 
+  @Delete('')
+  deleteMultipleBooks(@Body() body: { ids: string[] }) {
+    return this.booksService.removeMultiple(body.ids);
+  }
+
   @Delete(':id')
   deleteBook(@Param('id') id: string) {
     return this.booksService.remove(id);
-  }
-
-  @Post('delete-multiple-id')
-  deleteMultipleBooks(@Body() body: { ids: string[] }) {
-    return this.booksService.removeMultiple(body.ids);
   }
 }

@@ -33,7 +33,7 @@ export const bookApi = createApi({
     deleteManyBooks: builder.mutation<void, Key[]>({
       query: (ids) => ({
         method: "POST",
-        url: "books/delete-multiple-id",
+        url: "books/ids",
         data: { ids },
       }),
       invalidatesTags: (response) => (response ? [{ type: "books" }] : []),
