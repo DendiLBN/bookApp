@@ -90,9 +90,9 @@ export class BooksService implements OnModuleInit {
   }
 
   async removeMultiple(ids: string[]): Promise<{ deletedCount: number }> {
-    const resultDeleted = await this.bookModel
-      .deleteMany({ _id: { $in: ids } })
-      .exec();
+    const resultDeleted = await this.bookModel.deleteMany({
+      _id: { $in: ids },
+    });
 
     if (resultDeleted.deletedCount !== ids.length) {
       throw new NotFoundException(
