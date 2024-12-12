@@ -7,7 +7,7 @@ const LoginPage = lazy(() => import("@/pages/Auth/Login"));
 
 const RegisterPage = lazy(() => import("@/pages/Auth/Register"));
 
-export const AuthRoutes = () => {
+const AuthRoutes = () => {
   const { loading } = useNotificationContext();
 
   if (loading) return;
@@ -21,4 +21,5 @@ export const AuthRoutes = () => {
     </Suspense>
   );
 };
+
 export default AuthRoutes;
