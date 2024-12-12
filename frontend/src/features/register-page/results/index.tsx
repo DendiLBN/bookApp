@@ -1,12 +1,14 @@
 import { useNavigate, useLocation } from "react-router-dom";
 
 import { Button, Result } from "antd";
+import { TOnSuccessRegisterProps } from "@/types/types";
 
 export const OnSuccessRegister = () => {
   const navigate = useNavigate();
+
   const location = useLocation();
-  // TODO ADD TYPES TO LOCATION
-  const { firstName, email } = location.state;
+
+  const { firstName, email }: TOnSuccessRegisterProps = location.state;
 
   const handleLoginRedirect = () => {
     navigate("/auth/login", { replace: true });

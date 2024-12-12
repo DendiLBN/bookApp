@@ -97,3 +97,8 @@ export type TForgotPasswordParams = {
 export type TForgotPasswordProps = {
   visible: boolean;
 };
+
+export type TOnSuccessRegisterProps = {
+  firstName: string;
+  email: string;
+};

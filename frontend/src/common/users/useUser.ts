@@ -30,7 +30,7 @@ const useUser = () => {
   useEffect(() => {
     const existTokens = accessToken && refreshToken;
 
-    if ((existTokens && !isLoggedIn) || !!user) {
+    if (existTokens && !isLoggedIn) {
       refetch()
         .then(({ data }) => {
           if (data) {

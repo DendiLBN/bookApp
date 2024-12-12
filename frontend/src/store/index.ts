@@ -15,10 +15,6 @@ const apiReducers = {
   [userSlice.name]: userSlice.reducer,
 };
 
-// TODO: ReducerPath (RTK Query) for API requests
-// TODO: Name (key in Redux) for custom slice, which holds user information
-// TODO: Remember push path to apiMiddlewares
-
 export const apiMiddlewares = [
   authApi.middleware,
   bookApi.middleware,
