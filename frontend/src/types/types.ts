@@ -1,5 +1,8 @@
 import { Key } from "react";
-import { TLoginUserResponse, TRegisterUserResponse } from "./api/auth-user";
+import {
+  TLoginUserResponse,
+  TRegisterUserResponse,
+} from "@/types/api/auth-user";
 
 export type TBookBody = {
   _id: string;
