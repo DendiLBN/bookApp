@@ -1,10 +1,7 @@
 import { useState } from "react";
 import { Avatar, Layout, Menu } from "antd";
-
 import { itemsSideBar } from "@/layouts/side-bar/consts/items-side-bar";
-
 import "@/assets/layouts-styles/sidebar.css";
-
 import { selectIsLoggedIn } from "@/store/reducers/auth";
 import { useSelector } from "react-redux";
 import { UserOutlined } from "@ant-design/icons";
@@ -17,21 +14,15 @@ export const LandingPageSideBar = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
-
+  const { user } = useUser();
   const themeContext = useThemeContext();
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);
   };
 
-  const { user } = useUser();
-
-  if (!user) {
-    return null;
-  }
-
-  if (!themeContext) {
-    return null;
+  if (!user || !themeContext) {
+    return <div>Loading...</div>;
   }
 
   const { isDarkMode } = themeContext;
@@ -47,7 +38,6 @@ export const LandingPageSideBar = () => {
         trigger={true}
       >
         <div style={{ textAlign: "center", padding: "5px", marginTop: "15px" }}>
-          {/* TODO Add user avatar */}
           <Avatar size={64} icon={<UserOutlined />} />
           <h3
             style={{
@@ -66,7 +56,6 @@ export const LandingPageSideBar = () => {
           defaultOpenKeys={["sub1"]}
           items={itemsSideBar}
         />
-
         <div
           style={{
             position: "absolute",

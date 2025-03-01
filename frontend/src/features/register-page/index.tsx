@@ -6,9 +6,9 @@ import { Button, Checkbox, Form, Input, Select } from "antd";
 
 import { TRegisterUserRequestBody } from "@/types/types";
 
-import { useRegistrationUser } from "./hooks/useRegistrationUser";
+import { useRegistrationUser } from "@/features/register-page/hooks/useRegistrationUser";
 
-import initialRegisterValues from "./consts/register-state-values";
+import initialRegisterValues from "@/features/register-page/consts/register-state-values";
 
 import "@/assets/layouts-styles/register-styles/register.css";
 import { useContext } from "react";

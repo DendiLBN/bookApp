@@ -17,6 +17,8 @@ export const useLoginUser = () => {
     openNotification("topRight", "success", `You are logged in ${user}!`, true);
   }, [openNotification, user]);
 
+  //  Fix issue with display login result is not correct "null" instead of user name, maybe it's because of the user is not updated on the store;
+
   const handleError = useCallback(() => {
     openNotification(
       "topRight",

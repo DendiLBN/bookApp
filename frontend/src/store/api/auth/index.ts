@@ -92,8 +92,6 @@ export const authApi = createApi({
         try {
           const response = await queryFulfilled;
 
-          // if (!response) return;
-
           if (response) {
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
@@ -107,6 +105,7 @@ export const authApi = createApi({
         }
       },
     }),
+
     forgotPassword: builder.mutation<void, TForgotPasswordParams>({
       query: ({ data }) => ({
         method: "POST",
@@ -115,10 +114,7 @@ export const authApi = createApi({
       }),
       async onQueryStarted({ onSuccess, onError }, { queryFulfilled }) {
         try {
-          const response = await queryFulfilled;
-
-          if (!response) return;
-
+          await queryFulfilled;
           onSuccess();
         } catch (error) {
           onError();

@@ -72,6 +72,7 @@ export const LoginPage = () => {
           <Input
             prefix={<LockOutlined />}
             type="password"
+            autoComplete="on"
             placeholder="Password"
           />
         </Form.Item>
