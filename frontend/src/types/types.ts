@@ -1,8 +1,5 @@
 import { Key } from "react";
-import {
-  TLoginUserResponse,
-  TRegisterUserResponse,
-} from "@/types/api/auth-user";
+import { TUser } from "@/types/api/auth-user";
 
 export type TBookBody = {
   _id: string;
@@ -52,7 +49,7 @@ export type TRegisterUserRequestBody = {
 
 export type TRegisterUserParams = {
   data: TRegisterUserRequestBody;
-  onSuccess: (data: TRegisterUserResponse) => void;
+  onSuccess: (data: TUser) => void;
   onError: () => void;
 };
 
@@ -63,7 +60,7 @@ export type TLoginUserRequestBody = {
 
 export type TLoginUserParams = {
   data: TLoginUserRequestBody;
-  onSuccess: (data: TLoginUserResponse) => void;
+  onSuccess: (data: TUser) => void;
   onError: () => void;
 };
 

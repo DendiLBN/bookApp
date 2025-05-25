@@ -26,10 +26,18 @@ export const authApi = createApi({
         url: `auth/register/`,
         data,
       }),
-      async onQueryStarted({ onSuccess, onError }, { queryFulfilled }) {
+      async onQueryStarted(
+        { onSuccess, onError },
+        { dispatch, queryFulfilled }
+      ) {
         try {
-          const response = await queryFulfilled;
-          onSuccess(response.data);
+          await queryFulfilled;
+          const userResponse = await dispatch(
+            userApi.endpoints.fetchUsers.initiate()
+          );
+          if (userResponse?.data) {
+            onSuccess(userResponse.data);
+          }
         } catch (error) {
           onError();
         }
@@ -48,9 +56,6 @@ export const authApi = createApi({
       ) {
         try {
           const response = await queryFulfilled;
-
-          if (!response) return;
-
           const { accessToken, refreshToken } = response.data;
           setTokens({ accessToken, refreshToken });
 
@@ -60,10 +65,10 @@ export const authApi = createApi({
 
           if (userResponse?.data) {
             dispatch(
-              setIsLoggedIn({ isLoggedIn: true, user: userResponse?.data })
+              setIsLoggedIn({ isLoggedIn: true, user: userResponse.data })
             );
+            onSuccess(userResponse.data);
           }
-          onSuccess(response.data);
         } catch (error) {
           onError();
         }

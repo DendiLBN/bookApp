@@ -6,6 +6,9 @@ export const HomeView = () => {
       <h1
         style={{
           display: "flex",
+          backgroundColor: "#708090",
+          color: "#fff",
+          padding: "20px",
           justifyContent: "center",
         }}
       >
