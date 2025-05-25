@@ -18,7 +18,8 @@ const useUser = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
   const user = useSelector(selectUser);
-
+  console.log("user", user);
+  console.log("isLoggedIn", isLoggedIn);
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
 
   const refreshToken = localStorage.getItem(REFRESH_TOKEN);
@@ -28,22 +29,16 @@ const useUser = () => {
   });
 
   useEffect(() => {
-    const existTokens = accessToken && refreshToken;
-
-    if (existTokens && !isLoggedIn) {
+    if (accessToken && refreshToken && !user) {
       refetch()
         .then(({ data }) => {
-          if (data) {
-            dispatch(setIsLoggedIn({ isLoggedIn: true, user: data }));
-          } else {
-            dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
-          }
+          dispatch(setIsLoggedIn({ isLoggedIn: !!data, user: data ?? null }));
         })
         .catch(() => {
           dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
         });
     }
-  }, [dispatch, isLoggedIn, refetch, user, accessToken, refreshToken]);
+  }, [accessToken, refreshToken, dispatch, refetch, user]);
 
   return { user, isLoggedIn };
 };

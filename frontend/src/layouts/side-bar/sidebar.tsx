@@ -14,7 +14,9 @@ export const LandingPageSideBar = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
 
   const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const { user } = useUser();
+
   const themeContext = useThemeContext();
 
   const toggleCollapsed = () => {
