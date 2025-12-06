@@ -17,7 +17,7 @@ export const useLoginUser = () => {
 
   const handleSuccess = useCallback(() => {
     openNotification(
-      "topRight",
+      "top",
       "success",
       `You are logged in successfully! `,
       true
@@ -26,7 +26,7 @@ export const useLoginUser = () => {
 
   const handleError = useCallback(() => {
     openNotification(
-      "topRight",
+      "top",
       "error",
       "An error occurred while login!. Please check your password or email.",
       false
