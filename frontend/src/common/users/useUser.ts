@@ -29,7 +29,7 @@ const useUser = () => {
   });
 
   useEffect(() => {
-    if (accessToken && refreshToken && !user) {
+    if (accessToken && refreshToken) {
       refetch()
         .then(({ data }) => {
           dispatch(setIsLoggedIn({ isLoggedIn: !!data, user: data ?? null }));

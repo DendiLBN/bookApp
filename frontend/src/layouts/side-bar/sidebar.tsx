@@ -24,7 +24,7 @@ export const LandingPageSideBar = () => {
   };
 
   if (!user || !themeContext) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   const { isDarkMode } = themeContext;
