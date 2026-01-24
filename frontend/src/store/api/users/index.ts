@@ -13,6 +13,7 @@ export const userApi = createApi({
         method: "GET",
         url: "users/me",
       }),
+      providesTags: ["users"],
     }),
   }),
 });

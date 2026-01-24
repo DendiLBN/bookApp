@@ -38,7 +38,7 @@ const useUser = () => {
           dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
         });
     }
-  }, [accessToken, refreshToken, dispatch, refetch, user]);
+  }, [accessToken, refreshToken, dispatch, refetch]);
 
   return { user, isLoggedIn };
 };

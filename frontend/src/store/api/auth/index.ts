@@ -58,9 +58,12 @@ export const authApi = createApi({
           const response = await queryFulfilled;
           const { accessToken, refreshToken } = response.data;
           setTokens({ accessToken, refreshToken });
+          dispatch(setIsLoggedIn({ isLoggedIn: false, user: null }));
 
           const userResponse = await dispatch(
-            userApi.endpoints.fetchUsers.initiate()
+            userApi.endpoints.fetchUsers.initiate(undefined, {
+              forceRefetch: true,
+            })
           );
 
           if (userResponse?.data) {
