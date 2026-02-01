@@ -1,6 +1,6 @@
 import axiosBaseQuery from "@/common/services/axios-base-query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { logOutUser, setIsLoggedIn } from "../../reducers/auth";
+import { logOutUser, setIsLoggedIn } from "@/store/reducers/auth";
 import {
   TLoginUserResponse,
   TLogOutUserResponse,
@@ -13,7 +13,7 @@ import {
   TRegisterUserParams,
 } from "@/types/types";
 import { setTokens } from "@/common/utils/setTokens";
-import { userApi } from "../users";
+import { userApi } from "@/store/api/users";
 import { clearUser } from "@/store/reducers/users";
 
 export const authApi = createApi({
@@ -28,12 +28,12 @@ export const authApi = createApi({
       }),
       async onQueryStarted(
         { onSuccess, onError },
-        { dispatch, queryFulfilled }
+        { dispatch, queryFulfilled },
       ) {
         try {
           await queryFulfilled;
           const userResponse = await dispatch(
-            userApi.endpoints.fetchUsers.initiate()
+            userApi.endpoints.fetchUsers.initiate(),
           );
           if (userResponse?.data) {
             onSuccess(userResponse.data);
@@ -52,7 +52,7 @@ export const authApi = createApi({
       }),
       async onQueryStarted(
         { onSuccess, onError },
-        { dispatch, queryFulfilled }
+        { dispatch, queryFulfilled },
       ) {
         try {
           const response = await queryFulfilled;
@@ -63,12 +63,12 @@ export const authApi = createApi({
           const userResponse = await dispatch(
             userApi.endpoints.fetchUsers.initiate(undefined, {
               forceRefetch: true,
-            })
+            }),
           );
 
           if (userResponse?.data) {
             dispatch(
-              setIsLoggedIn({ isLoggedIn: true, user: userResponse.data })
+              setIsLoggedIn({ isLoggedIn: true, user: userResponse.data }),
             );
             onSuccess(userResponse.data);
           }
@@ -95,7 +95,7 @@ export const authApi = createApi({
 
       onQueryStarted: async (
         { onSuccess, onError },
-        { dispatch, queryFulfilled }
+        { dispatch, queryFulfilled },
       ) => {
         try {
           const response = await queryFulfilled;
