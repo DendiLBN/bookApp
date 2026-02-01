@@ -17,6 +17,11 @@ export const ForgotPasswordForm = ({ visible }: TForgotPasswordProps) => {
 
   const [form] = Form.useForm();
 
+  const handleCancelModal = useCallback(() => {
+    hideModal();
+    form.resetFields();
+  }, [form, hideModal]);
+
   const handleSuccess = useCallback(() => {
     openNotification(
       "topRight",
@@ -24,7 +29,8 @@ export const ForgotPasswordForm = ({ visible }: TForgotPasswordProps) => {
       "Email has been send follow the instructions",
       true
     );
-  }, [openNotification]);
+    handleCancelModal();
+  }, [handleCancelModal, openNotification]);
 
   const handleError = useCallback(() => {
     openNotification(
@@ -35,11 +41,6 @@ export const ForgotPasswordForm = ({ visible }: TForgotPasswordProps) => {
     );
   }, [openNotification]);
 
-  const handleCancelModal = useCallback(() => {
-    hideModal();
-    form.resetFields();
-  }, [form, hideModal]);
-
   const handleSendEmail = useCallback(
     async ({ email }: TFrogotPasswordEmail) => {
       forgotPassword({
@@ -47,9 +48,8 @@ export const ForgotPasswordForm = ({ visible }: TForgotPasswordProps) => {
         onSuccess: handleSuccess,
         onError: handleError,
       });
-      handleCancelModal();
     },
-    [forgotPassword, handleCancelModal, handleError, handleSuccess]
+    [forgotPassword, handleError, handleSuccess]
   );
 
   return (

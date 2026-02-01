@@ -10,8 +10,8 @@ import { LandingPageSideBar } from "@/layouts/side-bar/sidebar";
 import { LandingPageContent } from "@/layouts/content/content";
 import LandingPageFooter from "@/layouts/footer/footer";
 
-import ErrorBoundary from "./common/error-boundary";
-import { ModalProvider } from "./common/contexts/modal-context";
+import ErrorBoundary from "@/common/error-boundary/error-boundry";
+import { ModalProvider } from "@/common/contexts/modal-context";
 
 const App: React.FC = () => {
   return (
