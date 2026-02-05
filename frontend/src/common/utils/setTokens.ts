@@ -1,4 +1,4 @@
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/common/consts/local-storage";
 
 import { TTokens } from "@/types/types";
 

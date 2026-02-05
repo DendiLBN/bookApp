@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { bookApi } from "./api/books";
-import { authApi } from "./api/auth";
-import { userApi } from "./api/users";
+import { bookApi } from "@/store/api/books";
+import { authApi } from "@/store/api/auth";
+import { userApi } from "@/store/api/users";
 
-import { authReducer } from "./reducers/auth";
-import { userSlice } from "./reducers/users";
+import { authReducer } from "@/store/reducers/auth";
+import { userSlice } from "@/store/reducers/users";
 
 const apiReducers = {
   [userApi.reducerPath]: userApi.reducer,

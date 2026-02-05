@@ -2,7 +2,7 @@ import { useContext } from "react";
 import {
   AntdNotificationContext,
   TNotificationContext,
-} from "../antd-notification-context";
+} from "@/common/contexts/antd-notification-context";
 
 export const useNotificationContext = (): TNotificationContext => {
   const ctx = useContext(AntdNotificationContext);

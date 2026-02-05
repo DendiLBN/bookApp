@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { useNavigate } from "react-router-dom";
 
 import { Button } from "antd";
@@ -17,19 +15,19 @@ export const LogoutButton: React.FC = () => {
 
   const [logOutUser] = useLogOutUserMutation();
 
-  const handleSuccess = useCallback(() => {
+  const handleSuccess = () => {
     openNotification("topRight", "success", "Logged out successfully!", true);
     navigate("/auth/login");
-  }, [navigate, openNotification]);
+  };
 
-  const handleError = useCallback(() => {
+  const handleError = () => {
     openNotification(
       "topRight",
       "error",
       "An error occurred while logging out.",
       false
     );
-  }, [openNotification]);
+  };
 
   const handleLogout = async () => {
     try {

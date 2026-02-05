@@ -1,5 +1,3 @@
-import { useCallback } from "react";
-
 import { TRegisterUserRequestBody } from "@/types/types";
 
 import { useRegisterUserMutation } from "@/store/api/auth/index";
@@ -17,44 +15,38 @@ export const useRegistrationUser = () => {
 
   const navigate = useNavigate();
 
-  const handleSuccess = useCallback(
-    (data: TRegisterUserResponse) => {
-      navigate("/success", {
-        state: { firstName: data.firstName, email: data.email },
-      });
-    },
-    [navigate]
-  );
+  const handleSuccess = (data: TRegisterUserResponse) => {
+    navigate("/success", {
+      state: { firstName: data.firstName, email: data.email },
+    });
+  };
 
-  const handleError = useCallback(() => {
+  const handleError = () => {
     openNotification(
       "topRight",
       "error",
       "An error occurred while registering user. Please try again later.",
       false
     );
-  }, [openNotification]);
+  };
 
-  const RegistrationUserData = useCallback(
-    async ({
-      email,
-      password,
-      firstName,
-      lastName,
-    }: TRegisterUserRequestBody) => {
-      registerUser({
-        data: {
-          firstName,
-          lastName,
-          email,
-          password,
-        },
-        onSuccess: handleSuccess,
-        onError: handleError,
-      }).unwrap();
-    },
-    [handleError, registerUser, handleSuccess]
-  );
+  const RegistrationUserData = async ({
+    email,
+    password,
+    firstName,
+    lastName,
+  }: TRegisterUserRequestBody) => {
+    registerUser({
+      data: {
+        firstName,
+        lastName,
+        email,
+        password,
+      },
+      onSuccess: handleSuccess,
+      onError: handleError,
+    }).unwrap();
+  };
 
   return { RegistrationUserData, loading: isLoading };
 };

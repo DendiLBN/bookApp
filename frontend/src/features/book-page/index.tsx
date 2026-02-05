@@ -4,17 +4,17 @@ import { Spin, Table, TableProps } from "antd";
 
 import { DeleteBooksButton } from "@/features/book-page/components/delete-button/index";
 
-import { UseFetchBodyBooks } from "./hooks/useFetchBooksList";
+import { UseFetchBodyBooks } from "@/features/book-page/hooks/useFetchBooksList";
 
-import { useDeleteAsArrayBooks } from "./hooks/useDeleteAsArrayBooks";
-import { useFilteredBooks } from "./hooks/useFilteredBooks";
+import { useDeleteAsArrayBooks } from "@/features/book-page/hooks/useDeleteAsArrayBooks";
+import { useFilteredBooks } from "@/features/book-page/hooks/useFilteredBooks";
 
-import { useBooksFormContext } from "./contexts/hooks/use-form-book-context";
+import { useBooksFormContext } from "@/features/book-page/contexts/hooks/use-form-book-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 import { TBookBody } from "@/types/types";
 
-import { BookSearch } from "./components/filters/book-search";
+import { BookSearch } from "@/features/book-page/components/filters/book-search";
 
 import { CategorySelect } from "@/features/book-page/components/filters/category-select";
 

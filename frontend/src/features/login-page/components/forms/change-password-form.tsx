@@ -1,5 +1,5 @@
 import { Button, Form, Input } from "antd";
-import "../../../../assets/layouts-styles/login-styles/change-password-styles/password.css";
+import "@/assets/layouts-styles/login-styles/change-password-styles/password.css";
 
 const ChangePasswordForm = () => {
   return (

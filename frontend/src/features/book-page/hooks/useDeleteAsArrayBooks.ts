@@ -1,8 +1,6 @@
-import { useCallback } from "react";
-
 import { useDeleteManyBooksMutation } from "@/store/api/books";
 
-import { useBooksFormContext } from "../contexts/hooks/use-form-book-context";
+import { useBooksFormContext } from "@/features/book-page/contexts/hooks/use-form-book-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 export const useDeleteAsArrayBooks = () => {
@@ -12,7 +10,7 @@ export const useDeleteAsArrayBooks = () => {
 
   const [deleteBooks] = useDeleteManyBooksMutation();
 
-  const handleOnSuccesDelete = useCallback(() => {
+  const handleOnSuccesDelete = () => {
     openNotification(
       "topRight",
       "success",
@@ -20,16 +18,16 @@ export const useDeleteAsArrayBooks = () => {
       false
     );
     setSelectedBookRowKeys([]);
-  }, [openNotification, setSelectedBookRowKeys]);
+  };
 
-  const handleErrorDelete = useCallback(() => {
+  const handleErrorDelete = () => {
     openNotification(
       "topRight",
       "error",
       "An error occurred while deleting books! Please try again.",
       false
     );
-  }, [openNotification]);
+  };
 
   const handleDeleteArray = async () => {
     if (!selectedBookRowKeys.length) return;

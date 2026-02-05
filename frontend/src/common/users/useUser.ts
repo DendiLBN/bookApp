@@ -10,7 +10,7 @@ import {
   setIsLoggedIn,
 } from "@/store/reducers/auth";
 
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/common/consts/local-storage";
 
 const useUser = () => {
   const dispatch = useDispatch();

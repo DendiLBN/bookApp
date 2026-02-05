@@ -6,7 +6,7 @@ import {
   rightMenuItems,
   userMenuItems,
 } from "@/layouts/header/consts/menu-items";
-import { LogoutButton } from "@/features/login-page/hooks/useLogoutUser";
+import { LogoutButton } from "@/features/login-page/LogoutUser";
 import useUser from "@/common/users/useUser";
 import "@/assets/layouts-styles/header.css";
 
