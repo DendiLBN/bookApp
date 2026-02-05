@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { BaseQueryFn } from "@reduxjs/toolkit/query";
 
-import { ACCESS_TOKEN, REFRESH_TOKEN } from "../consts/local-storage";
-import { setTokens } from "../utils/setTokens";
-import { removeTokens } from "../utils/removeTokens";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "@/common/consts/local-storage";
+import { setTokens } from "@/common/utils/setTokens";
+import { removeTokens } from "@/common/utils/removeTokens";
 
 export type TBaseQueryParams = {
   url: string;

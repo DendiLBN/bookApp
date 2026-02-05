@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import { useFetchBooksQuery } from "@/store/api/books";
 
-import { useBooksFormContext } from "../contexts/hooks/use-form-book-context";
+import { useBooksFormContext } from "@/features/book-page/contexts/hooks/use-form-book-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 import { UsePagination } from "@/common/hooks/pagination/usePagination";
 
@@ -21,24 +21,20 @@ export const UseFetchBodyBooks = () => {
     category: selectedCategories,
   });
 
-  const handleError = useCallback(() => {
-    openNotification(
-      "topRight",
-      "error",
-      "An error occurred while fetching books! Please refresh the page.",
-      false
-    );
-  }, [openNotification]);
-
   const fetchBooksList = useCallback(async () => {
     setLoading(true);
     try {
       setFetchBookList(fetchedBookList);
       setLoading(false);
     } catch {
-      handleError();
+      openNotification(
+        "topRight",
+        "error",
+        "An error occurred while fetching books! Please refresh the page.",
+        false
+      );
     }
-  }, [setLoading, setFetchBookList, fetchedBookList, handleError]);
+  }, [setLoading, setFetchBookList, fetchedBookList, openNotification]);
 
   return {
     fetchBooksList,

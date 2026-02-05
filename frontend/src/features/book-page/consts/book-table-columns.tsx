@@ -10,7 +10,7 @@ import {
 import { TBookBody } from "@/types/types";
 
 import avatar from "@/assets/images/avatar.jpg";
-import { tagColors } from "./book-categories-colors";
+import { tagColors } from "@/features/book-page/consts/book-categories-colors";
 
 // TODO avatars fix on backend images.
 // TODO change icons smile for stars or numbers

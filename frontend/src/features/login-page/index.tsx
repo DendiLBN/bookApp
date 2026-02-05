@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { LoadingOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Button, Checkbox, Form, Input, Spin } from "antd";
 
-import { useLoginUser } from "./hooks/useLoginUser";
+import { useLoginUser } from "@/features/login-page/hooks/useLoginUser";
 
 import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
 
@@ -11,7 +11,7 @@ import { TLoginUserRequestBody } from "@/types/types";
 
 import "@/assets/layouts-styles/login-styles/login.css";
 
-import ForgotPasswordForm from "./components/forms/forgot-password-form";
+import ForgotPasswordForm from "@/features/login-page/components/forms/forgot-password-form";
 import { useModalContext } from "@/common/contexts/hooks/use-modal-context";
 
 export const LoginPage = () => {
