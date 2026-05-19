@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
 
-import { Heart, ShoppingCart, Star } from "lucide-react";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { HeartFilled, HeartOutlined, ShoppingCartOutlined, StarFilled } from "@ant-design/icons";
+import { Button } from "antd";
 
 import { formatPrice } from "@/common/utils/format-price";
 import { BOOK_COVER_FALLBACK_SRC } from "@/features/book-page/consts/book-card";
@@ -29,7 +26,7 @@ export const BookCatalogCard = ({
   onAddToCart,
   onToggleFavorite,
 }: TBookCatalogCardProps) => (
-  <Card className="flex min-h-full flex-col overflow-hidden">
+  <article className="flex min-h-full flex-col overflow-hidden rounded-l border border-app-border bg-app-surface shadow-app-s">
     <Link className="block bg-app-surface-muted" to={`/book/${book._id}`}>
       <img
         alt={book.title}
@@ -37,7 +34,7 @@ export const BookCatalogCard = ({
         src={book.coverImageUrl || BOOK_COVER_FALLBACK_SRC}
       />
     </Link>
-    <CardContent className="flex flex-1 flex-col gap-xs p-s">
+    <div className="flex flex-1 flex-col gap-xs p-s">
       <div>
         <h2 className="m-0 text-lg font-bold text-app-text">{book.title}</h2>
         <p className="mt-1 mb-0 text-app-text-muted">{book.author}</p>
@@ -45,38 +42,33 @@ export const BookCatalogCard = ({
       </div>
       <div className="flex flex-wrap gap-1">
         {book.category.map((category) => (
-          <Badge key={category} variant="secondary">
+          <span
+            className="rounded-full bg-app-surface-muted px-2 py-1 text-xs font-semibold text-app-text-muted"
+            key={category}
+          >
             {category}
-          </Badge>
+          </span>
         ))}
       </div>
       <div className="mt-auto flex items-center justify-between gap-xs">
-        <span className="inline-flex items-center gap-1 font-bold text-app-warning">
-          <Star className="size-4 fill-current" /> {book.rate}
+        <span className="font-bold text-app-warning">
+          <StarFilled /> {book.rate}
         </span>
         <div className="flex items-center gap-1">
           <Button
             aria-label="Add to cart"
             disabled={cartActionLoading}
+            icon={<ShoppingCartOutlined />}
             onClick={() => onAddToCart(book._id)}
-            size="icon"
-            type="button"
-            variant="outline"
-          >
-            <ShoppingCart />
-          </Button>
+          />
           <Button
             aria-label={isFavorite ? "Remove favorite" : "Add favorite"}
             disabled={favoriteActionLoading || isFavoriteCoolingDown}
+            icon={isFavorite ? <HeartFilled /> : <HeartOutlined />}
             onClick={() => onToggleFavorite(book._id)}
-            size="icon"
-            type="button"
-            variant={isFavorite ? "default" : "outline"}
-          >
-            <Heart className={isFavorite ? "fill-current" : undefined} />
-          </Button>
+          />
         </div>
       </div>
-    </CardContent>
-  </Card>
+    </div>
+  </article>
 );

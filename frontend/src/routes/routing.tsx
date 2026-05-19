@@ -3,26 +3,40 @@ import { Navigate, Route, Routes } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-import ChangePasswordForm from "@/features/login-page/components/forms/change-password-form";
 import { AdminRoute } from "@/routes/components/admin-route";
 import { ProtectedRoute } from "@/routes/components/protected-route";
 
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
 import { Error404 } from "@/common/error-boundary/error/404";
-import OnSuccessRegister from "@/features/register-page/results";
-import { Book } from "@/pages/Book/Books";
-import { BookDetails } from "@/pages/BookDetails/BookDetails";
-import { Cart } from "@/pages/Cart/Cart";
-import { Favorites } from "@/pages/Favorites/Favorites";
-import { Home } from "@/pages/Home/Home";
-import { Orders } from "@/pages/Orders/Orders";
-import { OrdersAdmin } from "@/pages/OrdersAdmin/OrdersAdmin";
-import { Profile } from "@/pages/Profile/Profile";
 import { selectIsLoggedIn } from "@/store/reducers/auth";
 
 const AuthRoutes = lazy(() => import("@/routes/Auth.routes"));
 const ProtectedRoutes = lazy(() => import("@/routes/Protected.routes"));
+const Book = lazy(() => import("@/pages/Book/Books").then(({ Book }) => ({ default: Book })));
+const BookDetails = lazy(() =>
+  import("@/pages/BookDetails/BookDetails").then(({ BookDetails }) => ({ default: BookDetails })),
+);
+const Cart = lazy(() => import("@/pages/Cart/Cart").then(({ Cart }) => ({ default: Cart })));
+const ChangePasswordForm = lazy(
+  () => import("@/features/login-page/components/forms/change-password-form"),
+);
+const Favorites = lazy(() =>
+  import("@/pages/Favorites/Favorites").then(({ Favorites }) => ({ default: Favorites })),
+);
+const Home = lazy(() => import("@/pages/Home/Home").then(({ Home }) => ({ default: Home })));
+const Orders = lazy(() =>
+  import("@/pages/Orders/Orders").then(({ Orders }) => ({ default: Orders })),
+);
+const OrdersAdmin = lazy(() =>
+  import("@/pages/OrdersAdmin/OrdersAdmin").then(({ OrdersAdmin }) => ({
+    default: OrdersAdmin,
+  })),
+);
+const OnSuccessRegister = lazy(() => import("@/features/register-page/results"));
+const Profile = lazy(() =>
+  import("@/pages/Profile/Profile").then(({ Profile }) => ({ default: Profile })),
+);
 
 type TProtectedPageProps = {
   children: React.ReactNode;
@@ -45,28 +59,35 @@ export const LandingPageRouting = () => {
       <Route
         path="/"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <ProtectedPage isLoggedIn={isLoggedIn} loading={loading}>
             <Home />
-          </ProtectedRoute>
+          </ProtectedPage>
         }
       />
       <Route
         path="/home"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <ProtectedPage isLoggedIn={isLoggedIn} loading={loading}>
             <Home />
-          </ProtectedRoute>
+          </ProtectedPage>
         }
       />
       <Route
         path="/dashboard"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <ProtectedPage isLoggedIn={isLoggedIn} loading={loading}>
             <Home />
-          </ProtectedRoute>
+          </ProtectedPage>
         }
       />
-      <Route path="/success" element={<OnSuccessRegister />} />
+      <Route
+        path="/success"
+        element={
+          <Suspense fallback={loading}>
+            <OnSuccessRegister />
+          </Suspense>
+        }
+      />
       <Route path="/*" element={<Error404 />} />
 
       {!isLoggedIn && (
@@ -150,9 +171,9 @@ export const LandingPageRouting = () => {
       <Route
         path="auth/change-password"
         element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <ProtectedPage isLoggedIn={isLoggedIn} loading={loading}>
             <ChangePasswordForm />
-          </ProtectedRoute>
+          </ProtectedPage>
         }
       />
     </Routes>
