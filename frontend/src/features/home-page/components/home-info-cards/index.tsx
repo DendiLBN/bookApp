@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 
 export const HomeInfoCards = () => (
   <section className="grid grid-cols-1 gap-s lg:grid-cols-3">
