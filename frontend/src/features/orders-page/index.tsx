@@ -13,9 +13,11 @@ export const OrdersView = () => {
 
   if (orders.length === 0) {
     return (
-      <section className="rounded-l border border-app-border bg-app-surface p-l shadow-app-s">
-        <Empty description="You have no orders yet." />
-      </section>
+      <Card>
+        <CardContent className="p-l">
+          <Empty description="You have no orders yet." />
+        </CardContent>
+      </Card>
     );
   }
 
