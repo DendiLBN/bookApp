@@ -1,26 +1,24 @@
 import { Link } from "react-router-dom";
 
-import {
-  AppstoreOutlined,
-  BookOutlined,
-  PlusCircleOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
+import { BookOpen, Boxes, PlusCircle, ShoppingCart } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import useUser from "@/common/users/useUser";
 
 const quickActions = [
   {
+    icon: BookOpen,
     label: "Manage catalog",
-    icon: <BookOutlined />,
   },
   {
+    icon: PlusCircle,
     label: "Prepare new title",
-    icon: <PlusCircleOutlined />,
   },
   {
+    icon: ShoppingCart,
     label: "Review baskets",
-    icon: <ShoppingCartOutlined />,
   },
 ];
 
@@ -33,26 +31,24 @@ const QuickActionsContent = () => {
   );
 
   return (
-    <article className="rounded-l border border-app-border bg-app-surface p-4.5 shadow-app-s">
-      <div className="mb-s flex items-start justify-between gap-xs">
+    <Card>
+      <CardHeader className="flex-row items-start justify-between gap-xs p-4.5 pb-s">
         <div>
           <p className="m-0 text-xs font-bold text-app-text-muted uppercase">Inventory</p>
-          <h2 className="mt-1 mb-0 text-lg font-bold text-app-text">Quick actions</h2>
+          <CardTitle className="mt-1">Quick actions</CardTitle>
         </div>
-        <AppstoreOutlined className="text-xl text-app-accent" />
-      </div>
-      <div className="flex flex-col gap-xs">
+        <Boxes className="size-5 text-app-accent" />
+      </CardHeader>
+      <CardContent className="flex flex-col gap-xs p-4.5 pt-0">
         {visibleQuickActions.map((action) => (
-          <Link
-            className="flex items-center gap-xs rounded-m bg-app-surface-muted px-xs py-xs font-bold text-app-text no-underline transition hover:bg-app-accent-soft hover:text-app-accent"
-            key={action.label}
-            to="/book"
-          >
-            {action.icon}
-            {action.label}
-          </Link>
+          <Button asChild className="justify-start" key={action.label} variant="secondary">
+            <Link to="/book">
+              <action.icon />
+              {action.label}
+            </Link>
+          </Button>
         ))}
-      </div>
-    </article>
+      </CardContent>
+    </Card>
   );
 };

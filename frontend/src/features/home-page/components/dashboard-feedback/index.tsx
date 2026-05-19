@@ -1,3 +1,5 @@
+import { Card, CardContent } from "@/components/ui/card";
+
 type TDashboardFeedbackProps = {
   isError: boolean;
   isLoading: boolean;
@@ -6,17 +8,19 @@ type TDashboardFeedbackProps = {
 export const DashboardFeedback = ({ isError, isLoading }: TDashboardFeedbackProps) => {
   if (isLoading) {
     return (
-      <section className="rounded-l border border-app-border bg-app-surface p-s text-app-text-muted shadow-app-s">
-        Loading dashboard data...
-      </section>
+      <Card>
+        <CardContent className="p-s text-app-text-muted">Loading dashboard data...</CardContent>
+      </Card>
     );
   }
 
   if (isError) {
     return (
-      <section className="rounded-l border border-app-border bg-app-surface p-s text-app-danger shadow-app-s">
-        Dashboard data could not be loaded. Try again in a moment.
-      </section>
+      <Card>
+        <CardContent className="p-s text-app-danger">
+          Dashboard data could not be loaded. Try again in a moment.
+        </CardContent>
+      </Card>
     );
   }
 
