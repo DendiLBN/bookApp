@@ -1,16 +1,13 @@
-import { Pagination, Spin, Table, type TableProps } from "antd";
-
+import { BookAdminTable } from "@/features/book-page/components/book-admin-table";
 import { BookCatalogGrid } from "@/features/book-page/components/book-catalog-grid";
+import { BookCatalogPagination } from "@/features/book-page/components/book-catalog-pagination";
 
-import {
-  BOOK_PAGE_SIZE_OPTIONS,
-  DEFAULT_BOOK_PAGE_SIZE,
-} from "@/features/book-page/consts/book-pagination";
+import type { TBookRowSelection } from "@/features/book-page/types/book-selection";
+
 import type { TBook } from "@/features/book-page/types";
 
 type TBookCatalogContentProps = {
   bookList: TBook[];
-  bookTableColumns: TableProps<TBook>["columns"];
   cooldownBookIds: string[];
   currentPage: number;
   favoriteActionLoading: boolean;
@@ -19,7 +16,7 @@ type TBookCatalogContentProps = {
   isFetching: boolean;
   isUpdatingCart: boolean;
   itemsPerPage: number;
-  rowSelection: TableProps<TBook>["rowSelection"];
+  rowSelection: TBookRowSelection;
   totalItems: number;
   handleAddToCart: (bookId: string) => Promise<void>;
   handleChangePagination: (page: number, pageSize: number) => void;
@@ -28,7 +25,6 @@ type TBookCatalogContentProps = {
 
 export const BookCatalogContent = ({
   bookList,
-  bookTableColumns,
   cooldownBookIds,
   currentPage,
   favoriteActionLoading,
@@ -43,26 +39,30 @@ export const BookCatalogContent = ({
   rowSelection,
   totalItems,
 }: TBookCatalogContentProps) => (
-  <Spin tip="Loading..." size="large" spinning={isFetching}>
+  <div className="relative">
+    {isFetching ? (
+      <div className="absolute inset-0 z-10 grid place-items-center rounded-l bg-app-surface/70 font-semibold text-app-text">
+        Loading...
+      </div>
+    ) : null}
     {isAdmin ? (
-      <Table
-        className="book-page__table"
-        rowKey="_id"
-        rowSelection={rowSelection}
-        columns={bookTableColumns}
-        dataSource={bookList}
-        scroll={{ x: 900 }}
-        pagination={{
-          position: ["bottomCenter"],
-          showSizeChanger: true,
-          defaultPageSize: DEFAULT_BOOK_PAGE_SIZE,
-          pageSizeOptions: BOOK_PAGE_SIZE_OPTIONS,
-          current: currentPage,
-          pageSize: itemsPerPage,
-          total: totalItems,
-          onChange: handleChangePagination,
-        }}
-      />
+      <div className="flex flex-col gap-s">
+        <BookAdminTable
+          books={bookList}
+          favoriteActionLoading={favoriteActionLoading}
+          favoriteBookIds={favoriteBookIds}
+          selectedBookRowKeys={rowSelection.selectedRowKeys}
+          onAddToCart={handleAddToCart}
+          onChangeSelection={rowSelection.onChange}
+          onToggleFavorite={handleToggleFavorite}
+        />
+        <BookCatalogPagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          totalItems={totalItems}
+          onChangePagination={handleChangePagination}
+        />
+      </div>
     ) : (
       <div className="flex flex-col gap-s">
         <BookCatalogGrid
@@ -74,16 +74,13 @@ export const BookCatalogContent = ({
           onAddToCart={handleAddToCart}
           onToggleFavorite={handleToggleFavorite}
         />
-        <Pagination
-          className="self-center"
-          current={currentPage}
-          pageSize={itemsPerPage}
-          pageSizeOptions={BOOK_PAGE_SIZE_OPTIONS}
-          showSizeChanger
-          total={totalItems}
-          onChange={handleChangePagination}
+        <BookCatalogPagination
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+          totalItems={totalItems}
+          onChangePagination={handleChangePagination}
         />
       </div>
     )}
-  </Spin>
+  </div>
 );

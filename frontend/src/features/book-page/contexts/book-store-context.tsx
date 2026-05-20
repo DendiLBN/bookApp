@@ -27,18 +27,18 @@ export const BookFormContextProvider: FC<{ children: React.ReactNode }> = ({ chi
 
   const memoizedValue = useMemo(
     () => ({
-      selectedBookRowKeys,
       bookSearchText,
       maxPriceCents,
       minPriceCents,
+      selectedBookRowKeys,
       selectedCategories,
-      sortBy,
-      setSelectedCategories,
       setBookSearchText,
       setMaxPriceCents,
       setMinPriceCents,
       setSelectedBookRowKeys,
+      setSelectedCategories,
       setSortBy,
+      sortBy,
     }),
     [bookSearchText, maxPriceCents, minPriceCents, selectedBookRowKeys, selectedCategories, sortBy],
   );

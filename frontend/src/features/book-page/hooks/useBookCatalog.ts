@@ -8,7 +8,6 @@ import { useBooksList } from "@/features/book-page/hooks/useFetchBooksList";
 import { useBooksFormContext } from "@/features/book-page/contexts/hooks/use-form-book-context";
 
 import useUser from "@/common/users/useUser";
-import { createBookTableColumns } from "@/features/book-page/consts/book-table-columns";
 
 export const useBookCatalog = () => {
   const { currentPage, handleChangePagination, itemsPerPage } = usePagination();
@@ -45,11 +44,6 @@ export const useBookCatalog = () => {
   return {
     contentProps: {
       bookList,
-      bookTableColumns: createBookTableColumns({
-        favoriteBookIds,
-        favoriteActionLoading,
-        onToggleFavorite: handleToggleFavorite,
-      }),
       cooldownBookIds,
       currentPage,
       favoriteActionLoading,
