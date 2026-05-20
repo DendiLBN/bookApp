@@ -1,8 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
 
-import { AntdNotificationProvider } from "@/common/contexts/antd-notification-context";
 import { CartDrawerProvider } from "@/common/contexts/cart-drawer-context";
 import { ModalProvider } from "@/common/contexts/modal-context";
+import { NotificationProvider } from "@/common/contexts/notification-context";
 import { ThemeProvider } from "@/common/contexts/theme-context";
 
 import ErrorBoundary from "@/common/error-boundary/error-boundry";
@@ -18,7 +18,7 @@ const App: React.FC = () => {
   return (
     <ThemeProvider>
       <ModalProvider>
-        <AntdNotificationProvider>
+        <NotificationProvider>
           <CartDrawerProvider>
             <BrowserRouter>
               <ErrorBoundary>
@@ -33,7 +33,7 @@ const App: React.FC = () => {
               </ErrorBoundary>
             </BrowserRouter>
           </CartDrawerProvider>
-        </AntdNotificationProvider>
+        </NotificationProvider>
       </ModalProvider>
     </ThemeProvider>
   );
