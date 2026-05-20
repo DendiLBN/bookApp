@@ -1,5 +1,7 @@
-import { Empty } from "antd";
+import { Link } from "react-router-dom";
 
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
 import { CartItemCard } from "@/features/cart-page/components/cart-item-card";
 import { CartSummary } from "@/features/cart-page/components/cart-summary";
 import { CheckoutAddressForm } from "@/features/cart-page/components/checkout-address-form";
@@ -19,9 +21,19 @@ export const CartView = ({ compact = false }: TCartViewProps) => {
 
   if (resolvedCartItems.length === 0) {
     return (
-      <section className="rounded-l border border-app-border bg-app-surface p-l shadow-app-s">
-        <Empty description="Your cart is empty." />
-      </section>
+      <Card>
+        <CardContent className="grid place-items-center gap-xs p-l text-center">
+          <div>
+            <h2 className="m-0 text-lg font-bold text-app-text">Your cart is empty.</h2>
+            <p className="mt-1 mb-0 text-app-text-muted">
+              Browse the catalog and add books before checkout.
+            </p>
+          </div>
+          <Button asChild variant="outline">
+            <Link to="/book">Browse books</Link>
+          </Button>
+        </CardContent>
+      </Card>
     );
   }
 

@@ -1,6 +1,8 @@
 import { useState } from "react";
 
-import { Button, Input } from "antd";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
 
 import type { TShippingAddress } from "@/features/orders/types";
 
@@ -27,35 +29,39 @@ export const CheckoutAddressForm = ({ isSubmitting, onSubmit }: TCheckoutAddress
   };
 
   return (
-    <section className="rounded-l border border-app-border bg-app-surface p-s shadow-app-s">
-      <h2 className="mt-0 mb-s text-lg font-bold text-app-text">Shipping address</h2>
-      <div className="grid gap-xs sm:grid-cols-2">
-        <Input
-          onChange={(event) => handleChange("recipientName", event.target.value)}
-          placeholder="Recipient name"
-          value={values.recipientName}
-        />
-        <Input
-          onChange={(event) => handleChange("street", event.target.value)}
-          placeholder="Street and number"
-          value={values.street}
-        />
-        <Input
-          onChange={(event) => handleChange("postalCode", event.target.value)}
-          placeholder="Postal code"
-          value={values.postalCode}
-        />
-        <Input
-          onChange={(event) => handleChange("city", event.target.value)}
-          placeholder="City"
-          value={values.city}
-        />
-      </div>
-      <div className="mt-s flex justify-end">
-        <Button loading={isSubmitting} onClick={() => onSubmit(values)} type="primary">
-          Place order
-        </Button>
-      </div>
-    </section>
+    <Card>
+      <CardHeader>
+        <CardTitle>Shipping address</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="grid gap-xs sm:grid-cols-2">
+          <Input
+            onChange={(event) => handleChange("recipientName", event.target.value)}
+            placeholder="Recipient name"
+            value={values.recipientName}
+          />
+          <Input
+            onChange={(event) => handleChange("street", event.target.value)}
+            placeholder="Street and number"
+            value={values.street}
+          />
+          <Input
+            onChange={(event) => handleChange("postalCode", event.target.value)}
+            placeholder="Postal code"
+            value={values.postalCode}
+          />
+          <Input
+            onChange={(event) => handleChange("city", event.target.value)}
+            placeholder="City"
+            value={values.city}
+          />
+        </div>
+        <div className="mt-s flex justify-end">
+          <Button disabled={isSubmitting} onClick={() => onSubmit(values)} type="button">
+            {isSubmitting ? "Placing order..." : "Place order"}
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };

@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 
-import { Button, InputNumber } from "antd";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
 
 import { formatPrice } from "@/common/utils/format-price";
 import { MAX_CART_ITEM_QUANTITY, MIN_CART_ITEM_QUANTITY } from "@/features/cart-page/consts/cart";
@@ -22,36 +24,40 @@ export const CartItemCard = ({
   const { book, bookId, quantity } = cartItem;
 
   return (
-    <article
-      className={`grid gap-s rounded-l border border-app-border bg-app-surface p-s shadow-app-s ${
-        compact ? "" : "sm:grid-cols-[72px_minmax(0,1fr)_auto]"
-      }`}
-    >
-      <img
-        alt={book.title}
-        className="aspect-2/3 w-full rounded-m object-cover"
-        src={book.coverImageUrl || "/book.png"}
-      />
-      <div>
-        <Link className="font-bold text-app-text no-underline" to={`/book/${bookId}`}>
-          {book.title}
-        </Link>
-        <p className="mt-1 mb-0 text-app-text-muted">{book.author}</p>
-        <p className="mt-1 mb-0 font-semibold text-app-accent">{formatPrice(book.priceCents)}</p>
-      </div>
-      <div className="flex items-center gap-xs">
-        <InputNumber
-          max={MAX_CART_ITEM_QUANTITY}
-          min={MIN_CART_ITEM_QUANTITY}
-          onChange={(value) =>
-            onUpdateQuantity(bookId, typeof value === "number" ? value : quantity)
-          }
-          value={quantity}
+    <Card>
+      <CardContent
+        className={`grid gap-s p-s ${compact ? "" : "sm:grid-cols-[72px_minmax(0,1fr)_auto]"}`}
+      >
+        <img
+          alt={book.title}
+          className="aspect-2/3 w-full rounded-m object-cover"
+          src={book.coverImageUrl || "/book.png"}
         />
-        <Button danger onClick={() => onRemove(bookId)}>
-          Remove
-        </Button>
-      </div>
-    </article>
+        <div>
+          <Link className="font-bold text-app-text no-underline" to={`/book/${bookId}`}>
+            {book.title}
+          </Link>
+          <p className="mt-1 mb-0 text-app-text-muted">{book.author}</p>
+          <p className="mt-1 mb-0 font-semibold text-app-accent">{formatPrice(book.priceCents)}</p>
+        </div>
+        <div className="flex items-center gap-xs">
+          <Input
+            className="w-20"
+            max={MAX_CART_ITEM_QUANTITY}
+            min={MIN_CART_ITEM_QUANTITY}
+            onChange={(event) => {
+              const nextQuantity = Number(event.target.value);
+
+              onUpdateQuantity(bookId, Number.isNaN(nextQuantity) ? quantity : nextQuantity);
+            }}
+            type="number"
+            value={quantity}
+          />
+          <Button onClick={() => onRemove(bookId)} type="button" variant="destructive">
+            Remove
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
   );
 };
