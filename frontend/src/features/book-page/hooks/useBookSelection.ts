@@ -1,10 +1,8 @@
 import type { Key } from "react";
 
-import type { TableProps } from "antd";
-
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
-import type { TBook } from "@/features/book-page/types";
+import type { TBookRowSelection } from "@/features/book-page/types/book-selection";
 
 const MAX_SELECTED_BOOKS = 20;
 
@@ -33,7 +31,7 @@ export const useBookSelection = ({
     );
   };
 
-  const rowSelection: TableProps<TBook>["rowSelection"] = {
+  const rowSelection: TBookRowSelection = {
     selectedRowKeys: selectedBookRowKeys,
     onChange: handleSelectChange,
   };
