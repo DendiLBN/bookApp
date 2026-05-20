@@ -1,10 +1,11 @@
-import type { IconType } from "antd/es/notification/interface";
-
-import type { TNotificationHistoryItem } from "@/common/contexts/antd-notification-context";
+import type {
+  TNotificationHistoryItem,
+  TNotificationType,
+} from "@/common/contexts/notification-context";
 
 type TCreateNotificationHistoryItemParams = {
   message: string;
-  type: IconType;
+  type: TNotificationType;
 };
 
 export const createNotificationHistoryItem = ({
