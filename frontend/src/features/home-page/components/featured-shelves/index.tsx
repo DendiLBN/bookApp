@@ -1,20 +1,23 @@
 import { Link } from "react-router-dom";
 
-import { BookOutlined, StarFilled } from "@ant-design/icons";
+import { BookOpen, LibraryBig, Star } from "lucide-react";
+
+import { Badge } from "@/components/ui/Badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 
 import type { TFeaturedShelvesProps } from "@/features/home-page/types";
 
 export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
-  <article className="rounded-l border border-app-border bg-app-surface p-4.5 shadow-app-s lg:row-span-2">
-    <div className="mb-s flex items-start justify-between gap-xs">
+  <Card className="lg:row-span-2">
+    <CardHeader className="flex-row items-start justify-between gap-xs p-4.5 pb-s">
       <div>
         <p className="m-0 text-xs font-bold text-app-text-muted uppercase">Featured shelves</p>
-        <h2 className="mt-1 mb-0 text-lg font-bold text-app-text">Worth reading this week</h2>
+        <CardTitle className="mt-1">Worth reading this week</CardTitle>
       </div>
-      <BookOutlined className="text-xl text-app-accent" />
-    </div>
+      <LibraryBig className="size-5 text-app-accent" />
+    </CardHeader>
 
-    <div className="flex flex-col gap-xs">
+    <CardContent className="flex flex-col gap-xs p-4.5 pt-0">
       {books.length > 0 ? (
         books.map((book) => (
           <Link
@@ -30,16 +33,16 @@ export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
                   src={book.coverImageUrl}
                 />
               ) : (
-                <BookOutlined />
+                <BookOpen />
               )}
             </div>
             <div className="min-w-0">
               <h3 className="m-0 truncate text-base font-bold text-app-text">{book.title}</h3>
               <p className="m-0 truncate text-app-text-muted">{book.author}</p>
             </div>
-            <span className="col-start-2 font-bold text-app-warning sm:col-start-auto">
-              <StarFilled /> {book.rate}
-            </span>
+            <Badge className="col-start-2 gap-1 sm:col-start-auto" variant="secondary">
+              <Star className="size-3 fill-current" /> {book.rate}
+            </Badge>
           </Link>
         ))
       ) : hasBooks ? (
@@ -51,6 +54,6 @@ export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
           Add books to the catalog to start building featured shelves.
         </p>
       )}
-    </div>
-  </article>
+    </CardContent>
+  </Card>
 );
