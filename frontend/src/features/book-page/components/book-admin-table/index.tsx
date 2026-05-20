@@ -1,7 +1,7 @@
 import type { Key } from "react";
 import { Link } from "react-router-dom";
 
-import { Heart, ShoppingCart } from "lucide-react";
+import { BookOpen, Heart, ShoppingCart, Star } from "lucide-react";
 
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -40,10 +40,17 @@ export const BookAdminTable = ({
   };
 
   return (
-    <Card className="overflow-hidden">
+    <Card className="overflow-hidden shadow-app-m">
+      <div className="flex flex-col gap-2 border-b border-app-border bg-app-surface-muted px-s py-xs sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p className="m-0 text-xs font-bold text-app-text-muted uppercase">Admin inventory</p>
+          <h2 className="m-0 text-lg font-extrabold text-app-text">Catalog control table</h2>
+        </div>
+        <Badge variant="default">{selectedBookRowKeys.length} selected</Badge>
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full min-w-230 border-collapse text-left">
-          <thead className="bg-app-surface-muted text-xs text-app-text-muted uppercase">
+          <thead className="bg-app-surface text-xs text-app-text-muted uppercase">
             <tr>
               <th className="p-xs font-bold">Select</th>
               <th className="p-xs font-bold">Cover</th>
@@ -60,7 +67,10 @@ export const BookAdminTable = ({
               const isSelected = selectedBookRowKeys.includes(book._id);
 
               return (
-                <tr className="border-t border-app-border" key={book._id}>
+                <tr
+                  className="border-t border-app-border transition hover:bg-app-surface-muted"
+                  key={book._id}
+                >
                   <td className="p-xs">
                     <input
                       aria-label={`Select ${book.title}`}
@@ -73,17 +83,26 @@ export const BookAdminTable = ({
                   <td className="p-xs">
                     <img
                       alt={book.title}
-                      className="h-20 w-14 rounded-m object-cover"
+                      className="h-20 w-14 rounded-m border border-app-border object-cover shadow-app-s"
                       src={book.coverImageUrl || book.avatar || fallbackCoverImage}
                     />
                   </td>
                   <td className="p-xs">
-                    <Link className="font-bold text-app-text no-underline" to={`/book/${book._id}`}>
+                    <Link
+                      className="inline-flex items-center gap-2 font-bold text-app-text no-underline hover:text-app-brand"
+                      to={`/book/${book._id}`}
+                    >
+                      <BookOpen className="size-4 text-app-brand" />
                       {book.title}
                     </Link>
                     <p className="mt-1 mb-0 text-sm text-app-text-muted">{book.author}</p>
                   </td>
-                  <td className="p-xs font-semibold text-app-warning">{book.rate.toFixed(1)}</td>
+                  <td className="p-xs">
+                    <span className="inline-flex items-center gap-1 font-semibold text-app-warning">
+                      <Star className="size-4 fill-current" />
+                      {book.rate.toFixed(1)}
+                    </span>
+                  </td>
                   <td className="p-xs font-semibold text-app-accent">
                     {formatPrice(book.priceCents)}
                   </td>
@@ -111,7 +130,7 @@ export const BookAdminTable = ({
                         <ShoppingCart />
                         Add to cart
                       </Button>
-                      <Button asChild variant="secondary">
+                      <Button asChild variant="ghost">
                         <Link to={`/book/${book._id}`}>Details</Link>
                       </Button>
                     </div>

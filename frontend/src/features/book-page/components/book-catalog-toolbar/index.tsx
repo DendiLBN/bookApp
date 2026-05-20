@@ -1,5 +1,8 @@
 import type { Key } from "react";
 
+import { SlidersHorizontal } from "lucide-react";
+
+import { Card } from "@/components/ui/Card";
 import { DeleteBooksButton } from "@/features/book-page/components/delete-button";
 import { BookSearch } from "@/features/book-page/components/filters/book-search";
 import { CategorySelect } from "@/features/book-page/components/filters/category-select";
@@ -38,28 +41,39 @@ export const BookCatalogToolbar = ({
   setSelectedCategories,
   setSortBy,
 }: TBookCatalogToolbarProps) => (
-  <section className="flex flex-col items-start gap-xs rounded-m border border-app-border bg-[linear-gradient(180deg,var(--color-surface),var(--color-surface-muted))] p-s text-app-text shadow-app-s md:flex-row">
-    <BookSearch bookSearchText={bookSearchText} onSearch={setBookSearchText} />
-    <CategorySelect
-      selectedCategories={selectedCategories}
-      onChangeCategories={setSelectedCategories}
-    />
-    <PriceFilters
-      maxPriceCents={maxPriceCents}
-      minPriceCents={minPriceCents}
-      sortBy={sortBy}
-      onChangeMaxPrice={setMaxPriceCents}
-      onChangeMinPrice={setMinPriceCents}
-      onChangeSort={setSortBy}
-    />
-    {isAdmin ? (
-      <div className="w-full md:ml-auto md:w-auto">
-        <DeleteBooksButton
-          selectedBookRowKeys={selectedBookRowKeys}
-          loading={isFetching}
-          onDelete={handleDeleteArray}
+  <Card className="p-s shadow-app-m">
+    <section className="grid gap-s xl:grid-cols-[minmax(240px,0.7fr)_minmax(280px,1fr)] 2xl:grid-cols-[minmax(260px,0.7fr)_minmax(340px,1fr)_minmax(360px,1fr)_auto]">
+      <div className="flex flex-col gap-2">
+        <div className="flex items-center gap-2 text-xs font-bold text-app-text-muted uppercase">
+          <SlidersHorizontal className="size-4 text-app-brand" />
+          Search
+        </div>
+        <BookSearch bookSearchText={bookSearchText} onSearch={setBookSearchText} />
+      </div>
+      <CategorySelect
+        selectedCategories={selectedCategories}
+        onChangeCategories={setSelectedCategories}
+      />
+      <div className="flex flex-col gap-2">
+        <span className="text-xs font-bold text-app-text-muted uppercase">Price controls</span>
+        <PriceFilters
+          maxPriceCents={maxPriceCents}
+          minPriceCents={minPriceCents}
+          sortBy={sortBy}
+          onChangeMaxPrice={setMaxPriceCents}
+          onChangeMinPrice={setMinPriceCents}
+          onChangeSort={setSortBy}
         />
       </div>
-    ) : null}
-  </section>
+      {isAdmin ? (
+        <div className="flex items-end">
+          <DeleteBooksButton
+            selectedBookRowKeys={selectedBookRowKeys}
+            loading={isFetching}
+            onDelete={handleDeleteArray}
+          />
+        </div>
+      ) : null}
+    </section>
+  </Card>
 );

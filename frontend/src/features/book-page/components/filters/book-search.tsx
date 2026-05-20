@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { SearchOutlined } from "@ant-design/icons";
-import { Input } from "antd";
+import { Search } from "lucide-react";
+
+import { Input } from "@/components/ui/Input";
 
 import { useControledDebounce } from "@/common/hooks/debounce/useControledDebounce";
 
@@ -15,12 +16,15 @@ export const BookSearch: React.FC<TBookSearchProps> = ({ onSearch }) => {
   }, [debouncedValue, onSearch]);
 
   return (
-    <Input
-      placeholder="Search by Title or Author"
-      value={value}
-      onChange={(e) => handleDebouncedValue(e.target.value)}
-      prefix={<SearchOutlined />}
-      style={{ marginBottom: 30, width: "200px" }}
-    />
+    <label className="relative w-full md:max-w-80">
+      <span className="sr-only">Search books</span>
+      <Search className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+      <Input
+        className="h-11 pl-xl"
+        placeholder="Search title or author"
+        value={value}
+        onChange={(event) => handleDebouncedValue(event.target.value)}
+      />
+    </label>
   );
 };
