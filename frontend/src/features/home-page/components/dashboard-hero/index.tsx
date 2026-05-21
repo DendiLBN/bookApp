@@ -28,7 +28,11 @@ export const DashboardHero = ({ catalogStatus }: TDashboardHeroProps) => (
           without jumping between disconnected screens.
         </p>
         <div className="mt-s flex flex-wrap items-center gap-xs">
-          <Button asChild>
+          <Button
+            asChild
+            className="border border-app-border bg-app-surface text-app-brand shadow-app-s hover:border-app-accent hover:bg-app-accent-soft hover:text-app-accent"
+            variant="outline"
+          >
             <Link to="/book">
               Browse books
               <ArrowRight />
