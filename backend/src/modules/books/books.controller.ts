@@ -54,6 +54,7 @@ export class BooksController {
     return this.booksService.findAll(searchBookDto);
   }
 
+  @SkipThrottle()
   @Get('dashboard/summary')
   getDashboardSummary() {
     return this.booksService.getDashboardSummary();

@@ -1,9 +1,12 @@
-import { Select } from "antd";
-
 import { formatPrice } from "@/common/utils/format-price";
+import { ORDER_STATUS_LABELS } from "@/features/orders/consts/order-status";
 import type { TOrder } from "@/features/orders/types";
 import { getOrderShortId } from "@/features/orders/utils/get-order-short-id";
-import { ORDER_STATUS_OPTIONS } from "@/features/orders-admin-page/consts/order-status-options";
+
+const orderStatusOptions = Object.entries(ORDER_STATUS_LABELS).map(([value, label]) => ({
+  label,
+  value,
+}));
 
 type TAdminOrderCardProps = {
   order: TOrder;
@@ -20,12 +23,17 @@ export const AdminOrderCard = ({ order, onChangeStatus }: TAdminOrderCardProps) 
           {order.shippingAddress.postalCode} {order.shippingAddress.city}
         </p>
       </div>
-      <Select
-        className="min-w-36"
-        onChange={(status: TOrder["status"]) => onChangeStatus(order._id, status)}
-        options={ORDER_STATUS_OPTIONS}
+      <select
+        className="min-h-10 min-w-36 rounded-m border border-app-border bg-app-surface px-xs text-app-text"
+        onChange={(event) => onChangeStatus(order._id, event.target.value as TOrder["status"])}
         value={order.status}
-      />
+      >
+        {orderStatusOptions.map((option) => (
+          <option key={option.value} value={option.value}>
+            {option.label}
+          </option>
+        ))}
+      </select>
     </div>
     <div className="mt-s flex items-center justify-between border-t border-app-border pt-xs">
       <span className="text-app-text-muted">{order.items.length} items</span>
