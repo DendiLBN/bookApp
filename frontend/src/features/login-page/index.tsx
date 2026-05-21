@@ -75,7 +75,7 @@ export const LoginPage = () => {
                   autoComplete="username"
                   className="h-11 pl-xl"
                   onChange={(event) => setEmail(event.target.value)}
-                  placeholder="test@gmail.com"
+                  placeholder="Your email address"
                   required
                   type="email"
                   value={email}

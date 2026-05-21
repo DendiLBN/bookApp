@@ -21,7 +21,7 @@ Guidance for AI assistants working in this repository.
 
 **PL**
 
-- Stack frontend: `Vite`, `React 18`, `TypeScript`, `Ant Design`, `Redux Toolkit Query`, `React Router`, `Vitest`, `Storybook`.
+- Stack frontend: `Vite`, `React 18`, `TypeScript`, `ShadCN`, `Redux Toolkit Query`, `React Router`, `Vitest`, `Storybook`.
 - Stack backend: `NestJS`, `TypeScript`, `MongoDB`, `Mongoose`, `JWT`, `Jest`.
 - Menedzer pakietow: tylko `npm`. Repo uzywa `package-lock.json`.
 - Glowne obszary aplikacji:

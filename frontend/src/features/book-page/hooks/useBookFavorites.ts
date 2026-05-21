@@ -49,7 +49,7 @@ export const useBookFavorites = () => {
 
       dispatch(setIsLoggedIn({ isLoggedIn: true, user: updatedUser }));
       openNotification(
-        "topRight",
+        "top",
         "success",
         isFavorite ? "Book removed from favorites." : "Book saved to favorites.",
         false,
