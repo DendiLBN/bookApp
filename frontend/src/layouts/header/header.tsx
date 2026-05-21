@@ -43,11 +43,10 @@ export const LandingPageHeader = () => {
               Books
             </Link>
           ) : null}
+          <ThemeButton />
         </nav>
 
-        <div className="flex min-w-0 justify-center">
-          <ThemeButton />
-        </div>
+        <div aria-hidden="true" className="min-w-0" />
 
         <div className="flex shrink-0 items-center justify-end gap-xs">
           {isLoggedIn ? (
