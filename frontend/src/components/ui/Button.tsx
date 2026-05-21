@@ -6,20 +6,20 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/common/utils/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-m text-sm font-semibold transition disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-m text-sm font-semibold transition duration-200 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-app-brand text-app-text-inverse shadow-app-s hover:bg-app-brand-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-app-brand",
+          "bg-[linear-gradient(135deg,var(--color-brand),var(--color-brand-strong))] text-app-text-inverse shadow-app-s hover:-translate-y-0.5 hover:shadow-app-m focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-app-brand",
         destructive:
           "bg-app-danger text-app-text-inverse shadow-app-s hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-app-danger",
         ghost: "text-app-text hover:bg-app-surface-muted hover:text-app-brand",
         link: "h-auto p-0 text-app-accent underline-offset-4 hover:underline",
         outline:
-          "border border-app-border bg-app-surface text-app-text shadow-app-s hover:border-app-brand hover:bg-app-brand-soft hover:text-app-brand",
+          "border border-app-border bg-app-surface/90 text-app-text shadow-app-s hover:-translate-y-0.5 hover:border-app-brand hover:bg-app-brand-soft hover:text-app-brand",
         secondary:
-          "bg-app-surface-muted text-app-text shadow-app-s hover:bg-app-brand-soft hover:text-app-brand",
+          "bg-app-surface-muted text-app-text shadow-app-s hover:-translate-y-0.5 hover:bg-app-brand-soft hover:text-app-brand",
       },
       size: {
         default: "h-10 px-s py-2",

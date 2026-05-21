@@ -32,7 +32,7 @@ export const LoginPage = () => {
   };
 
   return (
-    <main className="grid min-h-[calc(100vh-64px)] place-items-center bg-app-page px-s py-xl sm:px-sm lg:px-l">
+    <main className="grid min-h-[calc(100vh-72px)] place-items-center px-s py-xl sm:px-sm lg:px-l">
       <section className="grid w-full max-w-310 overflow-hidden rounded-l border border-app-border bg-app-surface shadow-app-m lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)]">
         <div className="relative hidden min-h-170 overflow-hidden bg-app-surface-muted lg:block">
           <img

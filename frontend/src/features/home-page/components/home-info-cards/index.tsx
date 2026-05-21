@@ -26,7 +26,10 @@ const homeInfoCards = [
 export const HomeInfoCards = () => (
   <section className="grid grid-cols-1 gap-s lg:grid-cols-3">
     {homeInfoCards.map((card) => (
-      <Card className="transition hover:-translate-y-0.5 hover:shadow-app-m" key={card.title}>
+      <Card
+        className="bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface))] transition hover:-translate-y-0.5 hover:shadow-app-m"
+        key={card.title}
+      >
         <CardHeader className="gap-xs">
           <div className="grid size-10 place-items-center rounded-m bg-app-brand-soft text-app-brand">
             <card.icon className="size-5" />

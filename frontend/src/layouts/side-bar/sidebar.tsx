@@ -48,11 +48,11 @@ export const LandingPageSideBar = () => {
 
   return (
     <aside
-      className={`app-sidebar app-layout-surface relative hidden min-h-[calc(100vh-64px)] shrink-0 border-r transition-[width] duration-200 md:block ${
+      className={`app-sidebar app-layout-surface sticky top-18 hidden h-[calc(100vh-72px)] shrink-0 border-r transition-[width] duration-200 md:block ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      <div className="m-3 flex flex-col items-center gap-3 overflow-hidden rounded-lg border border-app-border bg-[linear-gradient(180deg,var(--color-surface-muted),var(--color-surface))] px-3 py-5 shadow-app-s">
+      <div className="m-3 flex flex-col items-center gap-3 overflow-hidden rounded-l border border-app-border bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface-muted))] px-3 py-5 shadow-app-s">
         <AvatarUploadButton
           avatarSrc={avatarSrc}
           isUploading={isUploadingAvatar}
@@ -67,8 +67,11 @@ export const LandingPageSideBar = () => {
         />
         {collapsed ? null : (
           <div className="min-w-0 text-center">
-            <h3 className="m-0 truncate text-sm font-semibold text-app-text">{user.firstName}</h3>
+            <h3 className="m-0 truncate text-sm font-bold text-app-text">{user.firstName}</h3>
             <p className="m-0 mt-1 truncate text-xs text-app-text-muted">{user.email}</p>
+            <span className="mt-2 inline-flex rounded-full bg-app-brand-soft px-2 py-1 text-xs font-bold text-app-brand">
+              {user.role === "admin" ? "Store admin" : "Reader"}
+            </span>
           </div>
         )}
       </div>
@@ -85,7 +88,9 @@ export const LandingPageSideBar = () => {
                 className={cn(
                   "flex min-h-10 items-center gap-xs rounded-m px-xs text-sm font-semibold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand",
                   collapsed ? "justify-center" : undefined,
-                  isActive || hasActiveChild ? "bg-app-brand-soft text-app-brand" : undefined,
+                  isActive || hasActiveChild
+                    ? "border border-app-border bg-app-brand-soft text-app-brand shadow-app-s"
+                    : undefined,
                 )}
                 to={item.href}
               >
@@ -106,7 +111,9 @@ export const LandingPageSideBar = () => {
                       <Link
                         className={cn(
                           "flex min-h-9 items-center gap-xs rounded-m px-xs text-sm font-semibold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand",
-                          isChildActive ? "bg-app-brand-soft text-app-brand" : undefined,
+                          isChildActive
+                            ? "border border-app-border bg-app-brand-soft text-app-brand shadow-app-s"
+                            : undefined,
                         )}
                         key={child.key}
                         to={child.href}

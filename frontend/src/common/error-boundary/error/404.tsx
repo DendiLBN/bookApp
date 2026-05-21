@@ -7,7 +7,7 @@ import { Card } from "@/components/ui/Card";
 
 export const Error404 = () => {
   return (
-    <main className="grid min-h-[calc(100vh-64px)] place-items-center bg-app-page px-s py-xl">
+    <main className="grid min-h-[calc(100vh-72px)] place-items-center px-s py-xl">
       <Card className="max-w-140 p-l text-center">
         <div className="mx-auto mb-s grid size-16 place-items-center rounded-full bg-app-brand-soft text-app-brand">
           <SearchX className="size-8" />

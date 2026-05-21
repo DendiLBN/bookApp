@@ -17,10 +17,11 @@ export const DashboardStats = ({ dashboardStats }: TDashboardStatsProps) => (
 
       return (
         <Card
-          className="bg-[linear-gradient(180deg,var(--color-surface),var(--color-surface-muted))]"
+          className="overflow-hidden bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface-muted))]"
           key={stat.label}
         >
-          <CardContent className="flex items-start justify-between gap-xs p-s">
+          <CardContent className="relative flex items-start justify-between gap-xs p-s">
+            <div className="absolute -top-8 -right-8 size-24 rounded-full bg-app-brand-soft" />
             <div>
               <span className="block text-3xl leading-none font-extrabold text-app-accent">
                 {stat.value}

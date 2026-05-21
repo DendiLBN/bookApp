@@ -30,7 +30,7 @@ export const RegisterPage = () => {
   };
 
   return (
-    <main className="grid min-h-[calc(100vh-64px)] place-items-center bg-app-page px-s py-xl sm:px-sm lg:px-l">
+    <main className="grid min-h-[calc(100vh-72px)] place-items-center px-s py-xl sm:px-sm lg:px-l">
       <section className="grid w-full max-w-320 overflow-hidden rounded-l border border-app-border bg-app-surface shadow-app-m lg:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)]">
         <Card className="rounded-none border-0 bg-app-surface p-m shadow-none sm:p-l">
           <div className="mb-l">
