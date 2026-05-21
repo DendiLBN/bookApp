@@ -1,6 +1,8 @@
 import type { ChangeEvent, RefObject } from "react";
 
-import { Button } from "antd";
+import { ImageUp, Loader2 } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
 
 import type { TBook } from "@/features/book-page/types";
 import type { TUser } from "@/features/users/types";
@@ -39,7 +41,13 @@ export const BookDetailsCover = ({
           ref={fileInputRef}
           type="file"
         />
-        <Button loading={isUploadingCover} onClick={openCoverPicker}>
+        <Button
+          disabled={isUploadingCover}
+          onClick={openCoverPicker}
+          type="button"
+          variant="outline"
+        >
+          {isUploadingCover ? <Loader2 className="animate-spin" /> : <ImageUp />}
           Change cover
         </Button>
       </>

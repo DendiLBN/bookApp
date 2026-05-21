@@ -1,3 +1,6 @@
+import { BookOpen, Loader2 } from "lucide-react";
+
+import { Card } from "@/components/ui/Card";
 import { BookAdminTable } from "@/features/book-page/components/book-admin-table";
 import { BookCatalogGrid } from "@/features/book-page/components/book-catalog-grid";
 import { BookCatalogPagination } from "@/features/book-page/components/book-catalog-pagination";
@@ -41,11 +44,26 @@ export const BookCatalogContent = ({
 }: TBookCatalogContentProps) => (
   <div className="relative">
     {isFetching ? (
-      <div className="absolute inset-0 z-10 grid place-items-center rounded-l bg-app-surface/70 font-semibold text-app-text">
-        Loading...
+      <div className="absolute inset-0 z-10 grid place-items-center rounded-l bg-app-surface/80 font-semibold text-app-text backdrop-blur-sm">
+        <div className="flex items-center gap-2 rounded-full border border-app-border bg-app-surface px-s py-xs shadow-app-m">
+          <Loader2 className="size-4 animate-spin text-app-brand" />
+          Loading catalog
+        </div>
       </div>
     ) : null}
-    {isAdmin ? (
+    {bookList.length === 0 && !isFetching ? (
+      <Card className="grid min-h-75 place-items-center p-l text-center">
+        <div className="max-w-105">
+          <div className="mx-auto grid size-14 place-items-center rounded-full bg-app-brand-soft text-app-brand">
+            <BookOpen className="size-7" />
+          </div>
+          <h2 className="mt-s mb-1 text-xl font-extrabold text-app-text">No books found</h2>
+          <p className="m-0 text-app-text-muted">
+            Adjust search, shelves or price filters to bring matching titles back into view.
+          </p>
+        </div>
+      </Card>
+    ) : isAdmin ? (
       <div className="flex flex-col gap-s">
         <BookAdminTable
           books={bookList}

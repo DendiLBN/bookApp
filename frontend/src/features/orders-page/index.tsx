@@ -1,4 +1,6 @@
-import { Empty, Spin } from "antd";
+import { Loader2, PackageOpen } from "lucide-react";
+
+import { Card } from "@/components/ui/Card";
 
 import { CustomerOrderCard } from "@/features/orders-page/components/customer-order-card";
 
@@ -8,7 +10,14 @@ export const OrdersView = () => {
   const { data: orders = [], isLoading } = useFetchMyOrdersQuery();
 
   if (isLoading) {
-    return <Spin size="large" />;
+    return (
+      <Card className="grid min-h-60 place-items-center p-l">
+        <div className="flex items-center gap-2 font-semibold text-app-text-muted">
+          <Loader2 className="size-5 animate-spin text-app-brand" />
+          Loading orders...
+        </div>
+      </Card>
+    );
   }
 
   if (orders.length === 0) {

@@ -22,9 +22,9 @@ const App: React.FC = () => {
           <CartDrawerProvider>
             <BrowserRouter>
               <ErrorBoundary>
-                <div className="min-h-screen bg-app-page text-app-text">
+                <div className="min-h-screen text-app-text">
                   <LandingPageHeader />
-                  <div className="flex min-h-[calc(100vh-64px)] w-full items-stretch">
+                  <div className="flex min-h-[calc(100vh-72px)] w-full items-stretch">
                     <LandingPageSideBar />
                     <LandingPageContent />
                   </div>

@@ -1,18 +1,16 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import { Menu } from "antd";
+import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useSelector } from "react-redux";
 
 import { AvatarUploadButton } from "@/features/users/components/avatar-upload-button";
 
 import { useAvatarUpload } from "@/features/users/hooks/useAvatarUpload";
 
-import { useThemeContext } from "@/common/contexts/hooks/use-theme-context";
-
 import { getApiAssetUrl } from "@/common/config/api";
 import useUser from "@/common/users/useUser";
+import { cn } from "@/common/utils/cn";
 import { createItemsSideBar } from "@/layouts/side-bar/consts/items-side-bar";
 import { selectIsLoggedIn } from "@/store/reducers/auth";
 
@@ -26,19 +24,15 @@ export const LandingPageSideBar = () => {
 
   const { user } = useUser();
 
-  const themeContext = useThemeContext();
-
   const toggleCollapsed = () => {
     setCollapsed((currentCollapsed) => !currentCollapsed);
   };
 
-  if (!isLoggedIn || !user || !themeContext) {
+  if (!isLoggedIn || !user) {
     return null;
   }
 
-  const { isDarkMode } = themeContext;
   const avatarSrc = getApiAssetUrl(user.avatarUrl);
-  const menuTheme = isDarkMode ? "dark" : "light";
   const selectedMenuKey = pathname.startsWith("/book")
     ? "books"
     : pathname.startsWith("/cart")
@@ -50,14 +44,15 @@ export const LandingPageSideBar = () => {
           : pathname.startsWith("/profile")
             ? "profile-overview"
             : "dashboard";
+  const sideBarItems = createItemsSideBar(user);
 
   return (
     <aside
-      className={`app-sidebar app-layout-surface relative hidden min-h-[calc(100vh-64px)] shrink-0 border-r transition-[width] duration-200 md:block ${
+      className={`app-sidebar app-layout-surface sticky top-18 hidden h-[calc(100vh-72px)] shrink-0 border-r transition-[width] duration-200 md:block ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
-      <div className="m-3 flex flex-col items-center gap-3 overflow-hidden rounded-lg border border-app-border bg-[linear-gradient(180deg,var(--color-surface-muted),var(--color-surface))] px-3 py-5 shadow-app-s">
+      <div className="m-3 flex flex-col items-center gap-3 overflow-hidden rounded-l border border-app-border bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface-muted))] px-3 py-5 shadow-app-s">
         <AvatarUploadButton
           avatarSrc={avatarSrc}
           isUploading={isUploadingAvatar}
@@ -72,21 +67,68 @@ export const LandingPageSideBar = () => {
         />
         {collapsed ? null : (
           <div className="min-w-0 text-center">
-            <h3 className="m-0 truncate text-sm font-semibold text-app-text">{user.firstName}</h3>
+            <h3 className="m-0 truncate text-sm font-bold text-app-text">{user.firstName}</h3>
             <p className="m-0 mt-1 truncate text-xs text-app-text-muted">{user.email}</p>
+            <span className="mt-2 inline-flex rounded-full bg-app-brand-soft px-2 py-1 text-xs font-bold text-app-brand">
+              {user.role === "admin" ? "Store admin" : "Reader"}
+            </span>
           </div>
         )}
       </div>
 
-      <Menu
-        className="border-0 px-2"
-        defaultOpenKeys={collapsed ? [] : ["profile"]}
-        inlineCollapsed={collapsed}
-        items={createItemsSideBar(user)}
-        mode="inline"
-        selectedKeys={[selectedMenuKey]}
-        theme={menuTheme}
-      />
+      <nav aria-label="Sidebar navigation" className="flex flex-col gap-1 px-2">
+        {sideBarItems.map((item) => {
+          const Icon = item.icon;
+          const isActive = selectedMenuKey === item.key;
+          const hasActiveChild = item.children?.some((child) => child.key === selectedMenuKey);
+
+          return (
+            <div key={item.key}>
+              <Link
+                className={cn(
+                  "flex min-h-10 items-center gap-xs rounded-m px-xs text-sm font-semibold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand",
+                  collapsed ? "justify-center" : undefined,
+                  isActive || hasActiveChild
+                    ? "border border-app-border bg-app-brand-soft text-app-brand shadow-app-s"
+                    : undefined,
+                )}
+                to={item.href}
+              >
+                <Icon className="size-4 shrink-0" />
+                {collapsed ? null : <span className="min-w-0 truncate">{item.label}</span>}
+                {!collapsed && item.children ? (
+                  <ChevronDown className="ml-auto size-4 text-app-text-muted" />
+                ) : null}
+              </Link>
+
+              {!collapsed && item.children ? (
+                <div className="mt-1 ml-s flex flex-col gap-1 border-l border-app-border pl-xs">
+                  {item.children.map((child) => {
+                    const ChildIcon = child.icon;
+                    const isChildActive = selectedMenuKey === child.key;
+
+                    return (
+                      <Link
+                        className={cn(
+                          "flex min-h-9 items-center gap-xs rounded-m px-xs text-sm font-semibold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand",
+                          isChildActive
+                            ? "border border-app-border bg-app-brand-soft text-app-brand shadow-app-s"
+                            : undefined,
+                        )}
+                        key={child.key}
+                        to={child.href}
+                      >
+                        <ChildIcon className="size-4 shrink-0" />
+                        <span className="min-w-0 truncate">{child.label}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
+          );
+        })}
+      </nav>
 
       <button
         aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -94,7 +136,7 @@ export const LandingPageSideBar = () => {
         onClick={toggleCollapsed}
         type="button"
       >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        {collapsed ? <ChevronRight /> : <ChevronLeft />}
       </button>
     </aside>
   );

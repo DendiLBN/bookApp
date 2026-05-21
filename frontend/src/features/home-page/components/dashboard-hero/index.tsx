@@ -15,12 +15,13 @@ export const DashboardHero = ({ catalogStatus }: TDashboardHeroProps) => (
       <div>
         <p className="mb-xs font-semibold tracking-normal text-app-brand uppercase">
           BookNest dashboard
-        </p>
-        <h1 className="m-0 text-[1.55rem] leading-tight font-bold md:text-[2.1rem]">
-          Your BookNest command center
+        </Badge>
+        <h1 className="m-0 max-w-210 text-[2.2rem] leading-tight font-extrabold md:text-[3.4rem]">
+          Your modern reading commerce dashboard
         </h1>
-        <p className="mt-3 max-w-190 text-base text-app-text-muted">
-          Track catalog activity, review featured shelves, and keep the store ready for readers.
+        <p className="mt-s mb-0 max-w-170 text-base leading-7 text-app-text-muted">
+          Browse the catalog, surface strong shelves, follow carts and keep customer actions close
+          without jumping between disconnected screens.
         </p>
         <Badge className="mt-5" variant="outline">
           {catalogStatus}

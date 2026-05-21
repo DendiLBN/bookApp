@@ -1,11 +1,14 @@
-import { useCallback } from "react";
+import { type FormEvent, useCallback, useState } from "react";
 
-import { Button, Form, Input, Modal } from "antd";
+import { Mail, X } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
 
 import { useModalContext } from "@/common/contexts/hooks/use-modal-context";
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
-import type { TForgotPasswordEmail } from "@/features/auth/types";
 import type { TForgotPasswordFormProps } from "@/features/login-page/types";
 import { useForgotPasswordMutation } from "@/store/api/auth";
 
@@ -16,13 +19,13 @@ export const ForgotPasswordForm = ({ visible }: TForgotPasswordFormProps) => {
 
   const { hideModal } = useModalContext();
 
-  const [form] = Form.useForm();
+  const [email, setEmail] = useState("");
 
   const handleSuccess = useCallback(() => {
     openNotification("topRight", "success", "Email has been sent. Follow the instructions.", true);
     hideModal();
-    form.resetFields();
-  }, [form, hideModal, openNotification]);
+    setEmail("");
+  }, [hideModal, openNotification]);
 
   const handleError = useCallback(() => {
     openNotification(
@@ -35,50 +38,69 @@ export const ForgotPasswordForm = ({ visible }: TForgotPasswordFormProps) => {
 
   const handleCancelModal = useCallback(() => {
     hideModal();
-    form.resetFields();
-  }, [form, hideModal]);
+    setEmail("");
+  }, [hideModal]);
 
   const handleSendEmail = useCallback(
-    async ({ email }: TForgotPasswordEmail) => {
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+
       forgotPassword({
         data: { email },
         onSuccess: handleSuccess,
         onError: handleError,
       });
     },
-    [forgotPassword, handleError, handleSuccess],
+    [email, forgotPassword, handleError, handleSuccess],
   );
 
-  return (
-    <Modal
-      centered
-      title="Forgot Password"
-      open={visible}
-      onCancel={handleCancelModal}
-      footer={null}
-    >
-      <Form form={form} onFinish={handleSendEmail}>
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please enter your email!",
-              type: "email",
-            },
-          ]}
-        >
-          <Input placeholder="enter your email..." />
-        </Form.Item>
+  if (!visible) {
+    return null;
+  }
 
-        <Form.Item>
-          <Button block disabled={isLoading} loading={isLoading} type="primary" htmlType="submit">
+  return (
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/45 px-s backdrop-blur-sm">
+      <Card className="w-full max-w-120 p-s shadow-app-m">
+        <div className="mb-s flex items-start justify-between gap-xs">
+          <div>
+            <p className="m-0 text-xs font-bold text-app-brand uppercase">Account recovery</p>
+            <h2 className="mt-1 mb-0 text-xl font-extrabold text-app-text">Reset password</h2>
+            <p className="mt-2 mb-0 text-sm text-app-text-muted">
+              Enter your email and we will send password reset instructions.
+            </p>
+          </div>
+          <Button
+            aria-label="Close reset modal"
+            onClick={handleCancelModal}
+            size="icon"
+            variant="ghost"
+          >
+            <X />
+          </Button>
+        </div>
+
+        <form className="flex flex-col gap-s" onSubmit={handleSendEmail}>
+          <label className="flex flex-col gap-2">
+            <span className="text-sm font-semibold text-app-text">Email</span>
+            <div className="relative">
+              <Mail className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+              <Input
+                autoComplete="email"
+                className="h-11 pl-xl"
+                onChange={(event) => setEmail(event.target.value)}
+                placeholder="you@example.com"
+                required
+                type="email"
+                value={email}
+              />
+            </div>
+          </label>
+          <Button disabled={isLoading} type="submit">
             Send reset password link
           </Button>
-        </Form.Item>
-      </Form>
-    </Modal>
+        </form>
+      </Card>
+    </div>
   );
 };
 

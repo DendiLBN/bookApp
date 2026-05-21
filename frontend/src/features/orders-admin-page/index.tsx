@@ -14,7 +14,14 @@ export const OrdersAdminView = () => {
   };
 
   if (isLoading) {
-    return <Spin size="large" />;
+    return (
+      <Card className="grid min-h-60 place-items-center p-l">
+        <div className="flex items-center gap-2 font-semibold text-app-text-muted">
+          <Loader2 className="size-5 animate-spin text-app-brand" />
+          Loading admin orders...
+        </div>
+      </Card>
+    );
   }
 
   return (

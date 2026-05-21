@@ -1,42 +1,50 @@
 import { Link } from "react-router-dom";
 
+import { Crown, HeartHandshake, ShieldCheck } from "lucide-react";
+
 import { Button } from "@/components/ui/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 
+const homeInfoCards = [
+  {
+    description: "Browse featured titles, compare categories, and keep favorite books close.",
+    icon: HeartHandshake,
+    title: "For customers",
+  },
+  {
+    description: "Keep inventory readable, review ratings, and prepare catalog updates quickly.",
+    icon: Crown,
+    title: "For store owners",
+  },
+  {
+    description: "Refresh your password regularly and avoid reusing the same one.",
+    icon: ShieldCheck,
+    title: "Account security",
+  },
+];
+
 export const HomeInfoCards = () => (
   <section className="grid grid-cols-1 gap-s lg:grid-cols-3">
-    <Card>
-      <CardHeader>
-        <CardTitle>For customers</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="m-0 leading-6 text-app-text-muted">
-          Browse featured titles, compare categories, and keep favorite books close.
-        </p>
-      </CardContent>
-    </Card>
-    <Card>
-      <CardHeader>
-        <CardTitle>For store owners</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="m-0 leading-6 text-app-text-muted">
-          Keep inventory readable, review ratings, and prepare catalog updates quickly.
-        </p>
-      </CardContent>
-    </Card>
-    <Card>
-      <CardHeader>
-        <CardTitle>Account security</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="m-0 leading-6 text-app-text-muted">
-          Refresh your password regularly and avoid reusing the same one.
-        </p>
-        <Button asChild className="mt-xs" variant="link">
-          <Link to="/auth/change-password">Change password</Link>
-        </Button>
-      </CardContent>
-    </Card>
+    {homeInfoCards.map((card) => (
+      <Card
+        className="bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface))] transition hover:-translate-y-0.5 hover:shadow-app-m"
+        key={card.title}
+      >
+        <CardHeader className="gap-xs">
+          <div className="grid size-10 place-items-center rounded-m bg-app-brand-soft text-app-brand">
+            <card.icon className="size-5" />
+          </div>
+          <CardTitle>{card.title}</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="m-0 leading-6 text-app-text-muted">{card.description}</p>
+          {card.title === "Account security" ? (
+            <Button asChild className="mt-xs" variant="link">
+              <Link to="/auth/change-password">Change password</Link>
+            </Button>
+          ) : null}
+        </CardContent>
+      </Card>
+    ))}
   </section>
 );

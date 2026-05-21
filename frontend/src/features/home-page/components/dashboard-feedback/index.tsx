@@ -1,3 +1,5 @@
+import { AlertCircle, Loader2 } from "lucide-react";
+
 import { Card, CardContent } from "@/components/ui/Card";
 
 type TDashboardFeedbackProps = {
@@ -9,7 +11,10 @@ export const DashboardFeedback = ({ isError, isLoading }: TDashboardFeedbackProp
   if (isLoading) {
     return (
       <Card>
-        <CardContent className="p-s text-app-text-muted">Loading dashboard data...</CardContent>
+        <CardContent className="flex items-center gap-2 p-s text-app-text-muted">
+          <Loader2 className="size-4 animate-spin text-app-brand" />
+          Loading dashboard data...
+        </CardContent>
       </Card>
     );
   }
@@ -17,7 +22,8 @@ export const DashboardFeedback = ({ isError, isLoading }: TDashboardFeedbackProp
   if (isError) {
     return (
       <Card>
-        <CardContent className="p-s text-app-danger">
+        <CardContent className="flex items-center gap-2 p-s text-app-danger">
+          <AlertCircle className="size-4" />
           Dashboard data could not be loaded. Try again in a moment.
         </CardContent>
       </Card>

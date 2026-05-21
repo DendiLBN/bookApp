@@ -1,112 +1,153 @@
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
-import { Button, Form, Input } from "antd";
+import { type FormEvent, useState } from "react";
+
+import { Loader2, Lock, Mail, User } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 
 import {
-  createConfirmPasswordRules,
-  createPasswordRules,
+  MAX_PASSWORD_LENGTH,
+  MIN_PASSWORD_LENGTH,
 } from "@/features/auth/consts/password-validation";
-import initialRegisterValues from "@/features/register-page/consts/register-state-values";
 import type { TRegisterFormValues } from "@/features/register-page/types";
 
 type TRegisterFormProps = {
-  isDarkMode: boolean;
   loading: boolean;
   onFinish: (values: TRegisterFormValues) => void;
 };
 
-export const RegisterForm = ({ isDarkMode, loading, onFinish }: TRegisterFormProps) => (
-  <Form
-    name="register"
-    initialValues={initialRegisterValues}
-    className={`register__form border border-app-border shadow-app-s ${
-      isDarkMode ? "bg-app-surface-muted" : "bg-app-surface"
-    }`}
-    onFinish={onFinish}
-    labelCol={{ span: 8 }}
-    wrapperCol={{ span: 16 }}
-  >
-    <h1 className="register__title">Enter your details </h1>
+const initialRegisterFormValues: TRegisterFormValues = {
+  confirmPassword: "",
+  email: "",
+  firstName: "",
+  lastName: "",
+  password: "",
+};
 
-    <Form.Item
-      label="E-mail"
-      name="email"
-      rules={[
-        { type: "email", message: "The input is not a valid E-mail!" },
-        { required: true, message: "Please input your E-mail!" },
-      ]}
-    >
-      <Input prefix={<MailOutlined />} placeholder="Email" autoComplete="username" />
-    </Form.Item>
+export const RegisterForm = ({ loading, onFinish }: TRegisterFormProps) => {
+  const [values, setValues] = useState<TRegisterFormValues>(initialRegisterFormValues);
+  const [passwordMismatch, setPasswordMismatch] = useState(false);
 
-    <Form.Item
-      label="Password"
-      name="password"
-      rules={createPasswordRules("Please input your password!")}
-      hasFeedback
-    >
-      <Input.Password
-        prefix={<LockOutlined />}
-        placeholder="Password"
-        autoComplete="new-password"
-      />
-    </Form.Item>
+  const handleChangeValue = (fieldName: keyof TRegisterFormValues, value: string) => {
+    setValues((currentValues) => ({
+      ...currentValues,
+      [fieldName]: value,
+    }));
 
-    <Form.Item
-      label="Confirm Password"
-      name="confirmPassword"
-      dependencies={["password"]}
-      hasFeedback
-      rules={createConfirmPasswordRules({
-        fieldName: "password",
-        requiredMessage: "Please confirm your password!",
-        mismatchMessage: "The passwords do not match!",
-      })}
-    >
-      <Input.Password
-        prefix={<LockOutlined />}
-        placeholder="Confirm Password"
-        autoComplete="new-password"
-      />
-    </Form.Item>
+    if (fieldName === "password" || fieldName === "confirmPassword") {
+      setPasswordMismatch(false);
+    }
+  };
 
-    <Form.Item
-      label="First Name"
-      name="firstName"
-      rules={[
-        { required: true, message: "Please input your First Name!" },
-        {
-          min: 5,
-          message: "Please must be at least 5 characters!",
-        },
-      ]}
-    >
-      <Input prefix={<UserOutlined />} placeholder="First Name" />
-    </Form.Item>
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-    <Form.Item
-      label="Last Name"
-      name="lastName"
-      rules={[
-        { required: true, message: "Please input your Last Name!" },
-        {
-          min: 5,
-          message: "Please must be at least 5 characters!",
-        },
-      ]}
-    >
-      <Input prefix={<UserOutlined />} placeholder="Last Name" />
-    </Form.Item>
+    if (values.password !== values.confirmPassword) {
+      setPasswordMismatch(true);
+      return;
+    }
 
-    <Form.Item wrapperCol={{ span: 14, offset: 6 }}>
-      <Button
-        className="register__submit-button"
-        disabled={loading}
-        loading={loading}
-        type="primary"
-        htmlType="submit"
-      >
+    onFinish(values);
+  };
+
+  return (
+    <form className="grid gap-s" onSubmit={handleSubmit}>
+      <label className="flex flex-col gap-2">
+        <span className="text-sm font-semibold text-app-text">Email</span>
+        <div className="relative">
+          <Mail className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+          <Input
+            autoComplete="username"
+            className="h-11 pl-xl"
+            onChange={(event) => handleChangeValue("email", event.target.value)}
+            placeholder="you@example.com"
+            required
+            type="email"
+            value={values.email}
+          />
+        </div>
+      </label>
+
+      <div className="grid gap-xs sm:grid-cols-2">
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-app-text">First name</span>
+          <div className="relative">
+            <User className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+            <Input
+              className="h-11 pl-xl"
+              minLength={2}
+              onChange={(event) => handleChangeValue("firstName", event.target.value)}
+              placeholder="Damian"
+              required
+              value={values.firstName}
+            />
+          </div>
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-app-text">Last name</span>
+          <div className="relative">
+            <User className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+            <Input
+              className="h-11 pl-xl"
+              minLength={2}
+              onChange={(event) => handleChangeValue("lastName", event.target.value)}
+              placeholder="Nowak"
+              required
+              value={values.lastName}
+            />
+          </div>
+        </label>
+      </div>
+
+      <div className="grid gap-xs sm:grid-cols-2">
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-app-text">Password</span>
+          <div className="relative">
+            <Lock className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+            <Input
+              autoComplete="new-password"
+              className="h-11 pl-xl"
+              maxLength={MAX_PASSWORD_LENGTH}
+              minLength={MIN_PASSWORD_LENGTH}
+              onChange={(event) => handleChangeValue("password", event.target.value)}
+              placeholder="Min. 8 characters"
+              required
+              type="password"
+              value={values.password}
+            />
+          </div>
+        </label>
+
+        <label className="flex flex-col gap-2">
+          <span className="text-sm font-semibold text-app-text">Confirm password</span>
+          <div className="relative">
+            <Lock className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
+            <Input
+              autoComplete="new-password"
+              className="h-11 pl-xl"
+              maxLength={MAX_PASSWORD_LENGTH}
+              minLength={MIN_PASSWORD_LENGTH}
+              onChange={(event) => handleChangeValue("confirmPassword", event.target.value)}
+              placeholder="Repeat password"
+              required
+              type="password"
+              value={values.confirmPassword}
+            />
+          </div>
+        </label>
+      </div>
+
+      {passwordMismatch ? (
+        <p className="m-0 rounded-m border border-app-danger/30 bg-app-danger/10 px-xs py-2 text-sm font-semibold text-app-danger">
+          Passwords do not match.
+        </p>
+      ) : null}
+
+      <Button className="h-11" disabled={loading} type="submit">
+        {loading ? <Loader2 className="animate-spin" /> : null}
         Create account
       </Button>
-    </Form.Item>
-  </Form>
-);
+    </form>
+  );
+};

@@ -3,6 +3,8 @@ import { BookCatalogCard } from "@/features/book-page/components/book-catalog-ca
 import { BOOK_CATALOG_GRID_CLASS_NAME } from "@/features/book-page/consts/book-card";
 import type { TBook } from "@/features/book-page/types";
 
+const fallbackCoverImage = "/book.png";
+
 type TBookCatalogGridProps = {
   books: TBook[];
   favoriteBookIds: string[];
@@ -25,6 +27,8 @@ export const BookCatalogGrid = ({
   <section className={BOOK_CATALOG_GRID_CLASS_NAME}>
     {books.map((book) => {
       const isFavorite = favoriteBookIds.includes(book._id);
+      const isFavoriteDisabled =
+        favoriteActionLoading || favoriteCooldownBookIds.includes(book._id);
 
       return (
         <BookCatalogCard

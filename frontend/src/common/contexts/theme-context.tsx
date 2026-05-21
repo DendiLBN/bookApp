@@ -1,7 +1,5 @@
 import { createContext, ReactNode, useState } from "react";
 
-import { ConfigProvider, theme } from "antd";
-
 export type TThemeContextProps =
   | {
       isDarkMode: boolean;
@@ -13,8 +11,6 @@ export type TThemeContextProps =
 export const ThemeContext = createContext<TThemeContextProps | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const { defaultAlgorithm, darkAlgorithm } = theme;
-
   const [isDarkMode, setIsDarkMode] = useState<boolean>(() =>
     JSON.parse(localStorage.getItem("isDarkMode") || "false"),
   );
@@ -29,22 +25,9 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
 
   return (
     <ThemeContext.Provider value={{ isDarkMode, handleToggleTheme, previous }}>
-      <ConfigProvider
-        theme={{
-          algorithm: isDarkMode ? darkAlgorithm : defaultAlgorithm,
-          token: {
-            colorPrimary: isDarkMode ? "#86efac" : "#166534",
-            colorText: isDarkMode ? "#e5e7eb" : "#0f172a",
-            colorBgBase: isDarkMode ? "#020617" : "#f8fafc",
-            colorBgContainer: isDarkMode ? "#111827" : "#ffffff",
-            colorBorder: isDarkMode ? "#334155" : "#e2e8f0",
-          },
-        }}
-      >
-        <div className="app-shell" data-theme={isDarkMode ? "dark" : "light"}>
-          {children}
-        </div>
-      </ConfigProvider>
+      <div className="app-shell" data-theme={isDarkMode ? "dark" : "light"}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };

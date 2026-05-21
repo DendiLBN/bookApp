@@ -21,9 +21,9 @@ export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
       {books.length > 0 ? (
         books.map((book) => (
           <Link
-            className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-xs rounded-l border border-app-border bg-app-surface-muted p-xs text-inherit no-underline transition hover:border-app-accent hover:bg-app-surface-muted sm:grid-cols-[52px_minmax(0,1fr)_auto]"
+            className="grid grid-cols-[58px_minmax(0,1fr)] items-center gap-xs rounded-l border border-app-border bg-app-surface p-xs text-inherit no-underline shadow-app-s transition hover:-translate-y-0.5 hover:border-app-accent hover:shadow-app-m sm:grid-cols-[58px_minmax(0,1fr)_auto]"
             key={book._id}
-            to="/book"
+            to={`/book/${book._id}`}
           >
             <div className="grid h-16 w-13 place-items-center overflow-hidden rounded-m bg-app-accent-soft text-app-accent">
               {book.coverImageUrl ? (

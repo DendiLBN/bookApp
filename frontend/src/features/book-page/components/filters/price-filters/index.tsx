@@ -1,4 +1,9 @@
-import { InputNumber, Select } from "antd";
+import { ArrowDownAZ, ArrowUpAZ } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+
+import { cn } from "@/common/utils/cn";
 
 type TPriceFiltersProps = {
   maxPriceCents?: number;
@@ -17,31 +22,52 @@ export const PriceFilters = ({
   onChangeMinPrice,
   onChangeSort,
 }: TPriceFiltersProps) => (
-  <div className="flex w-full flex-col gap-xs md:w-auto md:flex-row">
-    <InputNumber
-      className="w-full md:w-32"
+  <div className="grid w-full gap-xs lg:grid-cols-[minmax(112px,1fr)_minmax(112px,1fr)_auto]">
+    <Input
       min={0}
-      onChange={(value) => onChangeMinPrice(typeof value === "number" ? value * 100 : undefined)}
+      onChange={(event) =>
+        onChangeMinPrice(event.target.value ? Number(event.target.value) * 100 : undefined)
+      }
       placeholder="Min PLN"
-      value={minPriceCents ? minPriceCents / 100 : undefined}
+      type="number"
+      value={minPriceCents ? minPriceCents / 100 : ""}
     />
-    <InputNumber
-      className="w-full md:w-32"
+    <Input
       min={0}
-      onChange={(value) => onChangeMaxPrice(typeof value === "number" ? value * 100 : undefined)}
+      onChange={(event) =>
+        onChangeMaxPrice(event.target.value ? Number(event.target.value) * 100 : undefined)
+      }
       placeholder="Max PLN"
-      value={maxPriceCents ? maxPriceCents / 100 : undefined}
+      type="number"
+      value={maxPriceCents ? maxPriceCents / 100 : ""}
     />
-    <Select
-      className="w-full md:w-40"
-      allowClear
-      onChange={onChangeSort}
-      options={[
-        { label: "Price ascending", value: "priceAsc" },
-        { label: "Price descending", value: "priceDesc" },
-      ]}
-      placeholder="Sort by price"
-      value={sortBy}
-    />
+    <div className="flex gap-2">
+      <Button
+        aria-pressed={sortBy === "priceAsc"}
+        className={cn(
+          "flex-1 lg:flex-none",
+          sortBy === "priceAsc" ? "bg-app-brand-soft" : undefined,
+        )}
+        onClick={() => onChangeSort(sortBy === "priceAsc" ? undefined : "priceAsc")}
+        type="button"
+        variant="outline"
+      >
+        <ArrowUpAZ />
+        Price
+      </Button>
+      <Button
+        aria-pressed={sortBy === "priceDesc"}
+        className={cn(
+          "flex-1 lg:flex-none",
+          sortBy === "priceDesc" ? "bg-app-brand-soft" : undefined,
+        )}
+        onClick={() => onChangeSort(sortBy === "priceDesc" ? undefined : "priceDesc")}
+        type="button"
+        variant="outline"
+      >
+        <ArrowDownAZ />
+        Price
+      </Button>
+    </div>
   </div>
 );

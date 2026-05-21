@@ -1,8 +1,10 @@
-import { HeartFilled, HeartOutlined, ShoppingCartOutlined } from "@ant-design/icons";
-import { Button, Rate, Tag } from "antd";
+import { Heart, ShoppingCart, Star } from "lucide-react";
 
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+
+import { cn } from "@/common/utils/cn";
 import { formatPrice } from "@/common/utils/format-price";
-import { tagColors } from "@/features/book-page/consts/book-categories-colors";
 import type { TBook } from "@/features/book-page/types";
 
 type TBookDetailsMetaProps = {
@@ -26,6 +28,7 @@ export const BookDetailsMeta = ({
 }: TBookDetailsMetaProps) => {
   const categoryCount = book.category?.length ?? 0;
   const isFavorite = favoriteBookIds.includes(book._id);
+  const isFavoriteDisabled = favoriteActionLoading || cooldownBookIds.includes(book._id);
   const primaryCategory = book.category?.[0] ?? "General";
   const bookMetrics = [
     { label: "Rating", value: `${book.rate}/5` },
@@ -39,7 +42,14 @@ export const BookDetailsMeta = ({
       <p className="book-page__eyebrow">Book details</p>
       <h1 className="book-page__title">{book.title}</h1>
       <p className="book-page__subtitle">{book.author}</p>
-      <Rate disabled value={book.rate} />
+      <div className="flex items-center gap-1 text-app-warning">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <Star
+            className={cn("size-5", index < Math.round(book.rate) ? "fill-current" : "opacity-30")}
+            key={`rating-${index}`}
+          />
+        ))}
+      </div>
 
       <div className="grid w-full grid-cols-1 gap-s sm:grid-cols-2 xl:grid-cols-4">
         {bookMetrics.map((metric) => (
@@ -57,27 +67,24 @@ export const BookDetailsMeta = ({
 
       <div className="flex flex-wrap gap-xs">
         {book.category?.map((category) => (
-          <Tag color={tagColors[category] || "green"} key={category}>
+          <Badge key={category} variant="secondary">
             {category}
-          </Tag>
+          </Badge>
         ))}
       </div>
 
       <div className="flex flex-wrap gap-xs">
-        <Button
-          icon={<ShoppingCartOutlined />}
-          loading={isUpdatingCart}
-          onClick={() => handleAddToCart(book._id)}
-          type="primary"
-        >
+        <Button disabled={isUpdatingCart} onClick={() => handleAddToCart(book._id)} type="button">
+          <ShoppingCart />
           Add to cart
         </Button>
         <Button
-          disabled={cooldownBookIds.includes(book._id)}
-          icon={isFavorite ? <HeartFilled /> : <HeartOutlined />}
-          loading={favoriteActionLoading}
+          disabled={isFavoriteDisabled}
           onClick={() => handleToggleFavorite(book._id)}
+          type="button"
+          variant={isFavorite ? "default" : "outline"}
         >
+          <Heart className={isFavorite ? "fill-current" : undefined} />
           {isFavorite ? "Saved favorite" : "Save favorite"}
         </Button>
       </div>

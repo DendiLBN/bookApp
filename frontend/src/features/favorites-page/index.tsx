@@ -12,8 +12,8 @@ import { FavoritesTable } from "@/features/favorites-page/components/favorites-t
 import { useBookFavorites } from "@/features/book-page/hooks/useBookFavorites";
 import { useFavoriteBooksSummary } from "@/features/favorites-page/hooks/useFavoriteBooksSummary";
 
+import { formatPrice } from "@/common/utils/format-price";
 import { FULL_CATALOG_PAGE_SIZE } from "@/features/book-page/consts/book-query";
-import { createBookTableColumns } from "@/features/book-page/consts/book-table-columns";
 import { useFetchBooksQuery } from "@/store/api/books";
 
 export const FavoritesView = () => {
@@ -28,12 +28,6 @@ export const FavoritesView = () => {
   const { averageFavoriteRating, favoriteBooks, favoriteCategories, hasFavoriteBooks } =
     useFavoriteBooksSummary({ books, favoriteBookIds });
 
-  const columns = createBookTableColumns({
-    favoriteBookIds,
-    favoriteActionLoading,
-    onToggleFavorite: handleToggleFavorite,
-  });
-
   return (
     <div className="flex flex-col gap-xl">
       <FavoritesHero
@@ -43,13 +37,21 @@ export const FavoritesView = () => {
 
       {hasFavoriteBooks ? <FavoriteCategories categories={favoriteCategories} /> : null}
 
-      <Spin tip="Loading..." size="large" spinning={isFetching}>
+      <div className="relative">
+        {isFetching ? (
+          <div className="absolute inset-0 z-10 grid place-items-center rounded-l bg-app-surface/80 backdrop-blur-sm">
+            <div className="flex items-center gap-2 rounded-full border border-app-border bg-app-surface px-s py-xs font-semibold text-app-text-muted shadow-app-m">
+              <Loader2 className="size-4 animate-spin text-app-brand" />
+              Loading favorites
+            </div>
+          </div>
+        ) : null}
         {hasFavoriteBooks ? (
           <FavoritesTable books={favoriteBooks} columns={columns} />
         ) : (
           <FavoritesEmptyState />
         )}
-      </Spin>
+      </div>
     </div>
   );
 };

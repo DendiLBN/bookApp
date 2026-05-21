@@ -20,12 +20,12 @@ export const HomeView = () => {
   } = useHomeDashboard();
 
   return (
-    <div className="flex flex-col gap-l">
+    <div className="flex flex-col gap-xl">
       <DashboardHero catalogStatus={catalogStatus} />
       <DashboardFeedback isError={isError} isLoading={isLoading} />
       <DashboardStats dashboardStats={dashboardStats} />
 
-      <section className="grid grid-cols-1 gap-s lg:grid-cols-[minmax(0,1.35fr)_minmax(260px,0.85fr)]">
+      <section className="grid grid-cols-1 gap-s lg:grid-cols-[minmax(0,1.35fr)_minmax(300px,0.85fr)]">
         <FeaturedShelves books={featuredBooks} hasBooks={hasBooks} />
         <QuickActions />
         <ActiveShelves categories={topCategories} />

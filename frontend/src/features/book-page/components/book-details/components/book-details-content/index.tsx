@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { ArrowLeft } from "lucide-react";
 
+import { Button } from "@/components/ui/Button";
 import { BookDetailsDescription } from "@/features/book-page/components/book-details/components/book-details-description";
 import { BookDetailsSummary } from "@/features/book-page/components/book-details/components/book-details-summary";
 import type { useBookDetails } from "@/features/book-page/components/book-details/hooks/useBookDetails";
@@ -28,9 +28,12 @@ export const BookDetailsContent = ({
   user,
 }: TBookDetailsContentProps) => (
   <div className="flex max-w-280 flex-col gap-xl">
-    <Link to="/book">
-      <Button icon={<ArrowLeftOutlined />}>Back to books</Button>
-    </Link>
+    <Button asChild className="w-fit" variant="outline">
+      <Link to="/book">
+        <ArrowLeft />
+        Back to books
+      </Link>
+    </Button>
 
     <BookDetailsSummary
       book={book}
