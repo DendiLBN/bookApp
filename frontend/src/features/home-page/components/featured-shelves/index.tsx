@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { BookOpen, Star } from "lucide-react";
+import { BookOpen, LibraryBig, Star } from "lucide-react";
 
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
@@ -8,16 +8,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import type { TFeaturedShelvesProps } from "@/features/home-page/types";
 
 export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
-  <Card className="overflow-hidden lg:row-span-2">
-    <CardHeader className="flex-row items-start justify-between gap-xs border-b border-app-border bg-app-surface-muted p-4.5">
+  <Card className="lg:row-span-2">
+    <CardHeader className="flex-row items-start justify-between gap-xs p-4.5 pb-s">
       <div>
         <p className="m-0 text-xs font-bold text-app-text-muted uppercase">Featured shelves</p>
         <CardTitle className="mt-1">Worth reading this week</CardTitle>
       </div>
-      <BookOpen className="size-5 text-app-accent" />
+      <LibraryBig className="size-5 text-app-accent" />
     </CardHeader>
 
-    <CardContent className="grid gap-xs p-4.5">
+    <CardContent className="flex flex-col gap-xs p-4.5 pt-0">
       {books.length > 0 ? (
         books.map((book) => (
           <Link
@@ -33,19 +33,15 @@ export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
                   src={book.coverImageUrl}
                 />
               ) : (
-                <BookOpen className="size-5" />
+                <BookOpen />
               )}
             </div>
             <div className="min-w-0">
               <h3 className="m-0 truncate text-base font-bold text-app-text">{book.title}</h3>
               <p className="m-0 truncate text-app-text-muted">{book.author}</p>
             </div>
-            <Badge
-              className="col-start-2 gap-1 text-app-warning sm:col-start-auto"
-              variant="outline"
-            >
-              <Star className="size-3.5 fill-current" />
-              {book.rate}
+            <Badge className="col-start-2 gap-1 sm:col-start-auto" variant="secondary">
+              <Star className="size-3 fill-current" /> {book.rate}
             </Badge>
           </Link>
         ))

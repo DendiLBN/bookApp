@@ -9,14 +9,16 @@ import {
   useState,
 } from "react";
 
-import { AlertCircle, CheckCircle2, Info, XCircle } from "lucide-react";
+import { AlertCircle, CheckCircle2, Info, X, XCircle } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 import { createNotificationHistoryItem } from "@/common/contexts/utils/create-notification-history-item";
 import { mergeNotificationHistory } from "@/common/contexts/utils/merge-notification-history";
 
 import { NOTIFICATION_VISIBLE_DURATION_MS } from "@/common/consts/notifications";
 
-export type TNotificationType = "error" | "info" | "success" | "warning";
 export type TNotificationPlacement =
   | "bottom"
   | "bottomLeft"
@@ -24,6 +26,7 @@ export type TNotificationPlacement =
   | "top"
   | "topLeft"
   | "topRight";
+export type TNotificationType = "error" | "info" | "success" | "warning";
 
 export type TNotificationHistoryItem = {
   id: string;
@@ -34,7 +37,8 @@ export type TNotificationHistoryItem = {
   count: number;
 };
 
-type TActiveNotification = {
+type TVisibleToast = {
+  id: string;
   message: string;
   placement: TNotificationPlacement;
   type: TNotificationType;
@@ -57,37 +61,36 @@ export type TNotificationContext = {
   ) => void;
 };
 
-const notificationIcon = {
+export const NotificationContext = createContext<TNotificationContext | undefined>(undefined);
+
+const toastIcons = {
   error: XCircle,
   info: Info,
   success: CheckCircle2,
   warning: AlertCircle,
-} satisfies Record<TNotificationType, typeof Info>;
+} as const;
 
-const notificationStyles = {
-  error: "border-app-danger/40 bg-app-danger/10 text-app-danger",
-  info: "border-app-brand/40 bg-app-brand-soft text-app-brand",
-  success: "border-app-brand/40 bg-app-brand-soft text-app-brand",
-  warning: "border-app-warning/40 bg-app-warning/10 text-app-warning",
-} satisfies Record<TNotificationType, string>;
+const toastClassNames = {
+  error: "border-app-danger text-app-danger",
+  info: "border-app-accent text-app-accent",
+  success: "border-app-brand text-app-brand",
+  warning: "border-app-warning text-app-warning",
+} as const;
 
-const notificationPlacementClassName = {
-  bottom: "bottom-s left-1/2 -translate-x-1/2",
-  bottomLeft: "bottom-s left-s",
-  bottomRight: "right-s bottom-s",
-  top: "top-s left-1/2 -translate-x-1/2",
-  topLeft: "top-s left-s",
-  topRight: "top-s right-s",
-} satisfies Record<TNotificationPlacement, string>;
+const getToastPositionClassName = (placement: TNotificationPlacement) => {
+  if (placement.includes("bottom")) {
+    return placement.includes("Left") ? "bottom-s left-s" : "right-s bottom-s";
+  }
 
-export const NotificationContext = createContext<TNotificationContext | undefined>(undefined);
+  return placement.includes("Left") ? "top-s left-s" : "top-s right-s";
+};
 
 export const NotificationProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-  const [activeNotification, setActiveNotification] = useState<TActiveNotification | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [notifications, setNotifications] = useState<TNotificationHistoryItem[]>([]);
+  const [visibleToast, setVisibleToast] = useState<TVisibleToast | null>(null);
 
   const markNotificationsAsRead = useCallback(() => {
     setNotifications((currentNotifications) =>
@@ -117,11 +120,16 @@ export const NotificationProvider: FC<{ children: ReactNode }> = ({ children }) 
         return;
       }
       setIsNotificationOpen(true);
-      setActiveNotification({ message, placement, type });
+      setVisibleToast({
+        id: notificationHistoryItem.id,
+        message,
+        placement,
+        type,
+      });
 
       setTimeout(() => {
-        setActiveNotification(null);
         setIsNotificationOpen(false);
+        setVisibleToast(null);
       }, NOTIFICATION_VISIBLE_DURATION_MS);
     },
     [isNotificationOpen],
@@ -152,30 +160,35 @@ export const NotificationProvider: FC<{ children: ReactNode }> = ({ children }) 
     ],
   );
 
+  const ToastIcon = visibleToast ? toastIcons[visibleToast.type] : null;
+
   return (
     <NotificationContext.Provider value={memoizedValue}>
       {children}
-      {activeNotification ? (
-        <NotificationToast
-          message={activeNotification.message}
-          placement={activeNotification.placement}
-          type={activeNotification.type}
-        />
+      {visibleToast && ToastIcon ? (
+        <Card
+          aria-live="polite"
+          className={`fixed z-50 flex w-[min(360px,calc(100vw-2rem))] items-start gap-xs p-s shadow-app-m ${getToastPositionClassName(
+            visibleToast.placement,
+          )} ${toastClassNames[visibleToast.type]}`}
+          role="status"
+        >
+          <ToastIcon className="mt-0.5 size-5 shrink-0" />
+          <p className="m-0 flex-1 text-sm font-semibold text-app-text">{visibleToast.message}</p>
+          <Button
+            aria-label="Close notification"
+            onClick={() => {
+              setIsNotificationOpen(false);
+              setVisibleToast(null);
+            }}
+            size="icon"
+            type="button"
+            variant="ghost"
+          >
+            <X />
+          </Button>
+        </Card>
       ) : null}
     </NotificationContext.Provider>
-  );
-};
-
-const NotificationToast = ({ message, placement, type }: TActiveNotification) => {
-  const Icon = notificationIcon[type];
-
-  return (
-    <div
-      className={`fixed z-[60] flex max-w-120 items-start gap-xs rounded-l border px-s py-xs shadow-app-m backdrop-blur ${notificationPlacementClassName[placement]} ${notificationStyles[type]}`}
-      role="status"
-    >
-      <Icon className="mt-0.5 size-5 shrink-0" />
-      <p className="m-0 text-sm font-semibold">{message}</p>
-    </div>
   );
 };
