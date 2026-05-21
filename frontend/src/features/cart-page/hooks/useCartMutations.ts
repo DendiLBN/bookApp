@@ -13,7 +13,7 @@ export const useCartMutations = () => {
       await updateCartItem({ bookId, quantity }).unwrap();
     } catch (error) {
       openNotification(
-        "topRight",
+        "top",
         "error",
         getApiErrorMessage(error, "Could not update cart item."),
         false,
@@ -24,9 +24,10 @@ export const useCartMutations = () => {
   const handleRemoveItem = async (bookId: string) => {
     try {
       await removeCartItem(bookId).unwrap();
+      openNotification("top", "success", "Cart item removed.", false);
     } catch (error) {
       openNotification(
-        "topRight",
+        "top",
         "error",
         getApiErrorMessage(error, "Could not remove cart item."),
         false,
