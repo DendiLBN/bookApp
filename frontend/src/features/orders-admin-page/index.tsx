@@ -1,4 +1,6 @@
-import { Select, Spin } from "antd";
+import { Loader2 } from "lucide-react";
+
+import { Card } from "@/components/ui/Card";
 
 import { formatPrice } from "@/common/utils/format-price";
 import { ORDER_STATUS_LABELS } from "@/features/orders/consts/order-status";
@@ -15,7 +17,14 @@ export const OrdersAdminView = () => {
   const [updateOrderStatus] = useUpdateOrderStatusMutation();
 
   if (isLoading) {
-    return <Spin size="large" />;
+    return (
+      <Card className="grid min-h-60 place-items-center p-l">
+        <div className="flex items-center gap-2 font-semibold text-app-text-muted">
+          <Loader2 className="size-5 animate-spin text-app-brand" />
+          Loading admin orders...
+        </div>
+      </Card>
+    );
   }
 
   return (
@@ -33,14 +42,22 @@ export const OrdersAdminView = () => {
                 {order.shippingAddress.postalCode} {order.shippingAddress.city}
               </p>
             </div>
-            <Select
-              className="min-w-36"
-              onChange={(status: TOrder["status"]) =>
-                updateOrderStatus({ orderId: order._id, status })
+            <select
+              className="min-h-10 min-w-36 rounded-m border border-app-border bg-app-surface px-xs text-app-text"
+              onChange={(event) =>
+                updateOrderStatus({
+                  orderId: order._id,
+                  status: event.target.value as TOrder["status"],
+                })
               }
-              options={orderStatusOptions}
               value={order.status}
-            />
+            >
+              {orderStatusOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="mt-s flex items-center justify-between border-t border-app-border pt-xs">
             <span className="text-app-text-muted">{order.items.length} items</span>

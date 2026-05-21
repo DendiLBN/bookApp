@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-import { LogoutOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { LogOut } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
 
 import { useNotificationContext } from "@/common/contexts/hooks/use-notification-context";
 
@@ -35,16 +36,8 @@ export const LogoutButton: React.FC = () => {
   };
 
   return (
-    <Button
-      style={{
-        minHeight: "40px",
-        borderColor: "var(--color-border)",
-        background: "var(--color-surface)",
-        color: "var(--color-text)",
-      }}
-      icon={<LogoutOutlined />}
-      onClick={handleLogout}
-    >
+    <Button onClick={handleLogout} type="button" variant="outline">
+      <LogOut />
       Logout
     </Button>
   );

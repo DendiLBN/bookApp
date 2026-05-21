@@ -1,4 +1,6 @@
-import { Button } from "antd";
+import { Loader2, Trash2 } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
 
 type TDangerZoneProps = {
   handleDeleteAccount: () => void;
@@ -11,7 +13,13 @@ export const DangerZone = ({ handleDeleteAccount, isDeletingAccount }: TDangerZo
     <p className="mt-0 text-app-text-muted">
       Permanently remove your account and saved profile data.
     </p>
-    <Button danger loading={isDeletingAccount} onClick={handleDeleteAccount}>
+    <Button
+      disabled={isDeletingAccount}
+      onClick={handleDeleteAccount}
+      type="button"
+      variant="destructive"
+    >
+      {isDeletingAccount ? <Loader2 className="animate-spin" /> : <Trash2 />}
       Delete account
     </Button>
   </section>

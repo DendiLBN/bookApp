@@ -1,26 +1,29 @@
 import { Link } from "react-router-dom";
 
-import { BookOutlined, StarFilled } from "@ant-design/icons";
+import { BookOpen, Star } from "lucide-react";
+
+import { Badge } from "@/components/ui/Badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 
 import type { TFeaturedShelvesProps } from "@/features/home-page/types";
 
 export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
-  <article className="rounded-l border border-app-border bg-app-surface p-4.5 shadow-app-s lg:row-span-2">
-    <div className="mb-s flex items-start justify-between gap-xs">
+  <Card className="overflow-hidden lg:row-span-2">
+    <CardHeader className="flex-row items-start justify-between gap-xs border-b border-app-border bg-app-surface-muted p-4.5">
       <div>
         <p className="m-0 text-xs font-bold text-app-text-muted uppercase">Featured shelves</p>
-        <h2 className="mt-1 mb-0 text-lg font-bold text-app-text">Worth reading this week</h2>
+        <CardTitle className="mt-1">Worth reading this week</CardTitle>
       </div>
-      <BookOutlined className="text-xl text-app-accent" />
-    </div>
+      <BookOpen className="size-5 text-app-accent" />
+    </CardHeader>
 
-    <div className="flex flex-col gap-xs">
+    <CardContent className="grid gap-xs p-4.5">
       {books.length > 0 ? (
         books.map((book) => (
           <Link
-            className="grid grid-cols-[52px_minmax(0,1fr)] items-center gap-xs rounded-l border border-app-border bg-app-surface-muted p-xs text-inherit no-underline transition hover:border-app-accent hover:bg-app-surface-muted sm:grid-cols-[52px_minmax(0,1fr)_auto]"
+            className="grid grid-cols-[58px_minmax(0,1fr)] items-center gap-xs rounded-l border border-app-border bg-app-surface p-xs text-inherit no-underline shadow-app-s transition hover:-translate-y-0.5 hover:border-app-accent hover:shadow-app-m sm:grid-cols-[58px_minmax(0,1fr)_auto]"
             key={book._id}
-            to="/book"
+            to={`/book/${book._id}`}
           >
             <div className="grid h-16 w-13 place-items-center overflow-hidden rounded-m bg-app-accent-soft text-app-accent">
               {book.coverImageUrl ? (
@@ -30,16 +33,20 @@ export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
                   src={book.coverImageUrl}
                 />
               ) : (
-                <BookOutlined />
+                <BookOpen className="size-5" />
               )}
             </div>
             <div className="min-w-0">
               <h3 className="m-0 truncate text-base font-bold text-app-text">{book.title}</h3>
               <p className="m-0 truncate text-app-text-muted">{book.author}</p>
             </div>
-            <span className="col-start-2 font-bold text-app-warning sm:col-start-auto">
-              <StarFilled /> {book.rate}
-            </span>
+            <Badge
+              className="col-start-2 gap-1 text-app-warning sm:col-start-auto"
+              variant="outline"
+            >
+              <Star className="size-3.5 fill-current" />
+              {book.rate}
+            </Badge>
           </Link>
         ))
       ) : hasBooks ? (
@@ -51,6 +58,6 @@ export const FeaturedShelves = ({ books, hasBooks }: TFeaturedShelvesProps) => (
           Add books to the catalog to start building featured shelves.
         </p>
       )}
-    </div>
-  </article>
+    </CardContent>
+  </Card>
 );

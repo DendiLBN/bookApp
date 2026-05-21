@@ -9,21 +9,35 @@ import {
   useState,
 } from "react";
 
-import { notification } from "antd";
-import { IconType, NotificationPlacement } from "antd/es/notification/interface";
+import { AlertCircle, CheckCircle2, Info, XCircle } from "lucide-react";
 
 import { createNotificationHistoryItem } from "@/common/contexts/utils/create-notification-history-item";
 import { mergeNotificationHistory } from "@/common/contexts/utils/merge-notification-history";
 
 import { NOTIFICATION_VISIBLE_DURATION_MS } from "@/common/consts/notifications";
 
+export type TNotificationType = "error" | "info" | "success" | "warning";
+export type TNotificationPlacement =
+  | "bottom"
+  | "bottomLeft"
+  | "bottomRight"
+  | "top"
+  | "topLeft"
+  | "topRight";
+
 export type TNotificationHistoryItem = {
   id: string;
   message: string;
-  type: IconType;
+  type: TNotificationType;
   createdAt: string;
   read: boolean;
   count: number;
+};
+
+type TActiveNotification = {
+  message: string;
+  placement: TNotificationPlacement;
+  type: TNotificationType;
 };
 
 export type TNotificationContext = {
@@ -36,18 +50,41 @@ export type TNotificationContext = {
   setError: Dispatch<SetStateAction<string | null>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   openNotification: (
-    placement: NotificationPlacement,
-    type: IconType,
+    placement: TNotificationPlacement,
+    type: TNotificationType,
     message: string,
     pauseOnHover: boolean,
   ) => void;
 };
 
-export const AntdNotificationContext = createContext<TNotificationContext | undefined>(undefined);
+const notificationIcon = {
+  error: XCircle,
+  info: Info,
+  success: CheckCircle2,
+  warning: AlertCircle,
+} satisfies Record<TNotificationType, typeof Info>;
 
-export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [api, contextHolder] = notification.useNotification();
+const notificationStyles = {
+  error: "border-app-danger/40 bg-app-danger/10 text-app-danger",
+  info: "border-app-brand/40 bg-app-brand-soft text-app-brand",
+  success: "border-app-brand/40 bg-app-brand-soft text-app-brand",
+  warning: "border-app-warning/40 bg-app-warning/10 text-app-warning",
+} satisfies Record<TNotificationType, string>;
+
+const notificationPlacementClassName = {
+  bottom: "bottom-s left-1/2 -translate-x-1/2",
+  bottomLeft: "bottom-s left-s",
+  bottomRight: "right-s bottom-s",
+  top: "top-s left-1/2 -translate-x-1/2",
+  topLeft: "top-s left-s",
+  topRight: "top-s right-s",
+} satisfies Record<TNotificationPlacement, string>;
+
+export const NotificationContext = createContext<TNotificationContext | undefined>(undefined);
+
+export const NotificationProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [activeNotification, setActiveNotification] = useState<TActiveNotification | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [notifications, setNotifications] = useState<TNotificationHistoryItem[]>([]);
@@ -66,7 +103,7 @@ export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({ children
   }, []);
 
   const openNotification = useCallback(
-    (placement: NotificationPlacement, type: IconType, message: string, pauseOnHover: boolean) => {
+    (placement: TNotificationPlacement, type: TNotificationType, message: string) => {
       const notificationHistoryItem = createNotificationHistoryItem({ message, type });
 
       setNotifications((currentNotifications) =>
@@ -80,26 +117,14 @@ export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({ children
         return;
       }
       setIsNotificationOpen(true);
-
-      api.open({
-        type,
-        message,
-        placement,
-        showProgress: true,
-        pauseOnHover,
-        onClick: () => {
-          setIsNotificationOpen(false);
-        },
-        onClose: () => {
-          setIsNotificationOpen(false);
-        },
-      });
+      setActiveNotification({ message, placement, type });
 
       setTimeout(() => {
+        setActiveNotification(null);
         setIsNotificationOpen(false);
       }, NOTIFICATION_VISIBLE_DURATION_MS);
     },
-    [isNotificationOpen, api],
+    [isNotificationOpen],
   );
 
   const memoizedValue = useMemo(
@@ -128,9 +153,29 @@ export const AntdNotificationProvider: FC<{ children: ReactNode }> = ({ children
   );
 
   return (
-    <AntdNotificationContext.Provider value={memoizedValue}>
-      {contextHolder}
+    <NotificationContext.Provider value={memoizedValue}>
       {children}
-    </AntdNotificationContext.Provider>
+      {activeNotification ? (
+        <NotificationToast
+          message={activeNotification.message}
+          placement={activeNotification.placement}
+          type={activeNotification.type}
+        />
+      ) : null}
+    </NotificationContext.Provider>
+  );
+};
+
+const NotificationToast = ({ message, placement, type }: TActiveNotification) => {
+  const Icon = notificationIcon[type];
+
+  return (
+    <div
+      className={`fixed z-[60] flex max-w-120 items-start gap-xs rounded-l border px-s py-xs shadow-app-m backdrop-blur ${notificationPlacementClassName[placement]} ${notificationStyles[type]}`}
+      role="status"
+    >
+      <Icon className="mt-0.5 size-5 shrink-0" />
+      <p className="m-0 text-sm font-semibold">{message}</p>
+    </div>
   );
 };

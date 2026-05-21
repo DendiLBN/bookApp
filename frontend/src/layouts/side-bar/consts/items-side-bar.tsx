@@ -1,65 +1,76 @@
-import { Link } from "react-router-dom";
-
 import {
-  BookFilled,
-  BookOutlined,
-  HeartFilled,
-  ShoppingCartOutlined,
-  ShoppingOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
-import { MenuProps } from "antd";
+  BookOpen,
+  Heart,
+  LayoutDashboard,
+  PackageCheck,
+  ShoppingBag,
+  ShoppingCart,
+  User,
+} from "lucide-react";
 
 import type { TUser } from "@/features/users/types";
 
-export const createItemsSideBar = (user?: TUser): MenuProps["items"] => [
+export type TSideBarItem = {
+  href: string;
+  key: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  children?: TSideBarItem[];
+};
+
+export const createItemsSideBar = (user?: TUser): TSideBarItem[] => [
   {
+    href: "/dashboard",
+    icon: LayoutDashboard,
     key: "dashboard",
-    icon: <BookOutlined />,
-    label: <Link to="/dashboard">Dashboard</Link>,
+    label: "Dashboard",
   },
   {
+    href: "/book",
+    icon: BookOpen,
     key: "books",
-    icon: <BookFilled />,
-    label: <Link to="/book">Books</Link>,
+    label: "Books",
   },
   {
+    href: "/cart",
+    icon: ShoppingCart,
     key: "cart",
-    icon: <ShoppingCartOutlined />,
-    label: <Link to="/cart">Cart</Link>,
+    label: "Cart",
   },
   {
+    href: "/orders",
+    icon: ShoppingBag,
     key: "orders",
-    icon: <ShoppingOutlined />,
-    label: <Link to="/orders">Orders</Link>,
+    label: "Orders",
   },
   ...(user?.role === "admin"
     ? [
         {
+          href: "/admin/orders",
+          icon: PackageCheck,
           key: "admin-orders",
-          icon: <ShoppingOutlined />,
-          label: <Link to="/admin/orders">Admin orders</Link>,
+          label: "Admin orders",
         },
       ]
     : []),
   {
-    key: "profile",
-    icon: <UserOutlined />,
-    label: "Profile",
     children: [
       {
+        href: "/profile",
+        icon: User,
         key: "profile-overview",
-        style: { paddingLeft: "10px" },
-        label: <Link to="/profile">Overview</Link>,
-        icon: <UserOutlined />,
+        label: "Overview",
       },
-
       {
+        href: "/favorites",
+        icon: Heart,
         key: "favorites",
-        style: { paddingLeft: "10px" },
-        label: <Link to="/favorites">Favorites</Link>,
-        icon: <HeartFilled />,
+        label: "Favorites",
       },
     ],
+    href: "/profile",
+    icon: User,
+    key: "profile",
+    label: "Profile",
   },
 ];

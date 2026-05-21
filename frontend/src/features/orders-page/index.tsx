@@ -1,4 +1,6 @@
-import { Empty, Spin } from "antd";
+import { Loader2, PackageOpen } from "lucide-react";
+
+import { Card } from "@/components/ui/Card";
 
 import { formatPrice } from "@/common/utils/format-price";
 import { ORDER_STATUS_LABELS } from "@/features/orders/consts/order-status";
@@ -8,14 +10,27 @@ export const OrdersView = () => {
   const { data: orders = [], isLoading } = useFetchMyOrdersQuery();
 
   if (isLoading) {
-    return <Spin size="large" />;
+    return (
+      <Card className="grid min-h-60 place-items-center p-l">
+        <div className="flex items-center gap-2 font-semibold text-app-text-muted">
+          <Loader2 className="size-5 animate-spin text-app-brand" />
+          Loading orders...
+        </div>
+      </Card>
+    );
   }
 
   if (orders.length === 0) {
     return (
-      <section className="rounded-l border border-app-border bg-app-surface p-l shadow-app-s">
-        <Empty description="You have no orders yet." />
-      </section>
+      <Card className="grid min-h-60 place-items-center p-l text-center">
+        <div>
+          <div className="mx-auto mb-xs grid size-14 place-items-center rounded-full bg-app-brand-soft text-app-brand">
+            <PackageOpen className="size-7" />
+          </div>
+          <h2 className="m-0 text-xl font-extrabold text-app-text">You have no orders yet</h2>
+          <p className="mt-2 mb-0 text-app-text-muted">Completed checkouts will appear here.</p>
+        </div>
+      </Card>
     );
   }
 

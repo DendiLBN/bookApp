@@ -1,6 +1,9 @@
 import { useState } from "react";
 
-import { Button, Input } from "antd";
+import { Loader2 } from "lucide-react";
+
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 
 import type { TShippingAddress } from "@/features/orders/types";
 
@@ -52,7 +55,8 @@ export const CheckoutAddressForm = ({ isSubmitting, onSubmit }: TCheckoutAddress
         />
       </div>
       <div className="mt-s flex justify-end">
-        <Button loading={isSubmitting} onClick={() => onSubmit(values)} type="primary">
+        <Button disabled={isSubmitting} onClick={() => onSubmit(values)} type="button">
+          {isSubmitting ? <Loader2 className="animate-spin" /> : null}
           Place order
         </Button>
       </div>

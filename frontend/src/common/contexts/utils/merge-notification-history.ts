@@ -1,4 +1,4 @@
-import type { TNotificationHistoryItem } from "@/common/contexts/antd-notification-context";
+import type { TNotificationHistoryItem } from "@/common/contexts/notification-context";
 
 import { MAX_NOTIFICATION_HISTORY_ITEMS } from "@/common/consts/notifications";
 
