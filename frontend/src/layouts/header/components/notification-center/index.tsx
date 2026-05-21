@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 import { Bell, Trash2, X } from "lucide-react";
 
@@ -27,29 +28,10 @@ export const NotificationCenter = () => {
   const handleClose = () => {
     setIsOpen(false);
   };
-
-  return (
-    <>
-      <div className="relative">
-        <Button
-          aria-label="Open notifications"
-          onClick={handleOpen}
-          size="icon"
-          type="button"
-          variant="outline"
-        >
-          <Bell />
-        </Button>
-        {unreadNotificationsCount > 0 ? (
-          <span className="absolute -top-1 -right-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-app-danger px-1 text-xs font-bold text-app-text-inverse">
-            {unreadNotificationsCount}
-          </span>
-        ) : null}
-      </div>
-
-      {isOpen ? (
+  const notificationDrawer = isOpen
+    ? createPortal(
         <div className="fixed inset-0 z-50 flex justify-end bg-black/35 backdrop-blur-sm">
-          <aside className="h-full w-full max-w-95 border-l border-app-border bg-app-surface p-s shadow-app-m">
+          <aside className="h-dvh w-full max-w-95 overflow-y-auto border-l border-app-border bg-app-surface p-s shadow-app-m">
             <div className="mb-s flex items-center justify-between gap-xs">
               <div>
                 <p className="m-0 text-xs font-bold text-app-brand uppercase">Activity</p>
@@ -104,8 +86,31 @@ export const NotificationCenter = () => {
               </div>
             )}
           </aside>
-        </div>
-      ) : null}
+        </div>,
+        document.body,
+      )
+    : null;
+
+  return (
+    <>
+      <div className="relative">
+        <Button
+          aria-label="Open notifications"
+          onClick={handleOpen}
+          size="icon"
+          type="button"
+          variant="outline"
+        >
+          <Bell />
+        </Button>
+        {unreadNotificationsCount > 0 ? (
+          <span className="absolute -top-1 -right-1 grid min-h-5 min-w-5 place-items-center rounded-full bg-app-danger px-1 text-xs font-bold text-app-text-inverse">
+            {unreadNotificationsCount}
+          </span>
+        ) : null}
+      </div>
+
+      {notificationDrawer}
     </>
   );
 };
