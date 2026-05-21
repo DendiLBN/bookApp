@@ -20,16 +20,16 @@ export const DashboardStats = ({ dashboardStats }: TDashboardStatsProps) => (
           className="overflow-hidden bg-[linear-gradient(180deg,var(--color-surface-raised),var(--color-surface-muted))]"
           key={stat.label}
         >
-          <CardContent className="relative flex items-start justify-between gap-xs p-s">
+          <CardContent className="relative flex items-start justify-between gap-s p-sm">
             <div className="absolute -top-8 -right-8 size-24 rounded-full bg-app-brand-soft" />
-            <div>
+            <div className="relative z-10">
               <span className="block text-3xl leading-none font-extrabold text-app-accent">
                 {stat.value}
               </span>
               <h2 className="mt-xs mb-1 text-sm font-bold text-app-text">{stat.label}</h2>
               <p className="m-0 text-app-text-muted">{stat.helper}</p>
             </div>
-            <div className="grid size-10 place-items-center rounded-m bg-app-accent-soft text-app-accent">
+            <div className="relative z-10 grid size-10 place-items-center rounded-m bg-app-accent-soft text-app-accent">
               <StatIcon className="size-5" />
             </div>
           </CardContent>

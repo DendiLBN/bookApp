@@ -52,7 +52,7 @@ export const BookAdminTable = ({
         <table className="w-full min-w-230 border-collapse text-left">
           <thead className="bg-app-surface text-xs text-app-text-muted uppercase">
             <tr>
-              <th className="p-xs font-bold">Select</th>
+              <th className="w-20 px-s py-xs text-center font-bold">Select</th>
               <th className="p-xs font-bold">Cover</th>
               <th className="p-xs font-bold">Book</th>
               <th className="p-xs font-bold">Rating</th>
@@ -71,11 +71,11 @@ export const BookAdminTable = ({
                   className="border-t border-app-border transition hover:bg-app-surface-muted"
                   key={book._id}
                 >
-                  <td className="p-xs">
+                  <td className="px-s py-xs text-center align-middle">
                     <input
                       aria-label={`Select ${book.title}`}
                       checked={isSelected}
-                      className="size-4 accent-(--color-brand)"
+                      className="mx-auto block size-4 accent-(--color-brand)"
                       onChange={(event) => handleToggleSelection(book._id, event.target.checked)}
                       type="checkbox"
                     />
