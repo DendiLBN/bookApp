@@ -6,7 +6,10 @@ import { CartDrawer } from "@/layouts/header/components/cart-drawer";
 import { NotificationCenter } from "@/layouts/header/components/notification-center";
 import { ThemeButton } from "@/layouts/header/components/theme-button/index.tsx";
 
+import { useMobileScrollHeader } from "@/common/hooks/scroll/use-mobile-scroll-header";
+
 import useUser from "@/common/users/useUser";
+import { cn } from "@/common/utils/cn";
 import { LogoutButton } from "@/features/login-page/LogoutUser";
 
 const headerLinkClassName =
@@ -14,11 +17,17 @@ const headerLinkClassName =
 
 export const LandingPageHeader = () => {
   const { user } = useUser();
+  const { isHeaderVisible } = useMobileScrollHeader();
 
   const isLoggedIn = !!user;
 
   return (
-    <header className="app-header app-layout-surface sticky top-0 z-20 border-b px-0 shadow-app-s">
+    <header
+      className={cn(
+        "app-header app-layout-surface sticky top-0 z-20 border-b px-0 shadow-app-s transition-transform duration-300 will-change-transform",
+        isHeaderVisible ? "translate-y-0" : "-translate-y-full md:translate-y-0",
+      )}
+    >
       <div className="grid min-h-18 w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-xs px-s sm:gap-s sm:px-sm lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:px-l 3xl:px-22">
         <nav
           aria-label="Primary navigation"
