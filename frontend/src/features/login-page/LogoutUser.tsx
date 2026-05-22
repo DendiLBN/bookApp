@@ -36,9 +36,9 @@ export const LogoutButton: React.FC = () => {
   };
 
   return (
-    <Button onClick={handleLogout} type="button" variant="outline">
+    <Button className="px-2 sm:px-s" onClick={handleLogout} type="button" variant="outline">
       <LogOut />
-      Logout
+      <span className="hidden sm:inline">Logout</span>
     </Button>
   );
 };

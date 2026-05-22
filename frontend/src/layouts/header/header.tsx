@@ -10,7 +10,7 @@ import useUser from "@/common/users/useUser";
 import { LogoutButton } from "@/features/login-page/LogoutUser";
 
 const headerLinkClassName =
-  "inline-flex min-h-10 shrink-0 items-center gap-xs rounded-m px-xs text-sm font-semibold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand sm:px-s";
+  "inline-flex min-h-10 shrink-0 items-center gap-xs rounded-m px-2 text-sm font-semibold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand sm:px-s";
 
 export const LandingPageHeader = () => {
   const { user } = useUser();
@@ -19,8 +19,11 @@ export const LandingPageHeader = () => {
 
   return (
     <header className="app-header app-layout-surface sticky top-0 z-20 border-b px-0 shadow-app-s">
-      <div className="grid min-h-18 w-full grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-s px-s sm:px-sm lg:px-l 3xl:px-22">
-        <nav aria-label="Primary navigation" className="flex shrink-0 items-center gap-2">
+      <div className="grid min-h-18 w-full grid-cols-[minmax(0,1fr)_auto] items-center gap-xs px-s sm:gap-s sm:px-sm lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:px-l 3xl:px-22">
+        <nav
+          aria-label="Primary navigation"
+          className="flex min-w-0 shrink items-center gap-1 overflow-x-auto sm:gap-2"
+        >
           <Link
             className="mr-xs hidden items-center gap-xs rounded-m pr-xs text-app-text no-underline sm:flex"
             to="/home"
@@ -35,18 +38,18 @@ export const LandingPageHeader = () => {
           </Link>
           <Link className={headerLinkClassName} to="/home">
             <Home className="size-4" />
-            Home
+            <span className="hidden sm:inline">Home</span>
           </Link>
           {isLoggedIn ? (
             <Link className={headerLinkClassName} to="/book">
               <BookOpen className="size-4" />
-              Books
+              <span className="hidden sm:inline">Books</span>
             </Link>
           ) : null}
           <ThemeButton />
         </nav>
 
-        <div aria-hidden="true" className="min-w-0" />
+        <div aria-hidden="true" className="hidden min-w-0 lg:block" />
 
         <div className="flex shrink-0 items-center justify-end gap-xs">
           {isLoggedIn ? (
@@ -59,11 +62,11 @@ export const LandingPageHeader = () => {
             <nav aria-label="Account navigation" className="flex shrink-0 items-center gap-xs">
               <Link className={headerLinkClassName} to="/auth/login">
                 <User className="size-4" />
-                Sign In
+                <span className="hidden sm:inline">Sign In</span>
               </Link>
               <Link className={headerLinkClassName} to="/auth/register">
                 <User className="size-4" />
-                Register
+                <span className="hidden sm:inline">Register</span>
               </Link>
             </nav>
           )}

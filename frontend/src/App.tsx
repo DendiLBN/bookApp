@@ -10,7 +10,7 @@ import { useSyncCurrentUser } from "@/common/users/useSyncCurrentUser";
 import { LandingPageContent } from "@/layouts/content/content";
 import LandingPageFooter from "@/layouts/footer/footer";
 import { LandingPageHeader } from "@/layouts/header/header";
-import { LandingPageSideBar } from "@/layouts/side-bar/sidebar";
+import { LandingPageMobileNavigation, LandingPageSideBar } from "@/layouts/side-bar/sidebar";
 
 const App: React.FC = () => {
   useSyncCurrentUser();
@@ -28,6 +28,7 @@ const App: React.FC = () => {
                     <LandingPageSideBar />
                     <LandingPageContent />
                   </div>
+                  <LandingPageMobileNavigation />
                   <LandingPageFooter />
                 </div>
               </ErrorBoundary>

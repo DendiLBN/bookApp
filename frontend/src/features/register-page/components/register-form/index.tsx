@@ -77,7 +77,7 @@ export const RegisterForm = ({ loading, onFinish }: TRegisterFormProps) => {
               className="h-11 pl-xl"
               minLength={2}
               onChange={(event) => handleChangeValue("firstName", event.target.value)}
-              placeholder="Damian"
+              placeholder="Name"
               required
               value={values.firstName}
             />
@@ -92,7 +92,7 @@ export const RegisterForm = ({ loading, onFinish }: TRegisterFormProps) => {
               className="h-11 pl-xl"
               minLength={2}
               onChange={(event) => handleChangeValue("lastName", event.target.value)}
-              placeholder="Nowak"
+              placeholder="Last name"
               required
               value={values.lastName}
             />

@@ -28,7 +28,7 @@ export const BookCatalogHeader = ({
           <Sparkles className="size-3.5" />
           Book catalog
         </Badge>
-        <h1 className="m-0 text-[1.8rem] leading-tight font-extrabold text-app-text md:text-[2.45rem]">
+        <h1 className="m-0 text-[1.55rem] leading-tight font-extrabold text-app-text sm:text-[1.8rem] md:text-[2.45rem]">
           Discover, curate and manage your shelves
         </h1>
         <p className="mt-xs mb-0 max-w-165 text-base leading-7 text-app-text-muted">

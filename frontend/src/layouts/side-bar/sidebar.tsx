@@ -14,6 +14,19 @@ import { cn } from "@/common/utils/cn";
 import { createItemsSideBar } from "@/layouts/side-bar/consts/items-side-bar";
 import { selectIsLoggedIn } from "@/store/reducers/auth";
 
+const getSelectedMenuKey = (pathname: string) =>
+  pathname.startsWith("/book")
+    ? "books"
+    : pathname.startsWith("/cart")
+      ? "cart"
+      : pathname.startsWith("/orders")
+        ? "orders"
+        : pathname.startsWith("/favorites")
+          ? "favorites"
+          : pathname.startsWith("/profile")
+            ? "profile-overview"
+            : "dashboard";
+
 export const LandingPageSideBar = () => {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const { pathname } = useLocation();
@@ -33,17 +46,7 @@ export const LandingPageSideBar = () => {
   }
 
   const avatarSrc = getApiAssetUrl(user.avatarUrl);
-  const selectedMenuKey = pathname.startsWith("/book")
-    ? "books"
-    : pathname.startsWith("/cart")
-      ? "cart"
-      : pathname.startsWith("/orders")
-        ? "orders"
-        : pathname.startsWith("/favorites")
-          ? "favorites"
-          : pathname.startsWith("/profile")
-            ? "profile-overview"
-            : "dashboard";
+  const selectedMenuKey = getSelectedMenuKey(pathname);
   const sideBarItems = createItemsSideBar(user);
 
   return (
@@ -139,5 +142,46 @@ export const LandingPageSideBar = () => {
         {collapsed ? <ChevronRight /> : <ChevronLeft />}
       </button>
     </aside>
+  );
+};
+
+export const LandingPageMobileNavigation = () => {
+  const { pathname } = useLocation();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const { user } = useUser();
+
+  if (!isLoggedIn || !user) {
+    return null;
+  }
+
+  const selectedMenuKey = getSelectedMenuKey(pathname);
+  const sideBarItems = createItemsSideBar(user).flatMap((item) =>
+    item.children ? item.children : [item],
+  );
+
+  return (
+    <nav
+      aria-label="Mobile navigation"
+      className="app-layout-surface fixed right-s bottom-s left-s z-30 flex gap-1 overflow-x-auto rounded-l border p-1 shadow-app-m md:hidden"
+    >
+      {sideBarItems.map((item) => {
+        const Icon = item.icon;
+        const isActive = selectedMenuKey === item.key;
+
+        return (
+          <Link
+            className={cn(
+              "flex min-w-17 flex-1 flex-col items-center justify-center gap-1 rounded-m px-2 py-2 text-xs font-bold text-app-text no-underline transition hover:bg-app-surface-muted hover:text-app-brand",
+              isActive ? "bg-app-brand text-app-text-inverse shadow-app-s" : undefined,
+            )}
+            key={item.key}
+            to={item.href}
+          >
+            <Icon className="size-4 shrink-0" />
+            <span className="max-w-16 truncate">{item.label}</span>
+          </Link>
+        );
+      })}
+    </nav>
   );
 };

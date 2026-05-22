@@ -16,7 +16,7 @@ export const DashboardHero = ({ catalogStatus }: TDashboardHeroProps) => (
         <p className="mb-xs font-semibold tracking-normal text-app-brand uppercase">
           BookNest dashboard
         </p>
-        <h1 className="m-0 max-w-210 text-[2.2rem] leading-tight font-extrabold md:text-[3.4rem]">
+        <h1 className="m-0 max-w-210 text-[1.75rem] leading-tight font-extrabold sm:text-[2.2rem] md:text-[3.4rem]">
           Your modern reading commerce dashboard
         </h1>
         <p className="mt-s mb-0 max-w-170 text-base leading-7 text-app-text-muted">
