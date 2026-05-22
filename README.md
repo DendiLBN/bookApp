@@ -92,7 +92,19 @@ copy backend\.env.example backend\.env
 copy frontend\.env.example frontend\.env
 ```
 
-Fill in your local backend credentials in `backend/.env`, then start the app:
+Start local MongoDB and mongo-express with Docker:
+
+```bash
+npm run docker:db
+```
+
+The default local database URL from `backend/.env.example` is:
+
+```env
+MONGO_DB_URI=mongodb://booknest:booknest@localhost:27017/booknest?authSource=admin
+```
+
+Then start the app:
 
 ```bash
 npm run dev
@@ -102,12 +114,16 @@ Local services:
 
 - Frontend: `http://localhost:5173`
 - Backend: `http://localhost:5000`
+- MongoDB: `localhost:27017`
+- mongo-express: `http://localhost:8081` (`admin` / `admin`)
 - Storybook: `http://localhost:6006`
 
 ## Useful scripts
 
 ```bash
 npm run dev
+npm run docker:db
+npm run docker:db:down
 npm run frontend
 npm run backend
 npm run format
