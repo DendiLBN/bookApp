@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 
-const MOBILE_HEADER_SCROLL_THRESHOLD = 60;
-const MOBILE_MEDIA_QUERY = "(max-width: 767px)";
+import {
+  MOBILE_HEADER_SCROLL_THRESHOLD,
+  MOBILE_MEDIA_QUERY,
+} from "@/common/hooks/scroll/consts/mobile-scroll-header";
 
 export const useMobileScrollHeader = () => {
   const [isHeaderVisible, setIsHeaderVisible] = useState(true);
