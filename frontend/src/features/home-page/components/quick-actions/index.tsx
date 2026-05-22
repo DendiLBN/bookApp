@@ -11,14 +11,19 @@ const quickActions = [
   {
     icon: BookOpen,
     label: "Manage catalog",
+    to: "/book",
   },
   {
+    adminOnly: true,
     icon: PlusCircle,
     label: "Prepare new title",
+    to: "/book",
   },
   {
+    adminOnly: true,
     icon: ShoppingCart,
     label: "Review baskets",
+    to: "/admin/orders",
   },
 ];
 
@@ -27,7 +32,7 @@ export const QuickActions = () => <QuickActionsContent />;
 const QuickActionsContent = () => {
   const { user } = useUser();
   const visibleQuickActions = quickActions.filter(
-    (action) => action.label !== "Prepare new title" || user?.role === "admin",
+    (action) => !action.adminOnly || user?.role === "admin",
   );
 
   return (
@@ -42,7 +47,7 @@ const QuickActionsContent = () => {
       <CardContent className="flex flex-col gap-xs p-4.5">
         {visibleQuickActions.map((action) => (
           <Button asChild className="justify-start" key={action.label} variant="secondary">
-            <Link to="/book">
+            <Link to={action.to}>
               <action.icon />
               {action.label}
             </Link>

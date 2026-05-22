@@ -14,7 +14,7 @@ type TCartViewProps = {
 };
 
 export const CartView = ({ compact = false }: TCartViewProps) => {
-  const { handleRemoveItem, handleUpdateQuantity } = useCartMutations();
+  const { handleRemoveItem, handleUpdateQuantity, pendingCartItemId } = useCartMutations();
   const { resolvedCartItems, totalPriceCents } = useCartSummary();
   const { handleCheckout, isCreatingOrder } = useCheckout();
 
@@ -40,6 +40,7 @@ export const CartView = ({ compact = false }: TCartViewProps) => {
         <CartItemCard
           cartItem={cartItem}
           compact={compact}
+          isPending={pendingCartItemId === cartItem.bookId}
           key={cartItem.bookId}
           onRemove={handleRemoveItem}
           onUpdateQuantity={handleUpdateQuantity}

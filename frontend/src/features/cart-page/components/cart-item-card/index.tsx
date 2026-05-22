@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { Minus, Plus, Trash2 } from "lucide-react";
+import { Loader2, Minus, Plus, Trash2 } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 
@@ -11,6 +11,7 @@ import type { TResolvedCartItem } from "@/features/cart-page/utils/resolve-cart-
 type TCartItemCardProps = {
   cartItem: TResolvedCartItem;
   compact: boolean;
+  isPending: boolean;
   onRemove: (bookId: string) => void;
   onUpdateQuantity: (bookId: string, quantity: number) => void;
 };
@@ -18,18 +19,19 @@ type TCartItemCardProps = {
 export const CartItemCard = ({
   cartItem,
   compact,
+  isPending,
   onRemove,
   onUpdateQuantity,
 }: TCartItemCardProps) => {
   const { book, bookId, quantity } = cartItem;
-  const canDecreaseQuantity = quantity > MIN_CART_ITEM_QUANTITY;
-  const canIncreaseQuantity = quantity < MAX_CART_ITEM_QUANTITY;
+  const canDecreaseQuantity = quantity > MIN_CART_ITEM_QUANTITY && !isPending;
+  const canIncreaseQuantity = quantity < MAX_CART_ITEM_QUANTITY && !isPending;
 
   return (
     <article
-      className={`grid gap-s rounded-l border border-app-border bg-app-surface p-s shadow-app-s ${
+      className={`grid gap-s rounded-l border border-app-border bg-app-surface p-s shadow-app-s transition ${
         compact ? "" : "sm:grid-cols-[72px_minmax(0,1fr)_auto]"
-      }`}
+      } ${isPending ? "opacity-75" : ""}`}
     >
       <img
         alt={book.title}
@@ -65,9 +67,14 @@ export const CartItemCard = ({
             <Plus />
           </Button>
         </div>
-        <Button onClick={() => onRemove(bookId)} type="button" variant="destructive">
-          <Trash2 />
-          Remove
+        <Button
+          disabled={isPending}
+          onClick={() => onRemove(bookId)}
+          type="button"
+          variant="destructive"
+        >
+          {isPending ? <Loader2 className="animate-spin" /> : <Trash2 />}
+          {isPending ? "Removing..." : "Remove"}
         </Button>
       </div>
     </article>

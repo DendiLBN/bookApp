@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Separator } from "@/components/ui/Separator";
+import { PasswordVisibilityButton } from "@/features/auth/components/password-visibility-button";
 import ForgotPasswordForm from "@/features/login-page/components/forms/forgot-password-form";
 
 import { useLoginUser } from "@/features/login-page/hooks/useLoginUser";
@@ -19,6 +20,7 @@ export const LoginPage = () => {
   const { isModalVisible, showModal } = useModalContext();
   const { submitLogin, loading } = useLoginUser();
   const [email, setEmail] = useState("");
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [rememberAccount, setRememberAccount] = useState(true);
 
@@ -47,7 +49,7 @@ export const LoginPage = () => {
               Reader workspace
             </div>
             <h2 className="m-0 text-2xl leading-tight font-extrabold text-app-text">
-              Keep your shelf, cart and favorite books in one quiet place.
+              Your shelf, cart and favorites stay synced.
             </h2>
           </div>
         </div>
@@ -62,7 +64,7 @@ export const LoginPage = () => {
               Sign in to BookNest
             </h1>
             <p className="mt-xs mb-0 max-w-110 text-app-text-muted">
-              Continue browsing curated titles, manage favorites and keep your cart ready.
+              Pick up your books, cart and orders.
             </p>
           </div>
 
@@ -89,12 +91,17 @@ export const LoginPage = () => {
                 <Lock className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
                 <Input
                   autoComplete="current-password"
-                  className="h-11 pl-xl"
+                  className="h-11 pl-xl pr-2xl"
                   onChange={(event) => setPassword(event.target.value)}
                   placeholder="Your password"
                   required
-                  type="password"
+                  type={isPasswordVisible ? "text" : "password"}
                   value={password}
+                />
+                <PasswordVisibilityButton
+                  isVisible={isPasswordVisible}
+                  label={isPasswordVisible ? "Hide password" : "Show password"}
+                  onToggle={() => setIsPasswordVisible((currentValue) => !currentValue)}
                 />
               </div>
             </label>

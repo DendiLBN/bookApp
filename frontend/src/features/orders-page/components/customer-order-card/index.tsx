@@ -1,9 +1,9 @@
+import { OrderDateBadge } from "@/features/orders/components/order-date-badge";
 import { OrderItemsList } from "@/features/orders/components/order-items-list";
 import { OrderStatusBadge } from "@/features/orders/components/order-status-badge";
 
 import { formatPrice } from "@/common/utils/format-price";
 import type { TOrder } from "@/features/orders/types";
-import { formatOrderDate } from "@/features/orders/utils/format-order-date";
 import { getOrderShortId } from "@/features/orders/utils/get-order-short-id";
 
 type TCustomerOrderCardProps = {
@@ -16,9 +16,9 @@ export const CustomerOrderCard = ({ order }: TCustomerOrderCardProps) => (
       <strong className="text-app-text">Order {getOrderShortId(order._id)}</strong>
       <OrderStatusBadge status={order.status} />
     </div>
-    <p className="mt-0 mb-s text-sm text-app-text-muted">
-      Placed {formatOrderDate(order.createdAt)}
-    </p>
+    <div className="mt-0 mb-s">
+      <OrderDateBadge date={order.createdAt} />
+    </div>
     <OrderItemsList items={order.items} />
     <div className="mt-s border-t border-app-border pt-xs text-right font-bold text-app-text">
       Total: {formatPrice(order.totalPriceCents)}

@@ -42,7 +42,7 @@ export const RegisterPage = () => {
               Build your reading account
             </h1>
             <p className="mt-xs mb-0 max-w-115 text-app-text-muted">
-              Create a profile for favorites, carts and a cleaner bookstore experience.
+              Save favorites, orders and checkout details.
             </p>
           </div>
           <RegisterForm loading={loading} onFinish={handleSubmitRegister} />
@@ -61,7 +61,7 @@ export const RegisterPage = () => {
               Curated shelves
             </div>
             <h2 className="m-0 text-2xl leading-tight font-extrabold text-app-text">
-              Start with a secure account and keep your library decisions saved.
+              One account for favorites, orders and checkout.
             </h2>
             <div className="mt-xs flex items-center gap-2 text-sm font-semibold text-app-text-muted">
               <ShieldCheck className="size-4 text-app-brand" />

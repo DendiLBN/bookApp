@@ -20,9 +20,9 @@ export const useRegistrationUser = () => {
 
   const handleError = () => {
     openNotification(
-      "topRight",
+      "top",
       "error",
-      "An error occurred while registering user. Please try again later.",
+      "Could not create account. Check the form and try again.",
       false,
     );
   };

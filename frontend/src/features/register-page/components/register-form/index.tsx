@@ -4,6 +4,7 @@ import { Loader2, Lock, Mail, User } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { PasswordVisibilityButton } from "@/features/auth/components/password-visibility-button";
 
 import {
   MAX_PASSWORD_LENGTH,
@@ -26,6 +27,8 @@ const initialRegisterFormValues: TRegisterFormValues = {
 
 export const RegisterForm = ({ loading, onFinish }: TRegisterFormProps) => {
   const [values, setValues] = useState<TRegisterFormValues>(initialRegisterFormValues);
+  const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [passwordMismatch, setPasswordMismatch] = useState(false);
 
   const handleChangeValue = (fieldName: keyof TRegisterFormValues, value: string) => {
@@ -107,14 +110,19 @@ export const RegisterForm = ({ loading, onFinish }: TRegisterFormProps) => {
             <Lock className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
             <Input
               autoComplete="new-password"
-              className="h-11 pl-xl"
+              className="h-11 pl-xl pr-2xl"
               maxLength={MAX_PASSWORD_LENGTH}
               minLength={MIN_PASSWORD_LENGTH}
               onChange={(event) => handleChangeValue("password", event.target.value)}
               placeholder="Min. 8 characters"
               required
-              type="password"
+              type={isPasswordVisible ? "text" : "password"}
               value={values.password}
+            />
+            <PasswordVisibilityButton
+              isVisible={isPasswordVisible}
+              label={isPasswordVisible ? "Hide password" : "Show password"}
+              onToggle={() => setIsPasswordVisible((currentValue) => !currentValue)}
             />
           </div>
         </label>
@@ -125,14 +133,23 @@ export const RegisterForm = ({ loading, onFinish }: TRegisterFormProps) => {
             <Lock className="pointer-events-none absolute top-1/2 left-xs size-4 -translate-y-1/2 text-app-text-muted" />
             <Input
               autoComplete="new-password"
-              className="h-11 pl-xl"
+              className="h-11 pl-xl pr-2xl"
               maxLength={MAX_PASSWORD_LENGTH}
               minLength={MIN_PASSWORD_LENGTH}
               onChange={(event) => handleChangeValue("confirmPassword", event.target.value)}
               placeholder="Repeat password"
               required
-              type="password"
+              type={isConfirmPasswordVisible ? "text" : "password"}
               value={values.confirmPassword}
+            />
+            <PasswordVisibilityButton
+              isVisible={isConfirmPasswordVisible}
+              label={
+                isConfirmPasswordVisible
+                  ? "Hide password confirmation"
+                  : "Show password confirmation"
+              }
+              onToggle={() => setIsConfirmPasswordVisible((currentValue) => !currentValue)}
             />
           </div>
         </label>

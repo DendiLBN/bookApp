@@ -111,4 +111,35 @@ describe("useCartMutations", () => {
     });
     expect(store.getState().authReducer.user).toEqual(updatedUser);
   });
+
+  it("marks the changed cart item as pending while the mutation runs", async () => {
+    const updatedUser = {
+      ...user,
+      cartItems: [],
+    };
+    let resolveRemoveCartItem: (value: TUser) => void = () => {};
+    const pendingRemoveCartItem = new Promise<TUser>((resolve) => {
+      resolveRemoveCartItem = resolve;
+    });
+    removeCartItem.mockReturnValue({
+      unwrap: vi.fn().mockReturnValue(pendingRemoveCartItem),
+    });
+    const { wrapper } = createWrapper();
+    const { result } = renderHook(() => useCartMutations(), { wrapper });
+
+    let removePromise: Promise<void> = Promise.resolve();
+
+    act(() => {
+      removePromise = result.current.handleRemoveItem("book-1");
+    });
+
+    expect(result.current.pendingCartItemId).toBe("book-1");
+
+    await act(async () => {
+      resolveRemoveCartItem(updatedUser);
+      await removePromise;
+    });
+
+    expect(result.current.pendingCartItemId).toBeUndefined();
+  });
 });

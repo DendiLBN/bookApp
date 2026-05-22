@@ -1,4 +1,5 @@
 import type { TBook } from "@/features/book-page/types";
+import type { TOrder } from "@/features/orders/types";
 
 export type TDashboardStat = {
   label: string;
@@ -19,8 +20,11 @@ export type THomeDashboardState = {
   catalogStatus: string;
   dashboardStats: TDashboardStat[];
   featuredBooks: TBook[];
+  recentBooks: TBook[];
+  recentOrders: TOrder[];
   topCategories: Array<[string, number]>;
   hasBooks: boolean;
+  isAdmin: boolean;
   isError: boolean;
   isLoading: boolean;
 };

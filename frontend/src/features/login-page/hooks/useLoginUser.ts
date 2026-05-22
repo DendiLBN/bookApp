@@ -9,16 +9,11 @@ export const useLoginUser = () => {
   const { openNotification } = useNotificationContext();
 
   const handleSuccess = () => {
-    openNotification("top", "success", `You are logged in successfully! `, true);
+    openNotification("top", "success", "You are logged in successfully.", true);
   };
 
   const handleError = () => {
-    openNotification(
-      "top",
-      "error",
-      "An error occurred while login!. Please check your password or email.",
-      false,
-    );
+    openNotification("top", "error", "Could not log in. Check your email and password.", false);
   };
 
   const submitLogin = ({ email, password }: TLoginUserRequestBody) => {

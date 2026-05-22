@@ -37,8 +37,11 @@ describe("HomeView", () => {
       dashboardStats: [],
       featuredBooks: [],
       hasBooks: false,
+      isAdmin: false,
       isError: false,
       isLoading: true,
+      recentBooks: [],
+      recentOrders: [],
       topCategories: [],
     });
 
@@ -53,8 +56,11 @@ describe("HomeView", () => {
       dashboardStats: [],
       featuredBooks: [],
       hasBooks: false,
+      isAdmin: false,
       isError: true,
       isLoading: false,
+      recentBooks: [],
+      recentOrders: [],
       topCategories: [],
     });
 
@@ -71,8 +77,11 @@ describe("HomeView", () => {
       dashboardStats: [],
       featuredBooks: [],
       hasBooks: false,
+      isAdmin: false,
       isError: false,
       isLoading: false,
+      recentBooks: [],
+      recentOrders: [],
       topCategories: [],
     });
 
